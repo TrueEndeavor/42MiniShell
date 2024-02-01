@@ -6,7 +6,7 @@
 #    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/01/25 15:46:00 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/02/01 13:05:20 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,14 @@ LIBFT_DIR = ./include/libft_combined
 INCLUDES = -I./include -I$(LIBFT_DIR)/include
 
 SRCS =  src/main.c \
+		src/error/error_handler.c \
+		src/lexer/lexer_core.c \
+		src/lexer/lexer_helper1.c \
+		src/lexer/lexer_helper2.c \
+		src/lexer/lexer_helper3.c \
+		src/lexer/lexer_tokenizer.c \
+		src/lexer/token.c \
+		src/utils.c
 		
 OBJS = $(SRCS:%.c=%.o)
 
