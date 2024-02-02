@@ -6,20 +6,12 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/01/25 15:24:22 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/02 19:57:39 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
-
-typedef struct LEXER_STRUCT
-{
-	char			*src;
-	size_t			src_size;
-	char			c;
-	unsigned int	i;
-}	t_lexer_T;
 
 t_lexer_T		*init_lexer(char *src);
 void			lexer_advance(t_lexer_T *lexer);
@@ -29,7 +21,7 @@ t_token_T		*lexer_advance_current(t_lexer_T *lexer, int type);
 void			lexer_skip_whitespace(t_lexer_T *lexer);
 t_token_T		*lexer_parse_id(t_lexer_T *lexer);
 t_token_T		*lexer_parse_number(t_lexer_T *lexer);
-t_token_T		*lexer_next_token(t_lexer_T *lexer);
+t_token_T		*lexer_scan_token(t_lexer_T *lexer);
 
 t_token_T		*handle_alphabet_token(t_lexer_T *lexer);
 t_token_T		*handle_number_token(t_lexer_T *lexer);
