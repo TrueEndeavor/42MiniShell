@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:01:56 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/01/25 15:30:40 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/02 19:55:22 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,22 @@ t_token_T	*init_token(char *value, int type)
 
 char	*token_type_to_str(int type)
 {
-	if (type == TOKEN_ID)
-		return ("TOKEN_ID");
-	if (type == TOKEN_INT)
-		return ("TOKEN_INT");
-	if (type == TOKEN_PIPE)
-		return ("TOKEN_PIPE");
-	if (type == TOKEN_REDIRECT_IN)
-		return ("TOKEN_REDIRECT_IN");
-	if (type == TOKEN_REDIRECT_OUT)
-		return ("TOKEN_REDIRECT_OUT");
-	if (type == TOKEN_APPEND_OUT)
-		return ("TOKEN_APPEND_OUT");
-	if (type == TOKEN_HEREDOC)
-		return ("TOKEN_HEREDOC");
-	if (type == TOKEN_EOF)
-		return ("TOKEN_EOF");
+	if (type == WORD)
+		return ("WORD");
+	if (type == IO_NUMBER)
+		return ("IO_NUMBER");
+	if (type == PIPE)
+		return ("PIPE");
+	if (type == REDIRECT_IN)
+		return ("REDIRECT_IN");
+	if (type == REDIRECT_OUT)
+		return ("REDIRECT_OUT");
+	if (type == APPEND_OUT)
+		return ("APPEND_OUT");
+	if (type == HEREDOC)
+		return ("HEREDOC");
+	if (type == LINEBREAK)
+		return ("LINEBREAK");
 	return ("Not stringable");
 }
 

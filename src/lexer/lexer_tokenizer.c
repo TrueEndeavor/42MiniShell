@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_tokenization.c                               :+:      :+:    :+:   */
+/*   lexer_tokenizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/01/25 15:16:15 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/02 19:55:39 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_token_T	*lexer_parse_id(t_lexer_T *lexer)
 		value[new_size - 1] = '\0';
 		lexer_advance(lexer);
 	}
-	return (init_token(value, TOKEN_ID));
+	return (init_token(value, WORD));
 }
 
 /**
@@ -120,11 +120,11 @@ t_token_T	*lexer_parse_number(t_lexer_T *lexer)
 		value[new_size - 1] = '\0';
 		lexer_advance(lexer);
 	}
-	return (init_token(value, TOKEN_ID));
+	return (init_token(value, IO_NUMBER));
 }
 
 /**
- * Retrieves the next token from the shell command using the lexer
+ * Scans to find the next token from the shell command using the lexer
  *
  * This is the main entry point for obtaining tokens from the shell command
  * It delegates to specific token-parsing functions based on the type of 
@@ -134,7 +134,7 @@ t_token_T	*lexer_parse_number(t_lexer_T *lexer)
  *
  * @return The next token in the shell command
  */
-t_token_T	*lexer_next_token(t_lexer_T *lexer)
+t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 {
 	while (lexer->c != '\0')
 	{
@@ -150,5 +150,5 @@ t_token_T	*lexer_next_token(t_lexer_T *lexer)
 		handle_unexpected_character(lexer);
 		break ;
 	}
-	return (init_token(0, TOKEN_EOF));
+	return (init_token(0, EOF));
 }
