@@ -1,0 +1,10 @@
+Minishell: Building a mini-bash (a @42 project) - @MannBell
+https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218
+
+SystemsProgrammingBook
+Chapter 5. Writing Your Own Shell
+https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
+
+42-Minishell
+Eleman
+https://www.youtube.com/playlist?list=PLGU1kcPKHMKj5yA0RPb5AK4QAhexmQwrW
