@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/05 17:15:04 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:44:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ typedef enum TOKEN_TYPE_ENUM
 
 typedef struct TOKEN_STRUCT
 {
-	char			*value;
-	t_token_type_E	type;
+	char				*value;
+	t_token_type_E		type;
+	struct TOKEN_STRUCT	*next;
 }	t_token_T;
 
 typedef struct LEXER_STRUCT

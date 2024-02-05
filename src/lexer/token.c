@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:01:56 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/02 19:55:22 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:59:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ char	*token_type_to_str(int type)
 {
 	if (type == WORD)
 		return ("WORD");
+	if (type == NAME)
+		return ("NAME");
+	if (type == ASSIGNMENT_WORD)
+		return ("ASSIGNMENT_WORD");
 	if (type == IO_NUMBER)
 		return ("IO_NUMBER");
 	if (type == PIPE)
@@ -53,7 +57,7 @@ char	*token_to_str(t_token_T *token)
 	template = NULL;
 	str = NULL;
 	type_str = token_type_to_str(token->type);
-	template = "<type=%s, int_type=%d, value=%s>";
+	template = "<type='%s', int_type='%d', value='%s'>";
 	str = ft_calloc(strlen(type_str) + strlen(template) + 8, \
 		sizeof(char));
 	sprintf(str, template, type_str, token->type, token->value);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/02 19:58:01 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:57:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	minishell_compile(char *src)
 	tok = lexer_scan_token(lexer);
 	while (tok->type != LINEBREAK)
 	{
-		printf("TOK(%s) (%d)\n", tok->value, tok->type);
+		//printf("TOK(%s) (%d)\n", tok->value, tok->type);
+		printf("%s\n", token_to_str(tok));
 		tok = lexer_scan_token(lexer);
 	}
 }
@@ -53,7 +54,7 @@ void	display_new_prompt(void)
 	}
 }
 
-int	main(int ac, char *av[])
+int	main(int ac, char *av[], char **env)
 {
 	if (ac > 1)
 	{
@@ -62,6 +63,9 @@ int	main(int ac, char *av[])
 		exit (1);
 	}
 	(void) av;
+	// Add the env to main data structure
+	// For now void it
+	(void) env;
 	display_new_prompt();
 	return (0);
 }
