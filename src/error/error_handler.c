@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:23:02 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/01/22 17:26:05 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/06 11:26:55 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,10 @@ int	display_error(char *str)
 	ft_putstr_fd(str, 2);
 	write(1, "\n", 1);
 	return (0);
+}
+
+void	panic(char *str)
+{
+	ft_putstr_fd(str, 2);
+	exit (1);
 }
