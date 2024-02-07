@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:01:56 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/05 21:59:31 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/07 17:59:01 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_token_T	*init_token(char *value, int type)
 	token = ft_calloc(1, sizeof(t_token_T));
 	token->value = value;
 	token->type = type;
+	token->next = NULL;
 	return (token);
 }
 

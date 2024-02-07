@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/05 21:44:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/07 18:23:52 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,56 @@ typedef struct TOKEN_STRUCT
 
 typedef struct LEXER_STRUCT
 {
-	char			*src;
-	size_t			src_size;
-	char			c;
-	unsigned int	i;
+	char				*src;
+	size_t				src_size;
+	char				c;
+	unsigned int		i;
 }	t_lexer_T;
 
 typedef struct PARSER_STRUCT
 {
-	t_lexer_T	*lexer;
-	t_token_T	*token;
+	struct LEXER_STRUCT	*lexer;
+	struct TOKEN_STRUCT	*token_head;
 
-}	t_parser_T;
+}	t_parser_P;
+
+typedef enum PARSED_CMD_ENUM
+{
+	EXEC_CMD,
+	REDIR_CMD,
+	PIPE_CMD
+}	t_parsed_cmd_E;
+
+
+typedef struct CMD
+{
+	int					type;
+}	t_cmd_P;
+
+# define MAXARGS 10
+
+typedef struct EXECCMD
+{
+	int					type;
+	char				*argv[MAXARGS];
+	char				*eargv[MAXARGS];
+}	t_execcmd_P;
+
+typedef struct REDIRCMD
+{
+	int					type;
+	struct CMD			*cmd;
+	char				*file;
+	char				*efile;
+	int					mode;
+	int					fd;
+}	t_redircmd_P;
+
+typedef struct PIPECMD
+{
+	int					type;
+	struct CMD			*left;
+	struct CMD			*right;
+}	t_pipecmd_P;
 
 #endif

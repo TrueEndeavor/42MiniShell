@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   dev.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 14:03:48 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/07 18:35:07 by lannur-s         ###   ########.fr       */
+/*   Created: 2024/02/07 09:42:21 by lannur-s          #+#    #+#             */
+/*   Updated: 2024/02/07 09:42:50 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#ifndef DEV_H
+# define DEV_H
 
-# include "structs.h"
-
-t_token_T	*init_token(char *value, int type);
-char		*token_type_to_str(int type);
-char		*token_to_str(t_token_T *token);
-char		*token_type_to_str(int type);
+void	print_token_list(t_token_T *token_head);
 
 #endif

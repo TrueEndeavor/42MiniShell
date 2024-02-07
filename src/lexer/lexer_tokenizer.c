@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/06 09:49:40 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/07 11:28:47 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ t_token_T	*lexer_parse_id(t_lexer_T *lexer)
 	int		new_size;
 
 	value = ft_calloc(1, sizeof(char));
+	value[0] = '\0';
+	dprintf(1, "value size=%zu\n", ft_strlen(value)); 
 	while (ft_isalpha(lexer->c))
 	{
 		new_size = ft_strlen(value) + 2;
@@ -88,6 +90,7 @@ t_token_T	*lexer_parse_id(t_lexer_T *lexer)
 		ft_strlcpy(new_value, value, new_size);
 		value[new_size - 2] = lexer->c;
 		value[new_size - 1] = '\0';
+	dprintf(1, "=%d...%c...%c\n", new_size, value[new_size - 2],  value[new_size - 1]);
 		lexer_advance(lexer);
 	}
 	return (init_token(value, WORD));

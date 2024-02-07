@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:16:04 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/02 19:49:17 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:50:52 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@
 
 # include "token.h"
 # include "lexer.h"
-# include "utils.h"
+# include "parser.h"
+# include "exec.h"
 # include "libft.h"
+# include "utils.h"
+# include "dev.h"
 
 int	display_error(char *str);
 
