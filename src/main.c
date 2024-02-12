@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/07 19:13:48 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/12 08:10:30 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@ t_token_T	*minishell_compile(char *src)
 	t_token_T	*token_head;
 	t_token_T	*tok;
 	t_token_T	*prev_tok;
-
+	t_parser_P  *parser;
+	t_AST_P     *root;
+	
 	prev_tok = NULL;
 	lexer = init_lexer(src);
+	parser = init_parser(lexer);
+	root = parser_parse(parser);
+	printf(":%p\n", root);
 	tok = lexer_scan_token(lexer);
 	token_head = tok;
 	while (tok->type != LINEBREAK)

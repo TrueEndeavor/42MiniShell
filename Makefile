@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/02/09 09:56:26 by marvin           ###   ########.fr        #
+#    Updated: 2024/02/12 08:27:42 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,9 @@ LIBFT_DIR = ./include/libft_combined
 INCLUDES = -I./include -I$(LIBFT_DIR)/include
 
 SRCS =  src/main.c \
+		src/utils.c \
+		src/dev/dev_utils.c \
+		src/error/error_handler.c \
 		src/lexer/lexer_core.c \
 		src/lexer/lexer_helper1.c \
 		src/lexer/lexer_helper2.c \
@@ -34,10 +37,9 @@ SRCS =  src/main.c \
 		src/parser/AST.c \
 		src/parser/node_constructors.c \
 		src/parser/parser.c \
-		src/parser/parsing_functions.c \
-		src/dev/dev_utils.c \
-		src/error/error_handler.c \
-		src/utils.c
+		src/exec/run_cmd.c \
+		src/exec/exec.c
+#		src/parser/parsing_functions.c \
 		
 OBJS = $(SRCS:%.c=%.o)
 

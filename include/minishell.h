@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:16:04 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/09 09:55:19 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/12 08:27:56 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 # include "utils.h"
 # include "dev.h"
 
-int	display_error(char *str);
+int		display_error(char *str);
+void	panic(char *str);
+
+void	run_cmd(t_cmd_P *cmd);
+int		exec(char *path, char **av);
 
 #endif

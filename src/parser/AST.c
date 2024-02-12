@@ -15,7 +15,7 @@
 t_AST_P	*init_ast(int type)
 {
 	t_AST_P	*ast;
-	
+
 	ast = (t_AST_P *)ft_calloc(1, sizeof(t_AST_P));
 	ast->type = type;
 

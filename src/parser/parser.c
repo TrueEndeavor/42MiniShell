@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 18:25:00 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/09 10:57:11 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/12 08:12:08 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,20 @@ t_token_T	*parser_eat(t_parser_P *parser, t_token_type_E type)
 	return (parser->token);
 }
 
-t_AST_P		*parser_parse(t_parser_P *parser)
+t_AST_P	*parser_parse(t_parser_P *parser)
 {
-	t_parser_P *tmp;
+	t_parser_P	*tmp;
 
 	tmp = parser;
 	printf("%p", &tmp);
 	return (init_ast(1));
 }
-t_AST_P		*parser_parse_compound(t_parser_P *parser)
+
+t_AST_P	*parser_parse_compound(t_parser_P *parser)
 {
-	//t_AST_P	*compound = init_ast(AST_EXEC_CMD);
 	while (parser->token->type != LINEBREAK)
 	{
-		//t_AST_P	*child = 
 		parser_parse(parser);
 	}
-	return (NULL);
+	return (init_ast(1));
 }

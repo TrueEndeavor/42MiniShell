@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/07 18:13:46 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/12 08:32:31 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,37 @@ int	fork1(void)
 	return (pid);
 }
 
-void	run_cmd_exec(t_cmd_P *cmd)
+void	runcmd_exec(t_cmd_P *cmd)
 {
+	t_execcmd_P	*ecmd;
+
 	ecmd = (t_execcmd_P *) cmd;
 	if (ecmd->argv[0] == 0)
-		exit();
+		exit (1);
 	exec(ecmd->argv[0], ecmd->argv);
-	printf(2, "exec %s failed\n", ecmd->argv[0]);
+	dprintf(2, "exec %s failed\n", ecmd->argv[0]);
 }
 
-void	run_cmd_redir(t_cmd_P *cmd)
+void	runcmd_redir(t_cmd_P *cmd)
 {
+	t_redircmd_P	*rcmd;
+
 	rcmd = (t_redircmd_P *) cmd;
 	close(rcmd->fd);
-	if (open (rcmd->file, rcmd->mode) < 0)
+	/*if (open (rcmd->file, rcmd->mode) < 0)
 	{
 		printf(2, "open %s failed\n", rcmd->file);
 		exit();
-	}
-	runcmd(rcmd->cmd);
+	}*/
+	run_cmd(rcmd->cmd);
 }
 
-void	run_cmd_pipe(t_cmd_P *cmd)
+void	runcmd_pipe(t_cmd_P *cmd)
 {
+	t_pipecmd_P	*pcmd;
+
 	pcmd = (t_pipecmd_P *)cmd;
-	if (pipe(p) < 0)
+	/* if (pipe(p) < 0)
 		panic("pipe");
 	if (fork1() == 0)
 	{
@@ -67,18 +73,15 @@ void	run_cmd_pipe(t_cmd_P *cmd)
 	close(p[0]);
 	close(p[1]);
 	wait();
-	wait();
+	wait(); */
 }
 
 void	run_cmd(t_cmd_P *cmd)
 {
-	int				p[2];
-	t_execcmd_P		*ecmd;
-	t_pipecmd_P		*pcmd;
-	t_redircmd_P	*rcmd;
+	//int				p[2];
 
 	if (cmd == 0)
-		exit();
+		exit (1);
 	if (cmd->type == EXEC_CMD)
 		runcmd_exec(cmd);
 	if (cmd->type == REDIR_CMD)
@@ -86,5 +89,5 @@ void	run_cmd(t_cmd_P *cmd)
 	if (cmd->type == PIPE_CMD)
 		runcmd_pipe(cmd);
 	panic ("runcmd");
-	exit();
+	exit (1);
 }
