@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/07 18:23:52 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/09 10:51:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,6 @@ typedef struct LEXER_STRUCT
 	unsigned int		i;
 }	t_lexer_T;
 
-typedef struct PARSER_STRUCT
-{
-	struct LEXER_STRUCT	*lexer;
-	struct TOKEN_STRUCT	*token_head;
-
-}	t_parser_P;
-
 typedef enum PARSED_CMD_ENUM
 {
 	EXEC_CMD,
@@ -56,6 +49,24 @@ typedef enum PARSED_CMD_ENUM
 	PIPE_CMD
 }	t_parsed_cmd_E;
 
+typedef struct PARSER_STRUCT
+{
+	struct LEXER_STRUCT	*lexer;
+	struct TOKEN_STRUCT	*token;
+
+}	t_parser_P;
+
+typedef enum AST_TYPE_ENUM
+{
+	AST_EXEC_CMD,
+	AST_REDIR_CMD,
+	AST_PIPE_CMD
+}	t_AST_type_E;
+
+typedef struct AST
+{
+	t_AST_type_E type;	
+}	t_AST_P;
 
 typedef struct CMD
 {

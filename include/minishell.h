@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:16:04 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/07 16:50:52 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/09 09:55:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "token.h"
 # include "lexer.h"
 # include "parser.h"
+# include "AST.h"
 # include "exec.h"
 # include "libft.h"
 # include "utils.h"

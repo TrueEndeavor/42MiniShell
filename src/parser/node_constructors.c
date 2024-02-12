@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node_constructors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:00:33 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/07 18:45:24 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/09 10:14:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_cmd_P	*create_execcmd(void)
 
 	cmd = malloc(sizeof(*cmd));
 	memset(cmd, 0, sizeof(*cmd));
-	cmd->type = EXEC;
+	cmd->type = EXEC_CMD;
 	return ((t_cmd_P *)cmd);
 }
 
@@ -28,7 +28,7 @@ t_cmd_P	*create_redircmd(t_cmd_P *subcmd, char *file, int mode, int fd)
 
 	cmd = malloc(sizeof(*cmd));
 	memset(cmd, 0, sizeof(*cmd));
-	cmd->type = REDIR;
+	cmd->type = REDIR_CMD;
 	cmd->cmd = subcmd;
 	cmd->file = file;
 	cmd->mode = mode;

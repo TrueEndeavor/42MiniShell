@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/02/07 19:15:43 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/02/09 09:56:26 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,10 @@ SRCS =  src/main.c \
 		src/lexer/lexer_helper3.c \
 		src/lexer/lexer_tokenizer.c \
 		src/lexer/token.c \
+		src/parser/AST.c \
+		src/parser/node_constructors.c \
+		src/parser/parser.c \
+		src/parser/parsing_functions.c \
 		src/dev/dev_utils.c \
 		src/error/error_handler.c \
 		src/utils.c
