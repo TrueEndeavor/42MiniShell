@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:01:56 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/07 17:59:01 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/12 18:10:33 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,26 @@ t_token_T	*init_token(char *value, int type)
 
 char	*token_type_to_str(int type)
 {
-	if (type == WORD)
-		return ("WORD");
-	if (type == NAME)
-		return ("NAME");
-	if (type == ASSIGNMENT_WORD)
-		return ("ASSIGNMENT_WORD");
-	if (type == IO_NUMBER)
-		return ("IO_NUMBER");
-	if (type == PIPE)
-		return ("PIPE");
-	if (type == REDIRECT_IN)
-		return ("REDIRECT_IN");
-	if (type == REDIRECT_OUT)
-		return ("REDIRECT_OUT");
-	if (type == APPEND_OUT)
-		return ("APPEND_OUT");
-	if (type == HEREDOC)
-		return ("HEREDOC");
-	if (type == LINEBREAK)
-		return ("LINEBREAK");
+	if (type == T_WORD)
+		return ("T_WORD");
+	if (type == T_NAME)
+		return ("T_NAME");
+	if (type == T_ASSIGNMENT_WORD)
+		return ("T_ASSIGNMENT_WORD");
+	if (type == T_IO_NUMBER)
+		return ("T_IO_NUMBER");
+	if (type == T_PIPE)
+		return ("T_PIPE");
+	if (type == T_REDIRECT_IN)
+		return ("T_REDIRECT_IN");
+	if (type == T_REDIRECT_OUT)
+		return ("T_REDIRECT_OUT");
+	if (type == T_APPEND_OUT)
+		return ("T_APPEND_OUT");
+	if (type == T_HEREDOC)
+		return ("T_HEREDOC");
+	if (type == T_LINEBREAK)
+		return ("T_LINEBREAK");
 	return ("Not stringable");
 }
 

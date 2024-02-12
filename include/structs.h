@@ -3,34 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/09 10:51:42 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/12 19:33:49 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+# define MAXARGS 10
+
 typedef enum TOKEN_TYPE_ENUM
 {
-	WORD,
-	NAME,
-	ASSIGNMENT_WORD,
-	IO_NUMBER,
-	PIPE,
-	REDIRECT_IN,
-	REDIRECT_OUT,
-	HEREDOC,
-	APPEND_OUT,
-	LINEBREAK
+	T_WORD,
+	T_NAME,
+	T_ASSIGNMENT_WORD,
+	T_IO_NUMBER,
+	T_PIPE,
+	T_REDIRECT_IN,
+	T_REDIRECT_OUT,
+	T_HEREDOC,
+	T_APPEND_OUT,
+	T_LINEBREAK
 }	t_token_type_E;
 
 typedef struct TOKEN_STRUCT
 {
+	int		type;
 	char				*value;
-	t_token_type_E		type;
 	struct TOKEN_STRUCT	*next;
 }	t_token_T;
 
@@ -44,9 +46,9 @@ typedef struct LEXER_STRUCT
 
 typedef enum PARSED_CMD_ENUM
 {
-	EXEC_CMD,
-	REDIR_CMD,
-	PIPE_CMD
+	EXEC_CMD = 1,
+	REDIR_CMD = 2,
+	PIPE_CMD = 3
 }	t_parsed_cmd_E;
 
 typedef struct PARSER_STRUCT
@@ -56,30 +58,17 @@ typedef struct PARSER_STRUCT
 
 }	t_parser_P;
 
-typedef enum AST_TYPE_ENUM
-{
-	AST_EXEC_CMD,
-	AST_REDIR_CMD,
-	AST_PIPE_CMD
-}	t_AST_type_E;
-
-typedef struct AST
-{
-	t_AST_type_E type;	
-}	t_AST_P;
-
+/* Base structure */
 typedef struct CMD
 {
-	int					type;
+	t_parsed_cmd_E					type;
 }	t_cmd_P;
 
-# define MAXARGS 10
-
+/* Derived structures */
 typedef struct EXECCMD
 {
 	int					type;
 	char				*argv[MAXARGS];
-	char				*eargv[MAXARGS];
 }	t_execcmd_P;
 
 typedef struct REDIRCMD
@@ -87,7 +76,6 @@ typedef struct REDIRCMD
 	int					type;
 	struct CMD			*cmd;
 	char				*file;
-	char				*efile;
 	int					mode;
 	int					fd;
 }	t_redircmd_P;

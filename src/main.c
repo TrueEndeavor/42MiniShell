@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/12 08:10:30 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/12 18:48:22 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ t_token_T	*minishell_compile(char *src)
 	t_token_T	*token_head;
 	t_token_T	*tok;
 	t_token_T	*prev_tok;
-	t_parser_P  *parser;
+/* 	t_parser_P  *parser;
 	t_AST_P     *root;
-	
+ */	
 	prev_tok = NULL;
 	lexer = init_lexer(src);
-	parser = init_parser(lexer);
-	root = parser_parse(parser);
-	printf(":%p\n", root);
+//	parser = init_parser(lexer);
+//	root = parser_parse(parser);
+//	printf(":%p\n", root);
 	tok = lexer_scan_token(lexer);
 	token_head = tok;
-	while (tok->type != LINEBREAK)
+	while (tok->type != T_LINEBREAK)
 	{
 		if (tok)
 		//printf("TOK(%s) (%d)\n", tok->value, tok->type);
-			printf("%s\n", token_to_str(tok));
+		//	printf("%s\n", token_to_str(tok));
 		if (prev_tok != NULL)
 			prev_tok->next = tok;
 		prev_tok = tok;
@@ -48,6 +48,7 @@ void	display_new_prompt(void)
 	char		*prompt;
 	int			len;
 	t_token_T	*token_head;
+	t_cmd_P	*   root;
 
 	while (1)
 	{
@@ -68,7 +69,8 @@ void	display_new_prompt(void)
 			break ;
 		}
 		token_head = minishell_compile(prompt);
-		print_token_list(token_head);
+		//print_token_list(token_head);
+		root = parse_cmd(&token_head);
 		//run_cmd(parse_cmd(&token_head));
 	}
 }
