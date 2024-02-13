@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/02/12 19:52:14 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:17:03 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,9 @@ t_cmd_P	*parse_cmd(t_token_T **token_list)
     }
     current_token = *token_list;
 	next_token = peek_next_token(current_token);
-	printf("######parse_cmd######\n");
-	print_token_list(current_token);
-	printf("\n%s\n", token_to_str(current_token));
-	printf("%s\n", token_to_str(next_token));
 	cmd = parse_pipe(current_token);
-	printf("######parse_cmd######\n");
+	printf("\n");	
+	printf("######END OF parse_cmd######\n");
 	print_cmd(cmd);
 	return (NULL);
 }
@@ -56,28 +53,31 @@ t_cmd_P	*parse_cmd(t_token_T **token_list)
 t_cmd_P* parse_redirs(t_cmd_P *cmd, t_token_T *token)
 {
     char    *file_name;
-    
+    t_cmd_P *tmp;
+  
     while ((search_for(token, T_REDIRECT_IN) != NULL) || \
             (search_for(token, T_REDIRECT_OUT) != NULL) || \
             (search_for(token, T_HEREDOC) != NULL) || \
             (search_for(token, T_APPEND_OUT) != NULL))         
     {
+	printf("======Inside while loop======\n");    
         if (peek_next_token(token) == NULL)
             panic("missing file for redirection");
         file_name = (peek_next_token(token))->value;        
         if (token->type == T_REDIRECT_IN)
         {
-            cmd = create_redircmd(cmd, file_name, O_RDONLY, 0);
-            printf("command type = %d\n",cmd->type);
+        printf("<---constructing redircmd with T_REDIRECT_IN ----->\n");
+            tmp = create_redircmd(cmd, file_name, O_RDONLY, 0);
+            cmd = tmp;
             break ;
         }
         else if (token->type == T_REDIRECT_OUT)
-        {
+        {printf("<---constructing redircmd with T_REDIRECT_OUT ----->\n");
             cmd = create_redircmd(cmd, file_name, O_WRONLY | O_CREAT | O_TRUNC, 1);       
             break ;
         }
         else if (token->type == T_APPEND_OUT)
-        {
+        {printf("<---constructing redircmd with T_APPEND_OUT ----->\n");
             cmd = create_redircmd(cmd, file_name, O_WRONLY | O_CREAT, 1);
             break ;
         }
@@ -89,39 +89,41 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_token_T *token)
 
 t_cmd_P* parse_exec(t_token_T *token)
 {
-    t_execcmd_P *ecmd;
-    t_cmd_P *cmd;
+    t_execcmd_P *cmd;
+    t_cmd_P *ret;
     int argc;
     
-    cmd = create_execcmd();
-    ecmd = (t_execcmd_P*) cmd;
-printf("command type = %d\n",cmd->type);
-printf("token->value = %s\n",token->value);
+    ret = create_execcmd();
+    cmd = (t_execcmd_P*) ret;
     argc = 0;
-    cmd = parse_redirs(cmd, peek_next_token(token));
-    while ((search_for(token, T_PIPE) == NULL))
+printf("current token in parse_exec\n");	    
+printf("token->type = %d\n",token->type);
+printf("token->value = %s\n",token->value); 
+    ret = parse_redirs(ret, token);
+    
+    while (token->type != T_PIPE)
     {
         if (token == NULL)
             break ;
         if (peek_next_token(token) == NULL)
             panic("syntax");
-        ecmd->argv[argc] = token->value;
+        cmd->argv[argc] = token->value;
         argc++;
         if (argc >= MAXARGS)
             panic("too many args");
-        cmd = parse_redirs(cmd, peek_next_token(token));
+        ret = parse_redirs(ret, peek_next_token(token));
         token = peek_next_token(token);
     }  
-    ecmd->argv[argc] = 0;
+    cmd->argv[argc] = 0;
 	printf("######parse_exec######\n");
-	print_cmd(cmd);
-    return (cmd);
+	print_cmd(ret);
+    return (ret);
 }
 
 t_cmd_P* parse_pipe(t_token_T	*token)
 {
     t_cmd_P  *cmd;
-
+    
     cmd = parse_exec(token);
     if (search_for(token, T_PIPE))
     {

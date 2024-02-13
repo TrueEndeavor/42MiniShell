@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/12 19:33:49 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/13 09:53:48 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef enum TOKEN_TYPE_ENUM
 {
-	T_WORD,
+	T_WORD = 0,
 	T_NAME,
 	T_ASSIGNMENT_WORD,
 	T_IO_NUMBER,
