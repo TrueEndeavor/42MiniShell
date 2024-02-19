@@ -11,11 +11,9 @@
 # include <readline/history.h>
 
 // Parsed command representation
-#define EXEC  1
-#define REDIR 2
-#define PIPE  3
-#define LIST  4
-#define BACK  5
+#define EXEC_CMD  1
+#define REDIR_CMD 2
+#define PIPE_CMD  3
 
 #define MAXARGS 10
 
@@ -24,30 +22,30 @@ typedef unsigned short ushort;
 typedef unsigned char  uchar;
 typedef uint pde_t;
 
-struct cmd {
+typedef struct cmd {
   int type;
-};
+} t_cmd_P;
 
-struct execcmd {
+typedef struct execcmd {
   int type;
   char *argv[MAXARGS];
   char *eargv[MAXARGS];
-};
+} t_execcmd_P;
 
-struct redircmd {
+typedef struct redircmd {
   int type;
   struct cmd *cmd;
   char *file;
   char *efile;
   int mode;
   int fd;
-};
+} t_redircmd_P;
 
-struct pipecmd {
+typedef struct pipecmd {
   int type;
   struct cmd *left;
   struct cmd *right;
-};
+} t_pipecmd_P;
 
 int fork1(void);  // Fork but panics on failure.
 void panic(char*);
@@ -111,6 +109,7 @@ main(void)
         dprintf(2, "cannot cd %s\n", buf+3);
       continue;
     }
+    parsecmd(buf);
   }
   exit(1);
 }
@@ -132,7 +131,7 @@ execcmd(void)
 
   cmd = malloc(sizeof(*cmd));
   memset(cmd, 0, sizeof(*cmd));
-  cmd->type = EXEC;
+  cmd->type = EXEC_CMD;
   return (struct cmd*)cmd;
 }
 
@@ -143,7 +142,7 @@ redircmd(struct cmd *subcmd, char *file, char *efile, int mode, int fd)
 
   cmd = malloc(sizeof(*cmd));
   memset(cmd, 0, sizeof(*cmd));
-  cmd->type = REDIR;
+  cmd->type = REDIR_CMD;
   cmd->cmd = subcmd;
   cmd->file = file;
   cmd->efile = efile;
@@ -159,10 +158,69 @@ pipecmd(struct cmd *left, struct cmd *right)
 
   cmd = malloc(sizeof(*cmd));
   memset(cmd, 0, sizeof(*cmd));
-  cmd->type = PIPE;
+  cmd->type = PIPE_CMD;
   cmd->left = left;
   cmd->right = right;
   return (struct cmd*)cmd;
+}
+
+//PAGEBREAK!
+// Printers
+
+void print_execcmd(t_cmd_P *cmd)
+{
+    t_execcmd_P *execCmd = (t_execcmd_P *)cmd;
+    printf("Type: EXEC_CMD\n");
+    for (int i=0; i < MAXARGS; i++)
+        printf("argv: %s\n", execCmd->argv[i]);
+    // Add any additional fields specific to t_execcmd_P if needed
+}
+
+void print_redircmd(t_cmd_P *cmd)
+{
+    t_redircmd_P *redirectCmd = (t_redircmd_P *)cmd;
+    printf("Type: REDIR_CMD\n");
+    printf("File: %s\n", redirectCmd->file);
+    printf("Mode: %d\n", redirectCmd->mode);
+    printf("File Descriptor: %d\n", redirectCmd->fd);
+    // Recursively print the sub-command if it's not NULL
+    if (redirectCmd->cmd != NULL) {
+        printf("Sub-command:\n");
+        print_cmd(redirectCmd->cmd);
+    }
+}
+
+void print_pipecmd(t_cmd_P *cmd)
+{
+    t_pipecmd_P *pipeCmd = (t_pipecmd_P *)cmd;
+    printf("Type: PIPE_CMD\n");
+    printf("Left command:\n");
+    print_cmd(pipeCmd->left);
+    printf("Right command:\n");
+    print_cmd(pipeCmd->right);
+}
+
+void print_cmd(t_cmd_P *cmd) 
+{
+    if (cmd == NULL) {
+        printf("Command is NULL\n");
+        return;
+    }
+    printf("command type = %d\n",cmd->type);
+    switch (cmd->type) {
+        case EXEC_CMD:
+            print_execcmd(cmd);
+            break;
+        case REDIR_CMD:
+            print_redircmd(cmd);
+            break;
+        case PIPE_CMD:
+            print_pipecmd(cmd);
+            break;
+        default:
+            printf("Unknown command type\n");
+            break;
+    }
 }
 
 //PAGEBREAK!
@@ -254,16 +312,19 @@ print_cmd(cmd);
 struct cmd*
 parseline(char **ps, char *es)
 {
+  printf ("###entering parseline###\n");
   struct cmd *cmd;
 
   cmd = parsepipe(ps, es);
 
+  printf ("###exiting parseline###\n");
   return cmd;
 }
 
 struct cmd*
 parsepipe(char **ps, char *es)
 {
+  printf ("###entering parsepipe###\n");
   struct cmd *cmd;
 
   cmd = parseexec(ps, es);
@@ -271,6 +332,7 @@ parsepipe(char **ps, char *es)
     gettoken(ps, es, 0, 0);
     cmd = pipecmd(cmd, parsepipe(ps, es));
   }
+  printf ("###exiting parsepipe###\n");
   return cmd;
 }
 
@@ -280,10 +342,24 @@ parseredirs(struct cmd *cmd, char **ps, char *es)
   int tok;
   char *q, *eq;
 
-  while(peek(ps, es, "<>")){
+    printf ("###entering parseredir###\n");
+/* printf("current ps: %s\n", *ps); 
+printf("current es: %s\n", es);  */
+  
+  while(peek(ps, es, "<>"))
+  {
+/* printf("after peek ps: %s\n", *ps); 
+printf("after peek es: %s\n", es);  */
+ 
     tok = gettoken(ps, es, 0, 0);
+printf("after gettoken 1 ps: %s\n", *ps); 
+printf("after gettoken 1 es: %s\n", es); 
+  
+
     if(gettoken(ps, es, &q, &eq) != 'a')
       panic("missing file for redirection");
+/* printf("after gettoken 2 ps: %s\n", *ps); 
+printf("after gettoken 2 es: %s\n", es);  */
     switch(tok){
     case '<':
       cmd = redircmd(cmd, q, eq, O_RDONLY, 0);
@@ -296,6 +372,8 @@ parseredirs(struct cmd *cmd, char **ps, char *es)
       break;
     }
   }
+  print_redircmd(cmd);
+  printf ("###exiting parseredir###\n");
   return cmd;
 }
 
@@ -307,15 +385,18 @@ parseexec(char **ps, char *es)
   struct execcmd *cmd;
   struct cmd *ret;
 
-
+    printf ("###entering parseexec###\n");
   ret = execcmd();
   cmd = (struct execcmd*)ret;
 
   argc = 0;
-  ret = parseredirs(ret, ps, es);
+  ret = parseredirs(ret, ps, es); // calling redirects - 1
   while(!peek(ps, es, "|)&;")){
     if((tok=gettoken(ps, es, &q, &eq)) == 0)
+    {
       break;
+    }
+ 
     if(tok != 'a')
       panic("syntax");
     cmd->argv[argc] = q;
@@ -323,10 +404,12 @@ parseexec(char **ps, char *es)
     argc++;
     if(argc >= MAXARGS)
       panic("too many args");
-    ret = parseredirs(ret, ps, es);
+//printf("maybe next (!) ps: %s\n", *ps);      
+    ret = parseredirs(ret, ps, es); // calling redirects - 2+
   }
   cmd->argv[argc] = 0;
   cmd->eargv[argc] = 0;
+  printf ("###exiting parseexec###\n");
   return ret;
 }
 
@@ -345,19 +428,19 @@ nulterminate(struct cmd *cmd)
     return 0;
 
   switch(cmd->type){
-  case EXEC:
+  case EXEC_CMD:
     ecmd = (struct execcmd*)cmd;
     for(i=0; ecmd->argv[i]; i++)
       *ecmd->eargv[i] = 0;
     break;
 
-  case REDIR:
+  case REDIR_CMD:
     rcmd = (struct redircmd*)cmd;
     nulterminate(rcmd->cmd);
     *rcmd->efile = 0;
     break;
 
-  case PIPE:
+  case PIPE_CMD:
     pcmd = (struct pipecmd*)cmd;
     nulterminate(pcmd->left);
     nulterminate(pcmd->right);
@@ -365,60 +448,4 @@ nulterminate(struct cmd *cmd)
 
   }
   return cmd;
-}
-
-void print_execcmd(t_cmd_P *cmd)
-{
-    t_execcmd_P *execCmd = (t_execcmd_P *)cmd;
-    printf("Type: EXEC_CMD\n");
-    for (int i=0; i < MAXARGS; i++)
-        printf("argv: %s\n", execCmd->argv[i]);
-    // Add any additional fields specific to t_execcmd_P if needed
-}
-
-void print_redircmd(t_cmd_P *cmd)
-{
-    t_redircmd_P *redirectCmd = (t_redircmd_P *)cmd;
-    printf("Type: REDIR_CMD\n");
-    printf("File: %s\n", redirectCmd->file);
-    printf("Mode: %d\n", redirectCmd->mode);
-    printf("File Descriptor: %d\n", redirectCmd->fd);
-    // Recursively print the sub-command if it's not NULL
-    if (redirectCmd->cmd != NULL) {
-        printf("Sub-command:\n");
-        print_cmd(redirectCmd->cmd);
-    }
-}
-
-void print_pipecmd(t_cmd_P *cmd)
-{
-    t_pipecmd_P *pipeCmd = (t_pipecmd_P *)cmd;
-    printf("Type: PIPE_CMD\n");
-    printf("Left command:\n");
-    print_cmd(pipeCmd->left);
-    printf("Right command:\n");
-    print_cmd(pipeCmd->right);
-}
-
-void print_cmd(t_cmd_P *cmd) 
-{
-    if (cmd == NULL) {
-        printf("Command is NULL\n");
-        return;
-    }
-    printf("command type = %d\n",cmd->type);
-    switch (cmd->type) {
-        case EXEC_CMD:
-            print_execcmd(cmd);
-            break;
-        case REDIR_CMD:
-            print_redircmd(cmd);
-            break;
-        case PIPE_CMD:
-            print_pipecmd(cmd);
-            break;
-        default:
-            printf("Unknown command type\n");
-            break;
-    }
 }

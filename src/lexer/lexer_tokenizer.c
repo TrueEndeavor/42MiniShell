@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/12 18:10:52 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:29:04 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_token_T	*lexer_advance_current(t_lexer_T *lexer, int type)
  *
  * @return A token representing the parsed identifier
  */
-t_token_T	*lexer_parse_id(t_lexer_T *lexer)
+t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 {
 	char	*value;
 	char	*new_value;
@@ -82,7 +82,9 @@ t_token_T	*lexer_parse_id(t_lexer_T *lexer)
 
 	value = ft_calloc(1, sizeof(char));
 	value[0] = '\0';
-	while (ft_isalpha(lexer->c))
+	while (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) || \
+		(lexer->c == '_') || (lexer->c == '-') || \
+		(lexer->c == '\\') || (lexer->c == '.'))
 	{
 		new_size = ft_strlen(value) + 2;
 		new_value = ft_calloc(new_size, sizeof(char));
@@ -91,6 +93,7 @@ t_token_T	*lexer_parse_id(t_lexer_T *lexer)
 		value[new_size - 1] = '\0';
 		lexer_advance(lexer);
 	}
+	
 	return (init_token(value, T_WORD));
 }
 
@@ -140,7 +143,9 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 	while (lexer->c != '\0')
 	{
 		lexer_skip_whitespace(lexer);
-		if (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) || lexer->c == '|')
+		if (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) || (lexer->c == '|') ||
+		(lexer->c == '_') || (lexer->c == '-') || \
+		(lexer->c == '\\') || (lexer->c == '.'))
 			return (handle_expected_tokens(lexer));
 		if (lexer->c == '>' && lexer_peek(lexer, 1) == '>')
 			return (handle_append_out_token(lexer));
@@ -151,6 +156,6 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 		handle_unexpected_character(lexer);
 		break ;
 	}
-	return (init_token(0, T_LINEBREAK));
+	return (init_token(";", T_LINEBREAK));
 }
 	

@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:20:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/12 18:48:40 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:29:19 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@
  *
  * @return A token representing the identifier
  * ************************************************************************* */
-
-t_token_T	*handle_alphabet_token(t_lexer_T *lexer)
+t_token_T	*handle_word_token(t_lexer_T *lexer)
 {
-	return (lexer_advance_with(lexer, lexer_parse_id(lexer)));
+	return (lexer_advance_with(lexer, lexer_parse_word(lexer)));
 }
 
 t_token_T	*handle_number_token(t_lexer_T *lexer)

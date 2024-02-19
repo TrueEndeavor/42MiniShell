@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_function.c                                 :+:      :+:    :+:   */
+/*   original_parsing_function.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/02/07 13:31:56 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:50:04 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ might as well get them here.*/
 /*parsecmd:theoreticaly null terminate the entire string of command but
 we probably wont need it*/
 
-struct cmd* pasrecmd(char *s)
+struct cmd* parsecmd(char *s)
 {
     char *es;
     struct cmd  *cmd;
@@ -52,7 +52,7 @@ struct cmd* pareseexec(char **ps, char *es)
     ret = parseredirs(ret, ps, es);
     while (!peek(ps, es, "|)&;"))
     {
-        if ((tok=gettoen(ps, es, &q, &eq)) == 0)
+        if ((tok=gettoken(ps, es, &q, &eq)) == 0)
             break ;
         if (tok != 'a'/*word*/)
             panic("syntax");
@@ -61,7 +61,7 @@ struct cmd* pareseexec(char **ps, char *es)
         argc++;
         if (argc >= MAXARGS)
             panic("too many args");
-            ret = parseredirs(ret, ps, es);
+        ret = parseredirs(ret, ps, es);
     }
     cmd->argv[argc] = 0;
     cmd->eargv[argc] = 0;

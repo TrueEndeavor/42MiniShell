@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/12 18:48:22 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:30:19 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,16 @@ t_token_T	*minishell_compile(char *src)
 	{
 		if (tok)
 		//printf("TOK(%s) (%d)\n", tok->value, tok->type);
-		//	printf("%s\n", token_to_str(tok));
+		//printf("%s\n", token_to_str(tok));
 		if (prev_tok != NULL)
 			prev_tok->next = tok;
 		prev_tok = tok;
 		tok = lexer_scan_token(lexer);
 		tok->next = NULL;
 	}
+	prev_tok->next = tok;
+	tok->next = NULL;
+	//printf("TOK(%s) (%d)\n", tok->value, tok->type);
 	return (token_head);
 }
 
@@ -69,6 +72,7 @@ void	display_new_prompt(void)
 			break ;
 		}
 		token_head = minishell_compile(prompt);
+		printf("<<<START PARSING>>>");
 		//print_token_list(token_head);
 		root = parse_cmd(&token_head);
 		//run_cmd(parse_cmd(&token_head));
