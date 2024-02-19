@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/19 15:23:28 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:34:47 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_token_T		*lexer_parse_word(t_lexer_T *lexer);
 t_token_T		*lexer_parse_number(t_lexer_T *lexer);
 t_token_T		*lexer_scan_token(t_lexer_T *lexer);
 
-t_token_T		*handle_alphabet_token(t_lexer_T *lexer);
+t_token_T		*handle_word_token(t_lexer_T *lexer);
 t_token_T		*handle_number_token(t_lexer_T *lexer);
 t_token_T		*handle_pipe_token(t_lexer_T *lexer);
 t_token_T		*handle_redirect_out_token(t_lexer_T *lexer);
