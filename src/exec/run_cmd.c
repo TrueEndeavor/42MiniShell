@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 13:21:48 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 13:38:44 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,10 @@ void	run_cmd(t_cmd_P *cmd, t_general *general)
 	if (cmd == 0)
 		exit (1);
 	if (cmd->type == EXEC_CMD)
+	{
+		
 		runcmd_exec(cmd, general);
+	}
 	if (cmd->type == REDIR_CMD)
 		runcmd_redir(cmd, general);
 	if (cmd->type == PIPE_CMD)

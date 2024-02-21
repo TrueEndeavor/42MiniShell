@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:16:04 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 11:24:34 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 13:59:17 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	panic(char *str);
 
 t_cmd_P	*parse_cmd(t_token_T **token_list);
 void	run_cmd(t_cmd_P *cmd, t_general *general);
+int match_builtin(t_cmd_P *root, t_general *general);
 
 
 /*------------

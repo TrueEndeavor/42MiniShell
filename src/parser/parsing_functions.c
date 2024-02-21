@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/02/21 13:18:08 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:37:13 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ t_cmd_P	*parse_cmd(t_token_T **token_head)
     {
         return (NULL);
     }
+    // Built-ins 
+    
 	cmd = parse_pipe(token_head);
 //	printf("\n");	
 	printf("######END OF parse_cmd######\n");
@@ -157,6 +159,8 @@ t_cmd_P* parse_pipe(t_token_T	**token)
     if (search_for(*token, T_PIPE))
     {
         *token = advance_token(token);
+        if ((*token)->type != T_WORD)
+            panic("syntax error\n");
         cmd = create_pipecmd(cmd, parse_pipe(token));
     }
     printf("-----printing cmd in parse_pipe ending-----\n");          
