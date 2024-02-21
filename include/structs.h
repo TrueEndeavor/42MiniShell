@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 13:02:09 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:36:05 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define MAXARGS 10
 
+/*---------------------- Structures for Lexer & Token  ----------------------*/
 typedef enum TOKEN_TYPE_ENUM
 {
 	T_START = 0,
@@ -32,7 +33,7 @@ typedef enum TOKEN_TYPE_ENUM
 
 typedef struct TOKEN_STRUCT
 {
-	int		type;
+	int					type;
 	char				*value;
 	struct TOKEN_STRUCT	*next;
 }	t_token_T;
@@ -45,24 +46,18 @@ typedef struct LEXER_STRUCT
 	unsigned int		i;
 }	t_lexer_T;
 
-typedef enum PARSED_CMD_ENUM
+/*---------------------- Structures for Parser  ----------------------*/
+typedef enum PARSER_CMD_ENUM
 {
 	EXEC_CMD = 1,
 	REDIR_CMD = 2,
 	PIPE_CMD = 3
-}	t_parsed_cmd_E;
-
-typedef struct PARSER_STRUCT
-{
-	struct LEXER_STRUCT	*lexer;
-	struct TOKEN_STRUCT	*token;
-
-}	t_parser_P;
+}	t_parser_cmd_E;
 
 /* Base structure */
 typedef struct CMD
 {
-	t_parsed_cmd_E					type;
+	t_parser_cmd_E		type;
 }	t_cmd_P;
 
 /* Derived structures */
@@ -91,9 +86,10 @@ typedef struct PIPECMD
 	struct CMD			*right;
 }	t_pipecmd_P;
 
-typedef struct GENERAL
+/*---------------------- Structures for Minishell  ----------------------*/
+typedef struct CORESTRUCT
 {
 	char				**envp;
-}	t_general;
+}	t_core_struct;
 
 #endif

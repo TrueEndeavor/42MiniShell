@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.c                                    :+:      :+:    :+:   */
+/*   builtins_checker.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 17:23:02 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 16:37:05 by lannur-s         ###   ########.fr       */
+/*   Created: 2024/02/21 13:53:39 by lannur-s          #+#    #+#             */
+/*   Updated: 2024/02/21 16:36:21 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	panic(char *str)
+int    match_builtin(t_cmd_P *root, t_core_struct *general)
 {
-	ft_putstr_fd(str, 2);
-	exit (1);
+	t_execcmd_P	*ecmd;
+
+	ecmd = (t_execcmd_P *) root;
+    if (ft_strcmp(ecmd->argv[0], "cd") == 0)
+    {
+        printf("cd\n");
+    }
+    if (ft_strcmp(ecmd->argv[0], "echo") == 0)
+    {
+        printf("echo\n");
+    }
+    (void) general;
+    return (0);
 }

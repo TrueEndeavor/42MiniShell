@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:00:33 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 13:16:11 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:37:40 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_cmd_P	*create_execcmd(void)
 
 	cmd = malloc(sizeof(*cmd));
 	memset(cmd, 0, sizeof(*cmd));
-//	printf("constcommand type = %d\n",EXEC_CMD);	
 	cmd->type = EXEC_CMD;
 	return ((t_cmd_P *)cmd);
 }
@@ -29,7 +28,6 @@ t_cmd_P	*create_redircmd(t_cmd_P *subcmd, char *file, int mode, int fd)
 
 	cmd = malloc(sizeof(*cmd));
 	memset(cmd, 0, sizeof(*cmd));
-//	printf("constcommand type = %d\n",REDIR_CMD);
 	cmd->type = REDIR_CMD;
 	cmd->cmd = subcmd;
 	cmd->file = file;
@@ -57,7 +55,6 @@ t_cmd_P	*create_pipecmd(t_cmd_P *left, t_cmd_P *right)
 
 	cmd = malloc(sizeof(*cmd));
 	memset(cmd, 0, sizeof(*cmd));
-	printf("constcommand type = %d\n",PIPE_CMD);	
 	cmd->type = PIPE_CMD;
 	cmd->left = left;
 	cmd->right = right;

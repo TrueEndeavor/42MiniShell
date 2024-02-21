@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/02/21 14:37:13 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:38:46 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,7 @@ t_cmd_P	*parse_cmd(t_token_T **token_head)
     {
         return (NULL);
     }
-    // Built-ins 
-    
 	cmd = parse_pipe(token_head);
-//	printf("\n");	
-	printf("######END OF parse_cmd######\n");
-//	print_cmd(cmd);
 	return (cmd);
 }
 
@@ -65,9 +60,6 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_token_T **token)
     t_token_T *current_token;    
 
     current_token = *token;  
-//   printf("-----printing token list in parse_redirs begining-----\n");          
-//        print_token_list(current_token);
-// printf("######parse_redirs######\n");
     while ((search_for(current_token, T_REDIRECT_IN) != NULL) || \
             (search_for(current_token, T_REDIRECT_OUT) != NULL) || \
             (search_for(current_token, T_HEREDOC) != NULL) || \
@@ -105,10 +97,6 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_token_T **token)
             break ;
         }
     }
-//	print_cmd(cmd);
-//    printf("-----printing token list in parse_redirs ending-----\n");          
-//    print_token_list(*token);
-//    printf ("####exiting parseredir####\n");  
     return (cmd);    
 }
 
@@ -125,29 +113,21 @@ t_cmd_P* parse_exec(t_token_T **token)
     
     while ((*token)->type != T_PIPE)
     {
-//    printf("::::::::::token type = %d\n", (*token)->type);
         if ((*token)->type == T_LINEBREAK)
-        {
-//            printf ("linebreak reached\n");
             break ;
-        }
         if (((*token)->type != T_REDIRECT_IN) && \
             ((*token)->type != T_REDIRECT_OUT) && \
             ((*token)->type != T_APPEND_OUT))
         {
-//            printf ("adding command '%s' to cmd\n", (*token)->value);
             cmd->argv[argc] = (*token)->value;
             argc++;
             if (argc >= MAXARGS)
                 panic("too many args");
-//        printf("printing token list in parse_exec \n");
-//       print_token_list(*token);
         *token = advance_token(token);
         }
         ret = parse_redirs(ret, token);
     }
     cmd->argv[argc] = 0;
-//	print_cmd(ret);
     return (ret);
 }
 
@@ -163,8 +143,5 @@ t_cmd_P* parse_pipe(t_token_T	**token)
             panic("syntax error\n");
         cmd = create_pipecmd(cmd, parse_pipe(token));
     }
-    printf("-----printing cmd in parse_pipe ending-----\n");          
-	print_cmd(cmd);   
-    printf ("####exiting parse_pipe####\n");  
     return (cmd);
 }

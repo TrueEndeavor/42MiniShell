@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 13:38:44 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:36:21 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	fork1(void)
 	return (pid);
 }
 
-void	runcmd_exec(t_cmd_P *cmd, t_general *general)
+void	runcmd_exec(t_cmd_P *cmd, t_core_struct *general)
 {
 	t_execcmd_P	*ecmd;
 
@@ -35,7 +35,7 @@ void	runcmd_exec(t_cmd_P *cmd, t_general *general)
 	dprintf(2, "exec %s failed\n", ecmd->argv[0]);
 }
 
-void	runcmd_redir(t_cmd_P *cmd, t_general *general)
+void	runcmd_redir(t_cmd_P *cmd, t_core_struct *general)
 {
 	t_redircmd_P	*rcmd;
 	//int     fd;
@@ -55,7 +55,7 @@ void	runcmd_redir(t_cmd_P *cmd, t_general *general)
  */	run_cmd(rcmd->cmd, general);
 }
 
-void	runcmd_pipe(t_cmd_P *cmd, t_general *general)
+void	runcmd_pipe(t_cmd_P *cmd, t_core_struct *general)
 {
 	t_pipecmd_P	*pcmd;
 	int p[2];
@@ -85,7 +85,7 @@ void	runcmd_pipe(t_cmd_P *cmd, t_general *general)
 	wait(0);
 }
 
-void	run_cmd(t_cmd_P *cmd, t_general *general)
+void	run_cmd(t_cmd_P *cmd, t_core_struct *general)
 {
 	//int				p[2];
 

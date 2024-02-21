@@ -265,11 +265,9 @@ char	**ft_split(char const *s, char c)
 }
 
 
-/*-------------
-PIPEX
----------*/
-
-
+/*--------------------
+PIPEX - CODE - START
+----------------------*/
 void	ft_execute(char **cmd, char **envp)
 {
 	char	*path;
@@ -349,8 +347,10 @@ void	ft_error(char *str)
 	exit(EXIT_FAILURE);
 }
 
-/* -------------
------------*/
+/*--------------------
+PIPEX - CODE - END
+----------------------*/
+
 void
 runcmd(struct cmd *cmd,char **envp)
 {

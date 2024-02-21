@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:49:03 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 10:49:16 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:36:21 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,23 @@
 
 #include "structs.h"
 
+void	run_cmd(t_cmd_P *cmd, t_core_struct *general);
 int		fork1(void);
+
+/*----------------------------- PIPEX Functions -----------------------------*/
+
+void	ft_execute(char **argv, char **envp);
+char	*ft_get_path(char *cmd, char **envp);
+void	ft_error(char *str);
+void	ft_free(char *path, char **cmd);
+char	**ft_split(const char *s, char c);
+char	*ft_strjoin(const char *s1, const char *s2);
+size_t	ft_strlen(const char *s);
+char	*ft_strnstr(const char *big, const char *little, size_t len);
+char	*ft_substr(const char *s, unsigned int start, size_t len);
+void	ft_putstr_fd(char *s, int fd);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+void	ft_check_arg(int argc, char **argv);
+
 
 #endif

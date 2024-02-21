@@ -3,7 +3,7 @@ lexer grammar JollyShellLexer;
 /*
   Represents a word, allowing letters, digits, and underscores, hyphens
 */
-WORD            : [a-zA-Z_][a-zA-Z0-9_-]* ;
+WORD            : [a-zA-Z_][a-zA-Z0-9-/]* ;
 
 /* 
   A command name is a variable name, which never starts with a digit

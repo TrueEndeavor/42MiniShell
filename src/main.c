@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 14:07:19 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:39:31 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,14 @@ t_token_T	*minishell_compile(char *src)
 	t_token_T	*token_head;
 	t_token_T	*tok;
 	t_token_T	*prev_tok;
-/* 	t_parser_P  *parser;
-	t_AST_P     *root;
- */	
+	
 	prev_tok = NULL;
 	lexer = init_lexer(src);
-//	parser = init_parser(lexer);
-//	root = parser_parse(parser);
-//	printf(":%p\n", root);
 	tok = lexer_scan_token(lexer);
 	token_head = tok;
 	while (tok->type != T_LINEBREAK)
 	{
 		if (tok)
-		//printf("TOK(%s) (%d)\n", tok->value, tok->type);
-		//printf("%s\n", token_to_str(tok));
 		if (prev_tok != NULL)
 			prev_tok->next = tok;
 		prev_tok = tok;
@@ -42,11 +35,10 @@ t_token_T	*minishell_compile(char *src)
 	}
 	prev_tok->next = tok;
 	tok->next = NULL;
-	//printf("TOK(%s) (%d)\n", tok->value, tok->type);
 	return (token_head);
 }
 
-void	display_new_prompt(t_general *general)
+void	display_new_prompt(t_core_struct *general)
 {
 	char		*prompt;
 	int			len;
@@ -72,8 +64,6 @@ void	display_new_prompt(t_general *general)
 			break ;
 		}
 		token_head = minishell_compile(prompt);
-//		printf("<<<START PARSING>>>");
-		//print_token_list(token_head);
 		root = parse_cmd(&token_head);
 		// built-ins
 		if (root->type == EXEC_CMD)
@@ -89,19 +79,17 @@ void	display_new_prompt(t_general *general)
 
 int	main(int ac, char *av[], char **envp)
 {
-	t_general   *general;
+	t_core_struct   *general;
 	
 	general = NULL;
 	if (ac > 1)
 	{
-		display_error("No input required. \
+		panic("No input required. \
 			[Usage] Just launch with ./minishell");
 		exit (1);
 	}
 	(void) av;
-	// Add the env to main data structure
-	// For now void it
-	general = malloc(1 * sizeof(t_general));
+	general = malloc(1 * sizeof(t_core_struct));
 	general->envp = envp;
 	display_new_prompt(general);
 	return (0);

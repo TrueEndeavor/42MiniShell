@@ -6,12 +6,11 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:25:40 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 14:14:09 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:00:45 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	ft_execute(char **cmd, char **envp)
 {

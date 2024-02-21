@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.c                                    :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 17:23:02 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 16:37:05 by lannur-s         ###   ########.fr       */
+/*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
+/*   Updated: 2024/02/21 16:36:21 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	panic(char *str)
+int	exec_echo(t_core_struct *general)
 {
-	ft_putstr_fd(str, 2);
-	exit (1);
+    (void) general;
+    return (0);
 }
