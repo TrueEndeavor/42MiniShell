@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/19 15:30:19 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 10:49:32 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_token_T	*minishell_compile(char *src)
 	return (token_head);
 }
 
-void	display_new_prompt(void)
+void	display_new_prompt(t_general *general)
 {
 	char		*prompt;
 	int			len;
@@ -72,15 +72,20 @@ void	display_new_prompt(void)
 			break ;
 		}
 		token_head = minishell_compile(prompt);
-		printf("<<<START PARSING>>>");
+//		printf("<<<START PARSING>>>");
 		//print_token_list(token_head);
 		root = parse_cmd(&token_head);
-		//run_cmd(parse_cmd(&token_head));
+		if(fork1() == 0)
+			run_cmd(root, general);
+		wait(0);
 	}
 }
 
-int	main(int ac, char *av[], char **env)
+int	main(int ac, char *av[], char **envp)
 {
+	t_general   *general;
+	
+	general = NULL;
 	if (ac > 1)
 	{
 		display_error("No input required. \
@@ -90,7 +95,8 @@ int	main(int ac, char *av[], char **env)
 	(void) av;
 	// Add the env to main data structure
 	// For now void it
-	(void) env;
-	display_new_prompt();
+	general = malloc(1 * sizeof(t_general));
+	general->envp = envp;
+	display_new_prompt(general);
 	return (0);
 }

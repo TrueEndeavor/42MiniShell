@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:13:30 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/19 15:29:12 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 10:28:23 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_token_T	*handle_expected_tokens(t_lexer_T *lexer)
 {
 	if (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) || \
 		(lexer->c == '_') || (lexer->c == '-') || \
-		(lexer->c == '\\') || (lexer->c == '.'))
+		(lexer->c == '/') || (lexer->c == '.'))
 		return (handle_word_token(lexer));
 	if (ft_isdigit(lexer->c))
 		return (handle_number_token(lexer));

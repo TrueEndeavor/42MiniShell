@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/19 15:23:56 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 13:02:09 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ typedef struct REDIRCMD
 	char				*file;
 	int					mode;
 	int					fd;
+	int					permission;
+	int					read_from;		
+	int					write_into;	
 }	t_redircmd_P;
 
 typedef struct PIPECMD
@@ -87,5 +90,10 @@ typedef struct PIPECMD
 	struct CMD			*left;
 	struct CMD			*right;
 }	t_pipecmd_P;
+
+typedef struct GENERAL
+{
+	char				**envp;
+}	t_general;
 
 #endif

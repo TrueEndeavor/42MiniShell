@@ -7,8 +7,25 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+/* PIPEX HEADERS */
+void	ft_execute(char **argv, char **envp);
+char	*ft_get_path(char *cmd, char **envp);
+void	ft_error(char *str);
+void	ft_free(char *path, char **cmd);
+char	**ft_split(const char *s, char c);
+char	*ft_strjoin(const char *s1, const char *s2);
+size_t	ft_strlen(const char *s);
+char	*ft_strnstr(const char *big, const char *little, size_t len);
+char	*ft_substr(const char *s, unsigned int start, size_t len);
+void	ft_putstr_fd(char *s, int fd);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+void	ft_check_arg(int argc, char **argv);
+
+/*  */
 
 // Parsed command representation
 #define EXEC_CMD  1
@@ -21,6 +38,7 @@ typedef unsigned int   uint;
 typedef unsigned short ushort;
 typedef unsigned char  uchar;
 typedef uint pde_t;
+
 
 typedef struct cmd {
   int type;
@@ -51,11 +69,349 @@ int fork1(void);  // Fork but panics on failure.
 void panic(char*);
 struct cmd *parsecmd(char*);
 struct cmd *parseline(char **ps, char *es);
+void runcmd(struct cmd *cmd, char **envp);
 
 void print_execcmd(t_cmd_P *cmd);
 void print_pipecmd(t_cmd_P *cmd);
 void print_cmd(t_cmd_P *cmd);
 
+int
+fork1(void)
+{
+  int pid;
+
+  pid = fork();
+  if(pid == -1)
+    panic("fork");
+  return pid;
+}
+
+/* ----LIBFT
+----*/
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	size_t	len;
+	size_t	count;
+
+	len = strlen(src);
+	if (!size || !src)
+		return (len);
+	count = 0;
+	while (count < size - 1 && *src)
+	{
+		*dst++ = *src++;
+		count++;
+	}
+	*dst = '\0';
+	return (len);
+}
+
+
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
+{
+	size_t		slen;
+	size_t		dlen;
+	size_t		count;
+
+	count = 0;
+	slen = strlen(src);
+	if (!size)
+		return (slen);
+	dlen = strlen(dst);
+	if (size <= dlen)
+		return (size + slen);
+	while ((dlen + count) < size - 1 && src[count])
+	{
+		dst[dlen + count] = src[count];
+		count++;
+	}
+	dst[dlen + count] = '\0';
+	return (dlen + slen);
+}
+
+
+char	*ft_strnstr(const char *big, const char	*little, size_t len)
+{
+	size_t		little_len;
+
+	if (*little == '\0')
+		return ((char *)big);
+	else if (len == 0 || *big == '\0')
+		return (NULL);
+	little_len = strlen(little);
+	while (len > 0 && len >= little_len && *big && *little)
+	{
+		if (strncmp(big, little, little_len) == 0)
+			return ((char *)big);
+		++big;
+		--len;
+	}
+	return (NULL);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*dst;
+	size_t	s1_len;
+	size_t	s2_len;
+	size_t	total;
+
+	if (!s1 || !s2)
+		return (NULL);
+	s1_len = strlen(s1);
+	s2_len = strlen(s2);
+	total = s1_len + s2_len;
+	dst = malloc(total + 1 * sizeof(char));
+	if (dst == NULL)
+		return (NULL);
+	memcpy(dst, s1, s1_len + 1);
+	ft_strlcat(dst, s2, total + 1);
+	return (dst);
+}
+
+
+static int	substr_count(char const *s, char c)
+{
+	size_t	count;
+	int		char_match;
+
+	count = 0;
+	char_match = 0;
+	while (*s)
+	{
+		if (*s == c)
+			char_match = 0;
+		else
+		{
+			if (!char_match)
+			{
+				char_match = 1;
+				count++;
+			}
+		}
+		s++;
+	}
+	return (count);
+}
+
+static int	substr_len(char const *s, char c)
+{
+	int			len;
+
+	len = 0;
+	while (*s && *s != c)
+	{
+		len++;
+		s++;
+	}
+	return (len);
+}	
+
+static void	*free_mem(char **new, int i)
+{
+	while (i--)
+	{
+		if (new[i])
+			free(new[i]);
+	}
+	free(new);
+	return (NULL);
+}
+
+
+
+static int	split(char **new, char const *s, char c)
+{
+	int	i;
+	int	subs_len;
+
+	i = 0;
+	subs_len = 0;
+	while (*s)
+	{
+		while (*s == c)
+			++s;
+		if (*s)
+		{
+			subs_len = substr_len(s, c);
+			new[i] = calloc((subs_len + 1), sizeof(char));
+			if (!new[i])
+			{
+				free_mem(new, i);
+				return (0);
+			}
+			ft_strlcpy(new[i], s, subs_len + 1);
+			s = s + subs_len;
+			i++;
+		}
+	}
+	new[i] = NULL;
+	return (1);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**new;
+
+	if (!s)
+		return (NULL);
+	new = calloc((substr_count(s, c) + 1), sizeof(char *));
+	if (!new)
+		return (NULL);
+	if (!split(new, s, c))
+		return (NULL);
+	return (new);
+}
+
+
+/*-------------
+PIPEX
+---------*/
+
+
+void	ft_execute(char **cmd, char **envp)
+{
+	char	*path;
+printf("ft_execute\n");
+	if (cmd[0][0] == '/' || strncmp(cmd[0], "./", 2) == 0)
+	{
+	printf("calling execve\n");
+		if (execve(cmd[0], cmd, envp) == -1)
+		{
+			ft_free(NULL, cmd);
+			ft_error("execve failed\n");
+		}
+	}
+	path = ft_get_path(cmd[0], envp);
+	if (!path)
+	{
+	printf("no path\n");
+		ft_free(path, cmd);
+		ft_error("PATH not found\n");
+	}
+	if (execve(path, cmd, envp) == -1)
+	{
+		ft_free(path, cmd);
+		ft_error("execve failed\n");
+	}
+}
+
+char	*ft_get_path(char *cmd, char **envp)
+{
+	int		i;
+	char	**possible_paths;
+	char	*path;
+	char	*complete_path;
+
+	i = 0;
+	while (envp && envp[i] && ft_strnstr(envp[i], "PATH=", 5) == 0)
+		i++;
+	if (!envp[i])
+		return (NULL);
+	path = envp[i] + 5;
+	possible_paths = ft_split(path, ':');
+	i = 0;
+	while (possible_paths[i])
+	{
+		path = ft_strjoin(possible_paths[i++], "/");
+		complete_path = ft_strjoin(path, cmd);
+		free (path);
+		if (access(complete_path, F_OK) == 0)
+			return (complete_path);
+		free(complete_path);
+	}
+	ft_free(NULL, possible_paths);
+	return (NULL);
+}
+
+void	ft_free(char *path, char **cmd)
+{
+	int	i;
+
+	i = 0;
+	if (path)
+		free(path);
+	if (*cmd)
+	{
+		while (cmd[i])
+		{
+			free(cmd[i]);
+			i++;
+		}
+		free(cmd);
+	}
+}
+
+void	ft_error(char *str)
+{
+	dprintf(2, "%s\n", str);
+	exit(EXIT_FAILURE);
+}
+
+/* -------------
+-----------*/
+void
+runcmd(struct cmd *cmd,char **envp)
+{
+  int p[2];
+  struct backcmd *bcmd;
+  struct execcmd *ecmd;
+  struct listcmd *lcmd;
+  struct pipecmd *pcmd;
+  struct redircmd *rcmd;
+
+  if(cmd == 0)
+    exit(0);
+
+  switch(cmd->type){
+  default:
+    panic("runcmd");
+
+  case EXEC_CMD:
+    ecmd = (struct execcmd*)cmd;
+    if(ecmd->argv[0] == 0)
+      exit(0);
+    ft_execute(ecmd->argv, envp);
+    dprintf(2, "exec %s failed\n", ecmd->argv[0]);
+    break;
+
+  case REDIR_CMD:
+    rcmd = (struct redircmd*)cmd;
+    close(rcmd->fd);
+    if(open(rcmd->file, rcmd->mode, 0777) < 0){
+      dprintf(2, "open %s failed\n", rcmd->file);
+      exit(0);
+    }
+    runcmd(rcmd->cmd, envp);
+    break;
+
+  case PIPE_CMD:
+    pcmd = (struct pipecmd*)cmd;
+    if(pipe(p) < 0)
+      panic("pipe");
+    if(fork1() == 0){
+      close(1);
+      dup(p[1]);
+      close(p[0]);
+      close(p[1]);
+      runcmd(pcmd->left, envp);
+    }
+    if(fork1() == 0){
+      close(0);
+      dup(p[0]);
+      close(p[0]);
+      close(p[1]);
+      runcmd(pcmd->right, envp);
+    }
+    close(p[0]);
+    close(p[1]);
+    wait(0);
+    wait(0);
+    break;
+  }
+  exit(0);
+}
 
 char*
 gets(char *buf, int max)
@@ -87,8 +443,9 @@ getcmd(char *buf, int nbuf)
 }
 
 int
-main(void)
+main(int ac, char **av, char **envp)
 {
+  (void *)av;
   static char buf[100];
   int fd;
 
@@ -109,7 +466,9 @@ main(void)
         dprintf(2, "cannot cd %s\n", buf+3);
       continue;
     }
-    parsecmd(buf);
+    if(fork1() == 0)    
+      runcmd(parsecmd(buf), envp);
+    wait(0);    
   }
   exit(1);
 }

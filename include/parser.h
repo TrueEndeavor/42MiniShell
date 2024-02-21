@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/19 15:23:44 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 13:03:29 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ t_cmd_P* parse_pipe(t_token_T	**token);
 t_cmd_P	*create_execcmd(void);
 t_cmd_P	*create_redircmd(t_cmd_P *subcmd, char *file, int mode, int fd);
 t_cmd_P	*create_pipecmd(t_cmd_P *left, t_cmd_P *right);
+
+void	set_write_into(t_redircmd_P *cmd, int writable);
+void	set_read_from(t_redircmd_P *cmd, int readable);
 
 void print_cmd(t_cmd_P *cmd);
 

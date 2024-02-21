@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:49:03 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/07 18:11:16 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 10:49:16 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,5 @@
 #include "structs.h"
 
 int		fork1(void);
-void	run_cmd(t_cmd_P *cmd);
 
 #endif
