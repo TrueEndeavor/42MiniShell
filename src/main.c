@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/22 19:13:12 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:41:58 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	display_new_prompt(t_core_struct *core)
 			break ;
 		}
 		token_head = minishell_compile(prompt);
+print_token_list(token_head);
 		root = parse_cmd(&token_head);
-
 		// built-ins
 		if (root->type == EXEC_CMD)
 		{

@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/22 19:08:54 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:38:44 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,24 @@ char    **make_copy_env(int count, char **envp)
 int	export_builtin(t_execcmd_P *ecmd, t_core_struct *core)
 {
     int count;
+    int i;
     char	**new_envp;    
     
+    i = 1;
     count = 0;
     printf("coucou\n");
-    if (ecmd->argv[1] == NULL)
+    if (ecmd->argv[i] == NULL)
     {
         count = count_of_env(core->envp);
         new_envp = make_copy_env(count, core->envp);
         ft_sort_params(count, new_envp);
         display_sorted_env(count, new_envp);
     }
-    //while (ecmd->argv[1])
+    while (ecmd->argv[i] && i < 10)
 	{
-	   // set_variable(ecmd->argv, core);
+	    printf("ecmd->argv[%d]=%s\n", i, ecmd->argv[i]);
+	   //set_variable(ecmd->argv, core);
+	   i++;
     }
     return (0);
 }

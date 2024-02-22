@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/22 13:09:06 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:47:44 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer, int is_variable, \
 	value[0] = '\0';
 	while (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) || \
 		(lexer->c == '_') || (lexer->c == '-') || \
-		(lexer->c == '/') || (lexer->c == '.'))
+		(lexer->c == '/') || (lexer->c == '.') || \
+		(lexer->c == '='))
 	{
 		if ((lexer->c == '-') || \
 			(lexer->c == '/') || (lexer->c == '.'))
