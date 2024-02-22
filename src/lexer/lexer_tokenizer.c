@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 10:28:27 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/22 13:09:06 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,26 @@ t_token_T	*lexer_advance_current(t_lexer_T *lexer, int type)
  *
  * @return A token representing the parsed identifier
  */
-t_token_T	*lexer_parse_word(t_lexer_T *lexer)
+t_token_T	*lexer_parse_word(t_lexer_T *lexer, int is_variable, \
+							int is_possible_name)
 {
-	char	*value;
-	char	*new_value;
-	int		new_size;
+	char		*value;
+	char		*new_value;
+	int			new_size;
+	int			is_name_by_default;
+	t_token_T	*ret_token;
 
+	ret_token = NULL;
+	is_name_by_default = 1;
 	value = ft_calloc(1, sizeof(char));
 	value[0] = '\0';
 	while (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) || \
 		(lexer->c == '_') || (lexer->c == '-') || \
 		(lexer->c == '/') || (lexer->c == '.'))
 	{
+		if ((lexer->c == '-') || \
+			(lexer->c == '/') || (lexer->c == '.'))
+				is_possible_name = 0;
 		new_size = ft_strlen(value) + 2;
 		new_value = ft_calloc(new_size, sizeof(char));
 		ft_strlcpy(new_value, value, new_size);
@@ -93,8 +101,19 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 		value[new_size - 1] = '\0';
 		lexer_advance(lexer);
 	}
-	
-	return (init_token(value, T_WORD));
+	if (is_variable & is_possible_name & is_name_by_default)
+	{
+        ret_token = init_token(value, T_VARIABLE);	
+	}
+	else if (is_possible_name & is_name_by_default)
+	{
+        ret_token = init_token(value, T_NAME);
+    } 
+    else if (!(is_possible_name & is_name_by_default))
+    {
+        ret_token = init_token(value, T_WORD);
+    }
+	return (ret_token);
 }
 
 /**
@@ -151,6 +170,8 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 			return (handle_append_out_token(lexer));
 		if (lexer->c == '>' || lexer->c == '<')
 			return (handle_redirect_tokens(lexer));
+		if (lexer->c == '$')
+			return (handle_variable_token(lexer));		
 		if (lexer->c == '\0')
 			break ;
 		handle_unexpected_character(lexer);

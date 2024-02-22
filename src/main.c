@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 16:39:31 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:13:12 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_token_T	*minishell_compile(char *src)
 	return (token_head);
 }
 
-void	display_new_prompt(t_core_struct *general)
+void	display_new_prompt(t_core_struct *core)
 {
 	char		*prompt;
 	int			len;
@@ -65,23 +65,26 @@ void	display_new_prompt(t_core_struct *general)
 		}
 		token_head = minishell_compile(prompt);
 		root = parse_cmd(&token_head);
+
 		// built-ins
 		if (root->type == EXEC_CMD)
 		{
-			match_builtin(root, general);
+			if (!match_builtin(root, core))
+			{
+				if(fork1() == 0)
+					run_cmd(root, core);
+				wait(0);
+			}
 		}
-		if(fork1() == 0)
-			run_cmd(root, general);
-		wait(0);
 		printf("\n");
 	}
 }
 
 int	main(int ac, char *av[], char **envp)
 {
-	t_core_struct   *general;
+	t_core_struct   *core;
 	
-	general = NULL;
+	core = NULL;
 	if (ac > 1)
 	{
 		panic("No input required. \
@@ -89,8 +92,8 @@ int	main(int ac, char *av[], char **envp)
 		exit (1);
 	}
 	(void) av;
-	general = malloc(1 * sizeof(t_core_struct));
-	general->envp = envp;
-	display_new_prompt(general);
+	core = malloc(1 * sizeof(t_core_struct));
+	core->envp = envp;
+	display_new_prompt(core);
 	return (0);
 }

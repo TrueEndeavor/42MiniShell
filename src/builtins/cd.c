@@ -6,14 +6,14 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 16:36:21 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:02:33 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_cd(t_core_struct *general)
+int	cd_builtin(t_core_struct *core)
 {
-    (void) general;
+    (void) core;
     return (0);
 }

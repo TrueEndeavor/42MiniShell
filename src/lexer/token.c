@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:01:56 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/12 18:10:33 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/22 12:25:45 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,14 @@ char	*token_type_to_str(int type)
 		return ("T_WORD");
 	if (type == T_NAME)
 		return ("T_NAME");
+	if (type == T_VARIABLE)
+		return ("T_VARIABLE");		
 	if (type == T_ASSIGNMENT_WORD)
 		return ("T_ASSIGNMENT_WORD");
 	if (type == T_IO_NUMBER)
 		return ("T_IO_NUMBER");
+	if (type == T_DOLLAR)
+		return ("T_DOLLAR");	
 	if (type == T_PIPE)
 		return ("T_PIPE");
 	if (type == T_REDIRECT_IN)

@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 16:36:05 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:17:43 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,22 @@
 
 # define MAXARGS 10
 
+# define IS_A_VARIABLE 1
+# define IS_NOT_A_VARIABLE 0
+
+# define IS_A_POSSIBLE_NAME 1
+# define IS_NOT_A_POSSIBLE_NAME 0
+
 /*---------------------- Structures for Lexer & Token  ----------------------*/
 typedef enum TOKEN_TYPE_ENUM
 {
 	T_START = 0,
 	T_WORD = 1,
 	T_NAME,
+	T_VARIABLE,	
 	T_ASSIGNMENT_WORD,
 	T_IO_NUMBER,
+	T_DOLLAR,	
 	T_PIPE,
 	T_REDIRECT_IN,
 	T_REDIRECT_OUT,

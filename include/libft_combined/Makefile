@@ -91,6 +91,7 @@ SRCS = src/conversion/ft_atoi.c \
 		src/string/ft_strrchr.c \
 		src/string/ft_strtrim.c \
 		src/string/ft_substr.c \
+		src/sort/ft_sort_params.c
 
 # Variable assignment with pattern substitution:
 # Generate a list of object files 

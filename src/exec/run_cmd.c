@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 16:36:21 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:02:33 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	fork1(void)
 	return (pid);
 }
 
-void	runcmd_exec(t_cmd_P *cmd, t_core_struct *general)
+void	runcmd_exec(t_cmd_P *cmd, t_core_struct *core)
 {
 	t_execcmd_P	*ecmd;
 
@@ -31,11 +31,11 @@ void	runcmd_exec(t_cmd_P *cmd, t_core_struct *general)
 		exit (1);
 	printf("######RUNCMD_EXEC######\n");
 	printf("THE COMMAND IS = %s\n", ecmd->argv[0]);
-	ft_execute(ecmd->argv, general->envp);
+	ft_execute(ecmd->argv, core->envp);
 	dprintf(2, "exec %s failed\n", ecmd->argv[0]);
 }
 
-void	runcmd_redir(t_cmd_P *cmd, t_core_struct *general)
+void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core)
 {
 	t_redircmd_P	*rcmd;
 	//int     fd;
@@ -52,10 +52,10 @@ void	runcmd_redir(t_cmd_P *cmd, t_core_struct *general)
 		dup2(fd, rcmd->fd);
 	else
 		close(fd);
- */	run_cmd(rcmd->cmd, general);
+ */	run_cmd(rcmd->cmd, core);
 }
 
-void	runcmd_pipe(t_cmd_P *cmd, t_core_struct *general)
+void	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core)
 {
 	t_pipecmd_P	*pcmd;
 	int p[2];
@@ -69,7 +69,7 @@ void	runcmd_pipe(t_cmd_P *cmd, t_core_struct *general)
 		dup(p[1]);
 		close(p[0]);
 		close(p[1]);
-		run_cmd(pcmd->left, general);
+		run_cmd(pcmd->left, core);
 	}
 	if (fork1() == 0)
 	{
@@ -77,7 +77,7 @@ void	runcmd_pipe(t_cmd_P *cmd, t_core_struct *general)
 		dup(p[0]);
 		close(p[0]);
 		close(p[1]);
-		run_cmd(pcmd->right, general);
+		run_cmd(pcmd->right, core);
 	}
 	close(p[0]);
 	close(p[1]);
@@ -85,22 +85,20 @@ void	runcmd_pipe(t_cmd_P *cmd, t_core_struct *general)
 	wait(0);
 }
 
-void	run_cmd(t_cmd_P *cmd, t_core_struct *general)
+void	run_cmd(t_cmd_P *cmd, t_core_struct *core)
 {
 	//int				p[2];
 
-	printf("run_cmd::: cmd->type=%d\n", cmd->type);
 	if (cmd == 0)
 		exit (1);
 	if (cmd->type == EXEC_CMD)
 	{
-		
-		runcmd_exec(cmd, general);
+		runcmd_exec(cmd, core);
 	}
 	if (cmd->type == REDIR_CMD)
-		runcmd_redir(cmd, general);
+		runcmd_redir(cmd, core);
 	if (cmd->type == PIPE_CMD)
-		runcmd_pipe(cmd, general);
+		runcmd_pipe(cmd, core);
 	panic ("runcmd");
 	exit (1);
 }

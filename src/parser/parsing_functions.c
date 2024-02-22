@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/02/21 16:38:46 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:14:39 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,16 +115,27 @@ t_cmd_P* parse_exec(t_token_T **token)
     {
         if ((*token)->type == T_LINEBREAK)
             break ;
-        if (((*token)->type != T_REDIRECT_IN) && \
+        if ((*token)->type == T_VARIABLE)
+        {
+            *token = advance_token(token);
+            cmd->argv[argc] = (*token)->value;
+            argc++;
+            if (argc >= MAXARGS)
+                panic("too many args");
+            *token = advance_token(token);
+        }
+        else if (((*token)->type != T_REDIRECT_IN) && \
             ((*token)->type != T_REDIRECT_OUT) && \
             ((*token)->type != T_APPEND_OUT))
         {
             cmd->argv[argc] = (*token)->value;
             argc++;
+		printf("coucou\n");            
             if (argc >= MAXARGS)
                 panic("too many args");
-        *token = advance_token(token);
+            *token = advance_token(token);
         }
+        
         ret = parse_redirs(ret, token);
     }
     cmd->argv[argc] = 0;
