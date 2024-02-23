@@ -6,38 +6,11 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/22 19:38:44 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/23 16:35:37 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int     count_of_env(char **envp)
-{
-    int		count;
-    
-    count =0;
-	while (*envp != NULL)
-	{
-	    if (*envp[0] != '\0')
-		    count++;
-		envp++;
-    }
-    return (count);
-}
-
-void	display_sorted_env(int count, char	**envp)
-{
-    int i;
-    
-    i = 1;
-	while (i < count)
-	{
-		ft_putstr_fd(envp[i], 1);
-		ft_putstr_fd("\n", 1);
-		i++;
-	}
-}
 
 char    **make_copy_env(int count, char **envp)
 {
@@ -67,7 +40,7 @@ char    **make_copy_env(int count, char **envp)
 
 } */
 
-int	export_builtin(t_execcmd_P *ecmd, t_core_struct *core)
+int	builtin_export(t_execcmd_P *ecmd, t_core_struct *core)
 {
     int count;
     int i;
@@ -81,7 +54,7 @@ int	export_builtin(t_execcmd_P *ecmd, t_core_struct *core)
         count = count_of_env(core->envp);
         new_envp = make_copy_env(count, core->envp);
         ft_sort_params(count, new_envp);
-        display_sorted_env(count, new_envp);
+        display_env(count, new_envp);
     }
     while (ecmd->argv[i] && i < 10)
 	{

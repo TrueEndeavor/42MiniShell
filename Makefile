@@ -6,7 +6,7 @@
 #    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/02/21 15:46:25 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/02/23 11:06:12 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS =  src/main.c \
 		src/exec/exec.c \
 		src/parser/parsing_functions.c \
 		src/builtins/builtins_checker.c \
+		src/builtins/builtins_utils.c \
 		src/builtins/cd.c \
 		src/builtins/echo.c \
 		src/builtins/env.c \
