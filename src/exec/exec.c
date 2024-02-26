@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:25:40 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 16:00:45 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/26 10:30:24 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_execute(char **cmd, char **envp)
 		}
 	}
 	path = ft_get_path(cmd[0], envp);
+	printf ("path is %s\n", path);
 	if (!path)
 	{
 		ft_free(path, cmd);

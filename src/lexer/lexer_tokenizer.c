@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/22 19:47:44 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/26 12:31:28 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer, int is_variable, \
 		(lexer->c == '/') || (lexer->c == '.') || \
 		(lexer->c == '='))
 	{
+		// carson - to add all special chars or do it inverse
 		if ((lexer->c == '-') || \
 			(lexer->c == '/') || (lexer->c == '.'))
 				is_possible_name = 0;

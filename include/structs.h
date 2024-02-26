@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/22 19:17:43 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:08:41 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ typedef enum TOKEN_TYPE_ENUM
 {
 	T_START = 0,
 	T_WORD = 1,
-	T_NAME,
-	T_VARIABLE,	
-	T_ASSIGNMENT_WORD,
-	T_IO_NUMBER,
-	T_DOLLAR,	
-	T_PIPE,
-	T_REDIRECT_IN,
-	T_REDIRECT_OUT,
-	T_HEREDOC,
-	T_APPEND_OUT,
-	T_LINEBREAK
+	T_NAME = 2,
+	T_VARIABLE = 3,	
+	T_ASSIGNMENT_WORD  = 4,
+	T_IO_NUMBER = 5,
+	T_DOLLAR = 6,	
+	T_PIPE = 7,
+	T_REDIRECT_IN = 8,
+	T_REDIRECT_OUT = 9,
+	T_HEREDOC = 10,
+	T_APPEND_OUT = 11,
+	T_LINEBREAK = 12
 }	t_token_type_E;
 
 typedef struct TOKEN_STRUCT

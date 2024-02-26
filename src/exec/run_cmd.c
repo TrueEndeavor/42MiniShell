@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/22 19:02:33 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/26 10:42:48 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core)
 
 void	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core)
 {
+printf("++++++++++++++++runcmd_pipe\n");
 	t_pipecmd_P	*pcmd;
 	int p[2];
 
@@ -98,7 +99,10 @@ void	run_cmd(t_cmd_P *cmd, t_core_struct *core)
 	if (cmd->type == REDIR_CMD)
 		runcmd_redir(cmd, core);
 	if (cmd->type == PIPE_CMD)
+	{
+	printf("++++++++++++++++calling runcmd_pipe\n");
 		runcmd_pipe(cmd, core);
+	}
 	panic ("runcmd");
 	exit (1);
 }
