@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/26 13:08:41 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:45:52 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,17 @@ typedef struct PIPECMD
 }	t_pipecmd_P;
 
 /*---------------------- Structures for Minishell  ----------------------*/
+typedef struct ENVLIST
+{
+	char				*name;
+	char				*value;	
+	struct ENVLIST		*next;
+}	t_env_list;
+
 typedef struct CORESTRUCT
 {
-	char				**envp;
+	t_env_list				*env_list;
 }	t_core_struct;
+
 
 #endif

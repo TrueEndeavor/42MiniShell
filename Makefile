@@ -6,7 +6,7 @@
 #    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/02/23 11:06:12 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/02/26 17:37:25 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,14 @@ SRCS =  src/main.c \
 		src/builtins/exit.c \
 		src/builtins/export.c \
 		src/builtins/pwd.c \
-		src/builtins/unset.c		
+		src/builtins/unset.c \
+		src/builtins/env/env_utils.c \
+		src/builtins/env/ft_lstclear_env.c \
+		src/builtins/env/ft_lstnew_env.c \
+		src/builtins/env/ft_lstadd_back_env.c \
+		src/builtins/env/ft_lstdelone_env.c \
+		src/builtins/env/ft_lstlast_env.c \
+		src/builtins/env/ft_lstsize_env.c
 #		src/parser/parser.c \
 		src/parser/AST.c \
 		
