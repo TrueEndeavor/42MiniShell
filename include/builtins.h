@@ -28,7 +28,7 @@ void	display_env(int count, char	**envp);
 void	display_env_from_list(t_env_list **env_list);
 char	**convert_env_to_stringarray(t_env_list *env_list);
 t_env_list    *init_env(char **envp);
-void	set_env(t_env_list **env_list, char *key_value_pair);
+void	set_env(t_core_struct *core, char *key_value_pair);
 char	*get_env(t_core_struct *core, char *key_to_search);
 
 char *getKey(char *s);
@@ -40,6 +40,5 @@ void		ft_lstclear_env(t_env_list **lst, void (*del)(void *));
 void		ft_lstdelone_env(t_env_list *lst, void (*del)(void *));
 t_env_list	*ft_lstlast_env(t_env_list *lst);
 int			ft_lstsize_env(t_env_list *lst);
-int			count_of_env_list(t_env_list **env_list);
 
 #endif

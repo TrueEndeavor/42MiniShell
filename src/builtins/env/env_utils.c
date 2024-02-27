@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:38:25 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/27 17:08:26 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:57:26 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char **convert_env_to_stringarray(t_env_list *env_list)
     t_env_list *env_orig;
     char	*temp_envp;
     char	**new_envp;
-    int     i;
 	int		count;
+	int i;
 
 	count = 0;
 	temp_envp = NULL;
@@ -38,16 +38,22 @@ char **convert_env_to_stringarray(t_env_list *env_list)
     i = 0;
     while (env_orig)
     {
-        temp_envp = ft_strjoin(env_orig->name,"=");
-        new_envp[i] = ft_strjoin(temp_envp, env_orig->value);
-        free(temp_envp);
+		if (env_orig->value == NULL)
+		{
+			new_envp[i] = ft_strdup(env_orig->name);
+		}
+		else
+		{
+			temp_envp = ft_strjoin(env_orig->name,"=");
+			new_envp[i] = ft_strjoin(temp_envp, env_orig->value);
+			free(temp_envp);
+		}
 		if (!new_envp[i])
 		{
-		    free(new_envp);
-		    return (NULL);
-        }
-        
-		i++;
+			free(new_envp);
+			return (NULL);
+		}
+    	i++;
 	    env_orig = env_orig->next;
 	}
 	new_envp[i] = NULL;
@@ -116,25 +122,6 @@ int     count_of_env(char **envp)
     return (count);
 }
 
-int     count_of_env_list(t_env_list **env_list)
-{
-    int		count;
-    
-    count =0;
-	if (*env_list)
-	{
-printf("address count_of_env_list%p\n", env_list);
-display_env_from_list(env_list);
-		count++;
-		while ((*env_list)->next)
-		{
-			count++;
-			*env_list = (*env_list)->next;
-		}
-	}
-	return (count);
-}
-
 void	display_env(int count, char	**envp)
 {
     int i;
@@ -150,10 +137,6 @@ void	display_env(int count, char	**envp)
 
 void	display_env_from_list(t_env_list **env_list)
 {
-    int i;
-    
-    i = 1;
-        
     printf("list size in display_env_from_list%d\n",ft_lstsize_env(*env_list));
     
 	if (*env_list)
