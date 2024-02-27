@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/26 17:46:25 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/27 10:25:08 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ int	builtin_export(t_execcmd_P *ecmd, t_core_struct *core)
     
     i = 1;
     count = 0;
+    if (core->env_list == NULL)
+    {
+        return (1);
+    }
     if (ecmd->argv[i] == NULL)
     {
         count = count_of_env_list(core->env_list);
@@ -35,6 +39,11 @@ int	builtin_export(t_execcmd_P *ecmd, t_core_struct *core)
     }
     while (ecmd->argv[i] && i < 10)
 	{
+	
+	    if (!ft_strchr(ecmd->argv[i], '='))
+	    {
+	        set_env(core, ecmd->argv[i]);
+	    }
 	    printf("ecmd->argv[%d]=%s\n", i, ecmd->argv[i]);
 	   //set_variable(ecmd->argv, core);
 	   i++;

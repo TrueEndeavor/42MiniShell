@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/26 17:27:32 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/27 10:41:43 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	display_new_prompt(t_core_struct *core)
 		len = ft_strlen(prompt);
 		if (len > 0 && prompt[len - 1] == '\n')
 		{
+
 			prompt[len - 1] = '\0';
 		}
 		add_history(prompt);

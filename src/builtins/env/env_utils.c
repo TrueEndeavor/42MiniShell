@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:38:25 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/26 17:47:34 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/27 09:07:21 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 char **convert_env_to_stringarray(t_env_list *env_list)
 {
     t_env_list *env_orig;
+    char	*temp_envp;
     char	**new_envp;
     int     i;
 	int		count;
 
 	count = 0;
+	temp_envp = NULL;
 	env_orig = env_list;
 	if (env_list)
 	{
@@ -36,8 +38,9 @@ char **convert_env_to_stringarray(t_env_list *env_list)
     i = 0;
     while (env_orig)
     {
-        new_envp[i] = ft_strjoin(env_orig->name,"=");
-        new_envp[i] = ft_strjoin(new_envp[i], env_orig->value);
+        temp_envp = ft_strjoin(env_orig->name,"=");
+        new_envp[i] = ft_strjoin(temp_envp, env_orig->value);
+        free(temp_envp);
 		if (!new_envp[i])
 		{
 		    free(new_envp);

@@ -6,7 +6,7 @@
 #    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/02/26 17:37:25 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/02/27 10:25:15 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,9 +54,9 @@ SRCS =  src/main.c \
 		src/builtins/env/ft_lstadd_back_env.c \
 		src/builtins/env/ft_lstdelone_env.c \
 		src/builtins/env/ft_lstlast_env.c \
-		src/builtins/env/ft_lstsize_env.c
-#		src/parser/parser.c \
-		src/parser/AST.c \
+		src/builtins/env/ft_lstsize_env.c \
+		src/builtins/env/get_env.c \
+		src/builtins/env/set_env.c \
 		
 OBJS = $(SRCS:%.c=%.o)
 
