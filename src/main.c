@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/27 15:46:46 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:52:16 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	main(int ac, char *av[], char **envp)
 	}
 	core = malloc(1 * sizeof(t_core_struct));
 	core->env_list = init_env(envp);
+	printf("address of el in main %p\n", &core->env_list);
 	display_new_prompt(core);
 	return (0);
 }

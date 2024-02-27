@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:38:25 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/27 16:15:13 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:08:26 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,18 +116,20 @@ int     count_of_env(char **envp)
     return (count);
 }
 
-int     count_of_env_list(t_env_list *env_list)
+int     count_of_env_list(t_env_list **env_list)
 {
     int		count;
     
     count =0;
-	if (env_list)
+	if (*env_list)
 	{
+printf("address count_of_env_list%p\n", env_list);
+display_env_from_list(env_list);
 		count++;
-		while (env_list->next)
+		while ((*env_list)->next)
 		{
 			count++;
-			env_list = env_list->next;
+			*env_list = (*env_list)->next;
 		}
 	}
 	return (count);
@@ -154,7 +156,7 @@ void	display_env_from_list(t_env_list **env_list)
         
     printf("list size in display_env_from_list%d\n",ft_lstsize_env(*env_list));
     
-	if (env_list)
+	if (*env_list)
 		while ((*env_list)->next)
 		{
 			if ((*env_list)->value != NULL)
