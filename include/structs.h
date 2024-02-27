@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/27 11:06:17 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:33:30 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ typedef enum PARSER_CMD_ENUM
 {
 	EXEC_CMD = 1,
 	REDIR_CMD = 2,
-	PIPE_CMD = 3
+	PIPE_CMD = 3,
+	HERE_CMD = 4	
 }	t_parser_cmd_E;
 
 /* Base structure */
@@ -95,6 +96,13 @@ typedef struct PIPECMD
 	struct CMD			*left;
 	struct CMD			*right;
 }	t_pipecmd_P;
+
+typedef struct HERECMD
+{
+	int					type;
+	struct CMD			*cmd;
+	char				*delimiter;
+}	t_herecmd_P;
 
 /*---------------------- Structures for Minishell  ----------------------*/
 typedef struct ENVLIST

@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/02/26 10:37:25 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:31:59 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_token_T **token)
             (search_for(current_token, T_APPEND_OUT) != NULL))         
     {
         next_tolkien = peek_next_token(current_token);
-        if (next_tolkien->type != T_WORD)
-            panic("missing file for redirection");
+        /* if (next_tolkien->type != T_WORD)
+            panic("missing file for redirection"); */
         file_name = next_tolkien->value;        
         if ((current_token)->type == T_REDIRECT_IN)
         {
@@ -99,6 +99,15 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_token_T **token)
             *token = advance_token(&next_tolkien);
             break ;
         }
+        else if ((current_token)->type == T_HEREDOC)
+        {
+            if (((next_tolkien)->type == T_QUOTED_STRING) || ((next_tolkien)->type == T_DOUBLE_QUOTED_STRING))
+                cmd = create_herecmd(cmd, ft_expand_heredoc(file_name));
+            else
+                cmd = create_herecmd(cmd, file_name);
+            *token = advance_token(&next_tolkien);
+            break ;
+        }        
     }
     return (cmd);    
 }
@@ -129,7 +138,8 @@ t_cmd_P* parse_exec(t_token_T **token)
         }
         else if (((*token)->type != T_REDIRECT_IN) && \
             ((*token)->type != T_REDIRECT_OUT) && \
-            ((*token)->type != T_APPEND_OUT))
+            ((*token)->type != T_APPEND_OUT) && \
+            ((*token)->type != T_HEREDOC))
         {
             cmd->argv[argc] = (*token)->value;
             argc++;

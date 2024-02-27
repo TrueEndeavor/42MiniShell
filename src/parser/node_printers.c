@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 19:11:57 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/13 12:30:36 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:29:47 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,18 @@ void print_pipecmd(t_cmd_P *cmd)
     print_cmd(pipeCmd->left);
     printf("Right command:\n");
     print_cmd(pipeCmd->right);
+}
+
+void printf_herecmd(t_cmd_P *cmd)
+{
+    t_herecmd_P *hereCmd = (t_herecmd_P *)cmd;
+    printf("type: HERE_CMD\n");
+    printf("delimiter: %s\n", hereCmd->delimiter);
+    if (hereCmd->cmd != NULL)
+    {
+        printf("sub-command:\n");
+        print_cmd(hereCmd->cmd);
+    }
 }
 
 void print_cmd(t_cmd_P *cmd) 

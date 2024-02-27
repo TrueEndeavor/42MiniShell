@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:20:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/22 12:38:26 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:27:32 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_token_T	*handle_pipe_token(t_lexer_T *lexer)
 
 t_token_T	*handle_append_out_token(t_lexer_T *lexer)
 {
+	lexer_advance(lexer);
 	return (lexer_advance_with(lexer, init_token(">>", T_APPEND_OUT)));
 }
 
