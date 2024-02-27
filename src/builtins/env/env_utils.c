@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:38:25 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/27 09:07:21 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:15:13 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,24 @@ char **convert_env_to_stringarray(t_env_list *env_list)
 } 
 
 char *getKey(char *s)
-{
-    return(ft_substr(s, 0, (ft_strlen(s) - ft_strlen(ft_strchr(s, '=')))));
+{	char *result;
+	
+	result = ft_strchr(s, '=');
+	if (result)
+        return(ft_substr(s, 0, (ft_strlen(s) - ft_strlen(result))));
+    else    
+        return(s);
 }
 
 char *getValue(char *s)
 {
-    return(ft_substr(s, (ft_strlen(s) - ft_strlen(ft_strchr(s, '='))) + 1, ft_strlen(s)));
+ 	char *result;
+	
+	result = ft_strchr(s, '=');
+	if (result)
+        return (ft_substr(s, (ft_strlen(s) - ft_strlen(result)) + 1, ft_strlen(s)));
+    else
+        return (NULL);
 }
 
 t_env_list    *init_env(char **envp)
@@ -87,6 +98,7 @@ t_env_list    *init_env(char **envp)
 		}
 		i++;
 	}
+	printf("minishell_envp_head address=%p\n", minishell_envp_head);	
     return (minishell_envp_head);
 }
 
@@ -134,16 +146,19 @@ void	display_env(int count, char	**envp)
 	}
 }
 
-void	display_env_from_list(t_env_list *env_list)
+void	display_env_from_list(t_env_list **env_list)
 {
     int i;
     
     i = 1;
+        
+    printf("list size in display_env_from_list%d\n",ft_lstsize_env(*env_list));
     
 	if (env_list)
-		while (env_list->next)
+		while ((*env_list)->next)
 		{
-			printf("%s%s%s\n", env_list->name, "=", env_list->value);
-			env_list = env_list->next;
+			if ((*env_list)->value != NULL)
+				printf("%s%s%s\n", (*env_list)->name, "=", (*env_list)->value);
+			*env_list = (*env_list)->next;
 		}
 }

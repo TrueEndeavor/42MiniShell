@@ -25,10 +25,10 @@ int		builtin_unset(t_execcmd_P *ecmd, t_core_struct *core);
 
 int		count_of_env(char **envp);
 void	display_env(int count, char	**envp);
-void	display_env_from_list(t_env_list *env_list);
+void	display_env_from_list(t_env_list **env_list);
 char	**convert_env_to_stringarray(t_env_list *env_list);
 t_env_list    *init_env(char **envp);
-void	set_env(t_core_struct *core, char *key_value_pair);
+void	set_env(t_env_list *env_list, char *key_value_pair);
 char	*get_env(t_core_struct *core, char *key_to_search);
 
 char *getKey(char *s);
