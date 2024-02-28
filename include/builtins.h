@@ -41,7 +41,7 @@ void		ft_lstdelone_env(t_env_list *lst, void (*del)(void *));
 t_env_list	*ft_lstlast_env(t_env_list *lst);
 int			ft_lstsize_env(t_env_list *lst);
 
-void	sort_env_list(t_env_list *env_list);
+t_env_list	*sort_env_list(t_env_list *env_list);
 t_env_list *deep_copy_env(t_env_list *env_list);
 
 #endif

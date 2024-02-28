@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 12:12:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/28 12:27:37 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/28 18:39:57 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ void	swap_env_nodes(t_env_list *node1, t_env_list *node2)
 	node2->value = temp_value;
 }
 
-void	sort_env_list(t_env_list *env_list)
+t_env_list	*sort_env_list(t_env_list *env_list)
 {
+	t_env_list  *head;
 	t_env_list	*current;
 	t_env_list	*following;
 
-	current = env_list;
+	head = env_list;
+	current = head;
 	while (current != NULL)
 	{
 		following = current->next;
@@ -44,4 +46,5 @@ void	sort_env_list(t_env_list *env_list)
 		}
 		current = current->next;
 	}
+	return (head);
 }
