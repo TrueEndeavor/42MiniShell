@@ -6,7 +6,7 @@
 #    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/02/27 16:32:48 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/02/28 14:08:51 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,8 @@ SRCS =  src/main.c \
 		src/builtins/env/ft_lstdelone_env.c \
 		src/builtins/env/ft_lstlast_env.c \
 		src/builtins/env/ft_lstsize_env.c \
+		src/builtins/env/deep_copy_env.c \
+		src/builtins/env/sort_env_list.c \
 		src/builtins/env/get_env.c \
 		src/builtins/env/set_env.c \
 		

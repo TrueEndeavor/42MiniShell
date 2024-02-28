@@ -24,8 +24,8 @@ int		builtin_pwd(t_execcmd_P *ecmd, t_core_struct *core);
 int		builtin_unset(t_execcmd_P *ecmd, t_core_struct *core);
 
 int		count_of_env(char **envp);
-void	display_env(int count, char	**envp);
-void	display_env_from_list(t_env_list **env_list);
+void	display_env_from_array(int count, char	**envp);
+void	display_env_from_list(t_env_list *env_list, int is_export);
 char	**convert_env_to_stringarray(t_env_list *env_list);
 t_env_list    *init_env(char **envp);
 void	set_env(t_core_struct *core, char *key_value_pair);
@@ -40,5 +40,8 @@ void		ft_lstclear_env(t_env_list **lst, void (*del)(void *));
 void		ft_lstdelone_env(t_env_list *lst, void (*del)(void *));
 t_env_list	*ft_lstlast_env(t_env_list *lst);
 int			ft_lstsize_env(t_env_list *lst);
+
+void	sort_env_list(t_env_list *env_list);
+t_env_list *deep_copy_env(t_env_list *env_list);
 
 #endif
