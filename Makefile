@@ -6,7 +6,7 @@
 #    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/02/28 14:08:51 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/02/29 16:04:58 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRCS =  src/main.c \
 		src/builtins/env/deep_copy_env.c \
 		src/builtins/env/sort_env_list.c \
 		src/builtins/env/get_env.c \
+		src/builtins/env/get_node.c \
 		src/builtins/env/set_env.c \
 		
 OBJS = $(SRCS:%.c=%.o)

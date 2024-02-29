@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:55:02 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/28 10:52:08 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/29 10:25:56 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_env_list	*ft_lstnew_env(char *name, char *value)
 	if (value == NULL)
 		new->value = NULL;
 	else
-		new->value = value;	
+		new->value = value;
 	new->next = NULL;
 	return (new);
 }

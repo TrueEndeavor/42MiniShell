@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:53:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/28 11:41:51 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/29 13:27:33 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int    match_builtin(t_cmd_P *root, t_core_struct *core)
     if (ft_strcmp(ecmd->argv[0], "unset") == 0)
     {
         printf("matched builtin = unset\n");
-        //builtin_unset(ecmd, core);
+        builtin_unset(ecmd, core);
         return (1);        
     } 
     if (ft_strcmp(ecmd->argv[0], "echo") == 0)
@@ -44,13 +44,13 @@ int    match_builtin(t_cmd_P *root, t_core_struct *core)
     if (ft_strcmp(ecmd->argv[0], "cd") == 0)
     {
         printf("matched builtin = cd\n");
-        //builtin_cd(ecmd, core);
+        builtin_cd(ecmd, core);
         return (1);
     }
     if (ft_strcmp(ecmd->argv[0], "pwd") == 0)
     {
         printf("matched builtin = pwd\n");
-        //builtin_pwd(ecmd, core);
+        builtin_pwd(ecmd, core);
         return (1);
     }
     if (ft_strcmp(ecmd->argv[0], "exit") == 0)

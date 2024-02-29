@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 13:41:56 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/28 19:03:23 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/29 10:44:28 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,5 @@ t_env_list *deep_copy_env(t_env_list *env_list)
 		temp = temp->next;
 		i++;
 	}
-	printf("segfault checker %d\n", i);
 	return (new_head);
 }

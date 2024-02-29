@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:38:25 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/28 12:53:54 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/02/29 11:00:54 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,22 @@ char *getKey(char *s)
 
 char *getValue(char *s)
 {
+	char *found_key_at;
 	char *result;
 	
-	result = ft_strchr(s, '=');
-	//TODO:declare variable for the return, free it later	
-	if (result)
-		return (ft_substr(s, (ft_strlen(s) - ft_strlen(result)) + 1, ft_strlen(s)));
+	found_key_at = ft_strchr(s, '=');
+	result = NULL;
+	if (found_key_at){
+		result = ft_substr(s, (ft_strlen(s) - ft_strlen(found_key_at)) + 1, ft_strlen(s));
+	}
 	else
-		return (NULL);
+	{
+		result = ft_calloc(1, sizeof(char));
+		if (!result)
+            return (NULL); 
+        *result = '\0';
+	}		
+	return (result);
 }
 
 t_env_list	*init_env(char **envp)

@@ -43,5 +43,6 @@ int			ft_lstsize_env(t_env_list *lst);
 
 t_env_list	*sort_env_list(t_env_list *env_list);
 t_env_list *deep_copy_env(t_env_list *env_list);
+t_env_list	*get_node(t_core_struct *core, char *key_to_search);
 
 #endif
