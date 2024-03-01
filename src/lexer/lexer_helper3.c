@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:13:30 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/27 11:06:42 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:21:57 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ t_token_T	*handle_expected_tokens(t_lexer_T *lexer)
 		return (handle_word_token(lexer, IS_NOT_A_VARIABLE, \
 									IS_NOT_A_POSSIBLE_NAME));
 	if (ft_isdigit(lexer->c))
-		return (handle_number_token(lexer));
-	if (lexer->c == '|')
-		return (handle_pipe_token(lexer));
+		return (lexer_advance_with(lexer, lexer_parse_number(lexer)));
 	return (NULL);
 
 }
@@ -42,7 +40,7 @@ t_token_T	*handle_redirect_tokens(t_lexer_T *lexer)
 	{
 		if (lexer_peek(lexer, 1) == '>')
 			return (handle_append_out_token(lexer));
-		return (handle_redirect_out_token(lexer));
+		return (lexer_advance_current(lexer, T_REDIRECT_OUT));
 	}
 	if (lexer->c == '<')
 	{

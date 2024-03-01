@@ -6,12 +6,14 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/27 16:24:16 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/01 11:14:50 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+
+bool    syntax_analyzer(t_token_T *current_token);
 
 t_cmd_P	*parse_cmd(t_token_T **token_list);
 t_cmd_P* parse_pipe(t_token_T	**token);

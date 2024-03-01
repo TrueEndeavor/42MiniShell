@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/27 16:28:38 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:37:01 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer, int is_variable, \
 	}
 	if (is_variable & is_possible_name & is_name_by_default)
 	{
-        ret_token = init_token(value, T_VARIABLE);	
+        ret_token = init_token("$", T_VARIABLE);	
 	}
 	else if (is_possible_name & is_name_by_default)
 	{
@@ -164,12 +164,13 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 	while (lexer->c != '\0')
 	{
 		lexer_skip_whitespace(lexer);
-		if (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) || (lexer->c == '|') ||
-		(lexer->c == '_') || (lexer->c == '-') || \
-		(lexer->c == '/') || (lexer->c == '.'))
-			return (handle_expected_tokens(lexer));
+		if (lexer->c == '|')
+			return (lexer_advance_current(lexer, T_PIPE));
 		if (lexer->c == '>' && lexer_peek(lexer, 1) == '>')
-			return (handle_append_out_token(lexer));
+		{
+			lexer_advance(lexer);
+			return (lexer_advance_with(lexer, init_token(">>", T_APPEND_OUT)));
+		}
 		if (lexer->c == '<' && lexer_peek(lexer, 1) == '<')
 			return (handle_heredoc_token(lexer));			
 		if (lexer->c == '>' || lexer->c == '<')
@@ -180,6 +181,11 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 			return (handle_quoted_strings(lexer));			
 		if (lexer->c == '\0')
 			break ;
+/* 		if (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) ||
+		(lexer->c == '_') || (lexer->c == '-') || \
+		(lexer->c == '/') || (lexer->c == '.')) */
+		if (ft_isascii(lexer->c))
+			return (handle_expected_tokens(lexer));
 		handle_unexpected_character(lexer);
 		break ;
 	}
