@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/27 16:33:30 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/03 09:42:40 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,31 @@ typedef struct LEXER_STRUCT
 	char				c;
 	unsigned int		i;
 }	t_lexer_T;
+
+/*----------------- Structures for Syntax Analyser  -----------------*/
+
+/* State Transition Diagram (STT)
+/--------------------------------\
+| State | Condition | Next State |
+|-------|-----------|------------|
+|  q0   |   word    |     q1     |
+|  q0   |   redir   |     q2     |
+|  q1   |   word    |     q1     |
+|  q1   |   pipe    |     q3     |
+|  q1   |   redir   |     q2     |
+|  q2   |   word    |     q1     |
+|  q3   |   word    |     q1     |
+|  q3   |   redir   |     q2     |
+/--------------------------------\ */
+
+typedef enum STATE_ENUM
+{
+	STATE_Q0,
+	STATE_Q1,
+	STATE_Q2,
+	STATE_Q3,
+	STATE_ERROR
+} t_state_enum;
 
 /*---------------------- Structures for Parser  ----------------------*/
 typedef enum PARSER_CMD_ENUM

@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/01 10:37:01 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/04 00:47:25 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ t_token_T	*lexer_advance_current(t_lexer_T *lexer, int type)
 	return (token);
 }
 
+int is_valid_variable_char(char c) 
+{
+    return (ft_isalpha(c) || c == '_');
+}
+
 /**
  * Parses alphabets (word) from the shell command and creates a corresponding 
  * token
@@ -87,17 +92,17 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer, int is_variable, \
 	is_name_by_default = 1;
 	value = ft_calloc(1, sizeof(char));
 	value[0] = '\0';
-	while (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) || \
-		(lexer->c == '_') || (lexer->c == '-') || \
-		(lexer->c == '/') || (lexer->c == '.') || \
-		(lexer->c == '='))
+	while (ft_isascii(lexer->c))
 	{
-		// carson - to add all special chars or do it inverse
-		if ((lexer->c == '-') || \
-			(lexer->c == '/') || (lexer->c == '.'))
+		if (!is_valid_variable_char(lexer->c))
 				is_possible_name = 0;
 		new_size = ft_strlen(value) + 2;
 		new_value = ft_calloc(new_size, sizeof(char));
+		if (!new_value)
+		{
+			free (value);
+			return (NULL);
+		}
 		ft_strlcpy(new_value, value, new_size);
 		value[new_size - 2] = lexer->c;
 		value[new_size - 1] = '\0';
