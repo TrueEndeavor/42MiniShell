@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   node_constructor2.c                                :+:      :+:    :+:   */
+/*   node_constructors2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:25:40 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/02/27 16:29:22 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/04 09:46:47 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_cmd_P	*create_herecmd(t_cmd_P *subcmd, char *limiter)
 	return ((t_cmd_P *)cmd);
 }
 
-char    *ft_expand_heredoc(char *string)
+char    *ft_quote_heredoc(char *string)
 {
     char    *limiter;
     int     i;

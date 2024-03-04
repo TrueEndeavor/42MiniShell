@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/29 15:56:48 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:50:03 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	builtin_cd(t_execcmd_P *ecmd, t_core_struct *core)
     free(old_pwd->value);
     old_pwd->value = ft_strdup(pwd->value);
     free(pwd->value);
-    pwd->value = getcwd(pwd->value, 200);
+    // what if the buff is allocated and some random numbers allocated
+    pwd->value = getcwd(NULL, 0);
     printf ("after update\n");
     printf ("old_pwd_value: %s\n", old_pwd->value);
     printf ("pwd_value: %s\n", pwd->value);

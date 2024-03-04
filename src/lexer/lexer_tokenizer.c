@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/04 00:47:25 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/04 10:35:08 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,37 @@ t_token_T	*lexer_advance_current(t_lexer_T *lexer, int type)
 
 int is_valid_variable_char(char c) 
 {
-    return (ft_isalpha(c) || c == '_');
+    return (ft_isalnum(c) || c == '_');
 }
+
+t_token_T	*lexer_parse_variable(t_lexer_T *lexer)
+{
+	char		*value;
+	char		*new_value;
+	int			new_size;
+	t_token_T	*ret_token;
+
+	ret_token = NULL;
+	value = ft_calloc(1, sizeof(char));
+	value[0] = '\0';
+	while (is_valid_variable_char(lexer->c))
+	{
+		new_size = ft_strlen(value) + 2;
+		new_value = ft_calloc(new_size, sizeof(char));
+		if (!new_value)
+		{
+			free (value);
+			return (NULL);
+		}
+		ft_strlcpy(new_value, value, new_size);
+		value[new_size - 2] = lexer->c;
+		value[new_size - 1] = '\0';
+		lexer_advance(lexer);
+	}
+    ret_token = init_token(value, T_VARIABLE);
+	return (ret_token);
+}
+
 
 /**
  * Parses alphabets (word) from the shell command and creates a corresponding 
@@ -79,23 +108,21 @@ int is_valid_variable_char(char c)
  *
  * @return A token representing the parsed identifier
  */
-t_token_T	*lexer_parse_word(t_lexer_T *lexer, int is_variable, \
-							int is_possible_name)
+t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 {
 	char		*value;
 	char		*new_value;
 	int			new_size;
-	int			is_name_by_default;
 	t_token_T	*ret_token;
 
 	ret_token = NULL;
-	is_name_by_default = 1;
 	value = ft_calloc(1, sizeof(char));
 	value[0] = '\0';
-	while (ft_isascii(lexer->c))
+	while (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c)))
+	/* while (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) ||
+		(lexer->c == '_') || (lexer->c == '-') || \
+		(lexer->c == '/') || (lexer->c == '.'))	 */
 	{
-		if (!is_valid_variable_char(lexer->c))
-				is_possible_name = 0;
 		new_size = ft_strlen(value) + 2;
 		new_value = ft_calloc(new_size, sizeof(char));
 		if (!new_value)
@@ -108,18 +135,7 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer, int is_variable, \
 		value[new_size - 1] = '\0';
 		lexer_advance(lexer);
 	}
-	if (is_variable & is_possible_name & is_name_by_default)
-	{
-        ret_token = init_token("$", T_VARIABLE);	
-	}
-	else if (is_possible_name & is_name_by_default)
-	{
-        ret_token = init_token(value, T_NAME);
-    } 
-    else if (!(is_possible_name & is_name_by_default))
-    {
-        ret_token = init_token(value, T_WORD);
-    }
+    ret_token = init_token(value, T_WORD);
 	return (ret_token);
 }
 
@@ -186,10 +202,10 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 			return (handle_quoted_strings(lexer));			
 		if (lexer->c == '\0')
 			break ;
-/* 		if (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) ||
+ 		/*if (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) ||
 		(lexer->c == '_') || (lexer->c == '-') || \
 		(lexer->c == '/') || (lexer->c == '.')) */
-		if (ft_isascii(lexer->c))
+		if (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c)))
 			return (handle_expected_tokens(lexer));
 		handle_unexpected_character(lexer);
 		break ;
@@ -197,3 +213,56 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 	return (init_token(";", T_LINEBREAK));
 }
 	
+	
+	
+	
+	/**** OLD PARSE WORD FUNCTION WITH NAME VALIDATIONS AND FLAGS FOR VARIABLE
+	
+	t_token_T	*lexer_parse_word(t_lexer_T *lexer, int is_variable, \
+							int is_possible_name)
+{
+	char		*value;
+	char		*new_value;
+	int			new_size;
+	int			is_name_by_default;
+	t_token_T	*ret_token;
+
+	ret_token = NULL;
+	is_name_by_default = 1;
+	value = ft_calloc(1, sizeof(char));
+	value[0] = '\0';
+	//while (ft_isascii(lexer->c))
+	while (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) ||
+		(lexer->c == '_') || (lexer->c == '-') || \
+		(lexer->c == '/') || (lexer->c == '.'))	
+	{
+		if (!is_valid_variable_char(lexer->c))
+				is_possible_name = 0;
+		new_size = ft_strlen(value) + 2;
+		new_value = ft_calloc(new_size, sizeof(char));
+		if (!new_value)
+		{
+			free (value);
+			return (NULL);
+		}
+		ft_strlcpy(new_value, value, new_size);
+		value[new_size - 2] = lexer->c;
+		value[new_size - 1] = '\0';
+		lexer_advance(lexer);
+	}
+	if (is_variable & is_possible_name & is_name_by_default)
+	{
+        ret_token = init_token("$", T_VARIABLE);	
+	}
+	else if (is_possible_name & is_name_by_default)
+	{
+        ret_token = init_token(value, T_NAME);
+    } 
+    else if (!(is_possible_name & is_name_by_default))
+    {
+        ret_token = init_token(value, T_WORD);
+    }
+	return (ret_token);
+}
+
+	*/

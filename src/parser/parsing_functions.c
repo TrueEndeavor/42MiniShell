@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/02/27 22:05:26 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:06:46 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,29 @@ t_token_T	*advance_token(t_token_T **current_token)
 	return (NULL);
 }
 
-t_cmd_P	*parse_cmd(t_token_T **token_head)
+t_cmd_P	*parse_cmd(t_core_struct *core)
 {
 	t_cmd_P		*cmd;
+	t_token_T   **token_list_copy;
     
-    if (token_head == NULL || *token_head == NULL)
+    if (core->token_head == NULL || *core->token_head == NULL)
     {
         return (NULL);
     }
-	cmd = parse_pipe(token_head);
+    token_list_copy = core->token_head;
+	cmd = parse_pipe(core);
 	print_cmd(cmd);
+	core->token_head = token_list_copy;
 	return (cmd);
 }
 
-t_cmd_P* parse_redirs(t_cmd_P *cmd, t_token_T **token)
+t_cmd_P* parse_redirs(t_cmd_P *cmd, t_core_struct *core)
 {
     char    *file_name;
     t_token_T *next_tolkien;
     t_token_T *current_token;    
 
-    current_token = *token;  
+    current_token = *(core->token_head);  
     while ((search_for(current_token, T_REDIRECT_IN) != NULL) || \
             (search_for(current_token, T_REDIRECT_OUT) != NULL) || \
             (search_for(current_token, T_HEREDOC) != NULL) || \
@@ -72,45 +75,60 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_token_T **token)
         file_name = next_tolkien->value;        
         if ((current_token)->type == T_REDIRECT_IN)
         {
+            if (next_tolkien->type == T_VARIABLE)
+            {
+                // The expand has to happen here
+                file_name = get_env(core, file_name);
+            }
             cmd = create_redircmd(cmd, file_name, O_RDONLY, 0);
-            *token = advance_token(&next_tolkien);
-            if (((*token)->type != T_REDIRECT_IN) && \
-                ((*token)->type != T_REDIRECT_OUT) && \
-                ((*token)->type != T_APPEND_OUT))
+            *core->token_head = advance_token(&next_tolkien);
+            if (((*core->token_head)->type != T_REDIRECT_IN) && \
+                ((*core->token_head)->type != T_REDIRECT_OUT) && \
+                ((*core->token_head)->type != T_APPEND_OUT))
                     set_read_from((t_redircmd_P *)cmd, 1);            
             break ;
         }
         else if ((current_token)->type == T_REDIRECT_OUT)
         {
+            if (next_tolkien->type == T_VARIABLE)
+            {
+                // The expand has to happen here
+                file_name = get_env(core, file_name);
+            }        
             cmd = create_redircmd(cmd, file_name, O_WRONLY | O_CREAT | O_TRUNC, 1);
-            *token = advance_token(&next_tolkien);
-            if (((*token)->type != T_REDIRECT_IN) && \
-                ((*token)->type != T_REDIRECT_OUT) && \
-                ((*token)->type != T_APPEND_OUT))
+            *core->token_head = advance_token(&next_tolkien);
+            if (((*core->token_head)->type != T_REDIRECT_IN) && \
+                ((*core->token_head)->type != T_REDIRECT_OUT) && \
+                ((*core->token_head)->type != T_APPEND_OUT))
                     set_write_into((t_redircmd_P *)cmd, 1);
                 
             break ;
         }
         else if ((current_token)->type == T_APPEND_OUT)
         {
+            if (next_tolkien->type == T_VARIABLE)
+            {
+                // The expand has to happen here
+                file_name = get_env(core, file_name);
+            }        
             cmd = create_redircmd(cmd, file_name, O_WRONLY | O_CREAT, 1);
-            *token = advance_token(&next_tolkien);
+            *core->token_head = advance_token(&next_tolkien);
             break ;
         }
         else if ((current_token)->type == T_HEREDOC)
         {
             if (((next_tolkien)->type == T_QUOTED_STRING) || ((next_tolkien)->type == T_DOUBLE_QUOTED_STRING))
-                cmd = create_herecmd(cmd, ft_expand_heredoc(file_name));
+                cmd = create_herecmd(cmd, ft_quote_heredoc(file_name));
             else
                 cmd = create_herecmd(cmd, file_name);
-            *token = advance_token(&next_tolkien);
+            *core->token_head = advance_token(&next_tolkien);
             break ;
         }        
     }
     return (cmd);    
 }
 
-t_cmd_P* parse_exec(t_token_T **token)
+t_cmd_P* parse_exec(t_core_struct *core)
 {
     t_execcmd_P *cmd;
     t_cmd_P *ret;
@@ -119,50 +137,51 @@ t_cmd_P* parse_exec(t_token_T **token)
     ret = create_execcmd();
     cmd = (t_execcmd_P*) ret;
     argc = 0;
-    ret = parse_redirs(ret, token);
+    ret = parse_redirs(ret, core);
     
-    while ((*token)->type != T_PIPE)
+    while ((*core->token_head)->type != T_PIPE)
     {
-        if ((*token)->type == T_LINEBREAK)
+        // Quoting
+        if ((*core->token_head)->type == T_LINEBREAK)
             break ;
-        if ((*token)->type == T_VARIABLE)
+        if ((*core->token_head)->type == T_VARIABLE)
         {
-            *token = advance_token(token);
-            cmd->argv[argc] = (*token)->value;
+            // The expand has to happen here
+            cmd->argv[argc] = get_env(core, (*core->token_head)->value);
             argc++;
             if (argc >= MAXARGS)
                 panic("too many args");
-            *token = advance_token(token);
+            *core->token_head = advance_token(core->token_head);
         }
-        else if (((*token)->type != T_REDIRECT_IN) && \
-            ((*token)->type != T_REDIRECT_OUT) && \
-            ((*token)->type != T_APPEND_OUT) && \
-            ((*token)->type != T_HEREDOC))
+        else if (((*core->token_head)->type != T_REDIRECT_IN) && \
+            ((*core->token_head)->type != T_REDIRECT_OUT) && \
+            ((*core->token_head)->type != T_APPEND_OUT) && \
+            ((*core->token_head)->type != T_HEREDOC))
         {
-            cmd->argv[argc] = (*token)->value;
+            cmd->argv[argc] = (*core->token_head)->value;
             argc++;
             if (argc >= MAXARGS)
                 panic("too many args");
-            *token = advance_token(token);
+            *core->token_head = advance_token(core->token_head);
         }
         
-        ret = parse_redirs(ret, token);
+        ret = parse_redirs(ret, core);
     }
     cmd->argv[argc] = 0;
     return (ret);
 }
 
-t_cmd_P* parse_pipe(t_token_T	**token)
+t_cmd_P* parse_pipe(t_core_struct *core)
 {
     t_cmd_P  *cmd;
     
-    cmd = parse_exec(token);
-    if (search_for(*token, T_PIPE))
+    cmd = parse_exec(core);
+    if (search_for(*core->token_head, T_PIPE))
     {
-        *token = advance_token(token);
-        if (((*token)->type != T_WORD) && ((*token)->type != T_NAME))
+        *core->token_head = advance_token(core->token_head);
+        if (((*core->token_head)->type != T_WORD))
             panic("syntax error\n");
-        cmd = create_pipecmd(cmd, parse_pipe(token));
+        cmd = create_pipecmd(cmd, parse_pipe(core));
     }
     return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/27 11:05:51 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/04 10:00:26 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ char		lexer_peek(t_lexer_T *lexer, int offset);
 t_token_T	*lexer_advance_with(t_lexer_T *lexer, t_token_T *token);
 t_token_T	*lexer_advance_current(t_lexer_T *lexer, int type);
 void		lexer_skip_whitespace(t_lexer_T *lexer);
-t_token_T	*lexer_parse_word(t_lexer_T *lexer, int is_variable, \
-                                int is_possible_name);
+t_token_T	*lexer_parse_word(t_lexer_T *lexer);
+t_token_T	*lexer_parse_variable(t_lexer_T *lexer);                                
 t_token_T	*lexer_parse_number(t_lexer_T *lexer);
 t_token_T	*lexer_scan_token(t_lexer_T *lexer);
 
+int			is_valid_variable_char(char c);
+
 //t_token_T	*handle_word_token(t_lexer_T *lexer);
-t_token_T	*handle_word_token(t_lexer_T *lexer, int is_variable, \
-                                int is_possible_name);
+//t_token_T	*handle_name_token(t_lexer_T *lexer);
+t_token_T	*handle_word_token(t_lexer_T *lexer);
 t_token_T	*handle_number_token(t_lexer_T *lexer);
 t_token_T	*handle_variable_token(t_lexer_T *lexer);
 t_token_T	*handle_pipe_token(t_lexer_T *lexer);

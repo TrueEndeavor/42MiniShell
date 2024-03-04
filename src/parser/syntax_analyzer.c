@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:06:36 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/03 10:18:13 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:10:17 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,18 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
 {
 	if (state == STATE_Q0)
 	{
-		if ((token_type == T_WORD) || (token_type == T_NAME))
+		if ((token_type == T_WORD) || (token_type == T_VARIABLE))
+			return (STATE_Q1);
+		if ((token_type == T_REDIRECT_IN) || \
+			(token_type == T_REDIRECT_OUT) || \
+			(token_type == T_HEREDOC) || \
+			(token_type == T_APPEND_OUT))
 			return (STATE_Q1);
 		return (STATE_ERROR);
 	}
 	if (state == STATE_Q1)
 	{
-		if ((token_type == T_WORD) || (token_type == T_NAME))
+		if ((token_type == T_WORD) || (token_type == T_VARIABLE))
 			return (STATE_Q1);
 		if (token_type == T_PIPE)
 			return (STATE_Q3);
@@ -69,13 +74,13 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
 	}
 	if (state == STATE_Q2)
 	{
-		if ((token_type == T_WORD) || (token_type == T_NAME))
+		if ((token_type == T_WORD) || (token_type == T_VARIABLE))
 			return (STATE_Q1);
 		return (STATE_ERROR);
 	}
 	if (state == STATE_Q3)
 	{
-		if ((token_type == T_WORD) || (token_type == T_NAME))
+		if ((token_type == T_WORD || (token_type == T_VARIABLE)))
 			return (STATE_Q1);
 		if ((token_type == T_REDIRECT_IN) || \
 			(token_type == T_REDIRECT_OUT) || \
@@ -98,10 +103,11 @@ bool	syntax_analyzer(t_token_T *tokens)
 	t_token_T	*current;
 	t_state_enum	state;
 
+	current = tokens;
 	if (current == NULL)
 	{
 		ft_printf("Token list empty\n");
-		return ;
+		return (false);
 	}
 	current = tokens;
 	state = STATE_Q0;
@@ -114,7 +120,7 @@ bool	syntax_analyzer(t_token_T *tokens)
 			printf("Syntax error\n");
 			return (false);
 		}
-		printf("state changed to:", state);
+		printf("state changed to: %d\n", state);
 		current = current->next;
 	}
 	return (true);

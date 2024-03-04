@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/01 11:14:50 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/04 11:28:40 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 bool    syntax_analyzer(t_token_T *current_token);
 
-t_cmd_P	*parse_cmd(t_token_T **token_list);
-t_cmd_P* parse_pipe(t_token_T	**token);
+t_cmd_P	*parse_cmd(t_core_struct *core);
+t_cmd_P* parse_pipe(t_core_struct *core);
 
 t_cmd_P	*create_execcmd(void);
 t_cmd_P	*create_redircmd(t_cmd_P *subcmd, char *file, int mode, int fd);
@@ -28,6 +28,6 @@ void	set_read_from(t_redircmd_P *cmd, int readable);
 
 void print_cmd(t_cmd_P *cmd);
 
-char    *ft_expand_heredoc(char *string);
+char    *ft_quote_heredoc(char *string);
 
 #endif

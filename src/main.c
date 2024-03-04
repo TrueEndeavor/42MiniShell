@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/01 11:13:32 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:10:23 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,11 @@ void	display_new_prompt(t_core_struct *core)
 			break ;
 		}
 		token_head = minishell_compile(prompt);
-print_token_list(token_head);
-		
-		root = parse_cmd(&token_head);
+		core->token_head = &token_head;
+print_token_list(*core->token_head);
+	    if (syntax_analyzer(*core->token_head))
+		{
+			root = parse_cmd(core);
 		// built-ins
 		if (root->type == EXEC_CMD)
 		{
@@ -83,7 +85,12 @@ print_token_list(token_head);
 				run_cmd(root, core);
 			wait(0);
 		}
-		printf("\n");
+		}
+		else
+		{
+			printf("syntax check finished\n");
+			//free everything
+		}
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:20:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/01 10:22:19 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/04 10:38:37 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,20 @@
  *
  * @return A token representing the identifier
  * ************************************************************************* */
-t_token_T	*handle_word_token(t_lexer_T *lexer, int is_variable, int is_possible_name)
+t_token_T	*handle_word_token(t_lexer_T *lexer)
 {
-	return (lexer_advance_with(lexer, lexer_parse_word(lexer, is_variable, is_possible_name)));
+	return (lexer_advance_with(lexer, lexer_parse_word(lexer)));
+}
+
+t_token_T	*handle_variable_token(t_lexer_T *lexer)
+{
+	// If there is a need to keep the dollar symbol, here is how we do it.
+	//init_token("$", T_DOLLAR);function and keep the above init
+	// don't have to advance, but call the return function and keep the above init
+	lexer_advance(lexer);
+	//return (lexer_advance_with(lexer, lexer_parse_variable(lexer)));
+	return lexer_parse_variable(lexer);
+	
 }
 
 /* t_token_T	*handle_number_token(t_lexer_T *lexer)

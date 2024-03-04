@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:13:30 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/01 10:21:57 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/04 10:31:29 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,25 @@
 
 t_token_T	*handle_expected_tokens(t_lexer_T *lexer)
 {
-	// Names start with alphabets or _
+/* 	// Names start with alphabets or _
 	if (ft_isalpha(lexer->c) || (lexer->c == '_'))
 		return (handle_word_token(lexer, IS_NOT_A_VARIABLE, \
-									IS_A_POSSIBLE_NAME));
+									IS_A_POSSIBLE_NAME)); */
 	// To find if it is a variable - starts with a $ followed by a name
-	if (lexer->c == '$')
+/*	if (lexer->c == '$')
 		return (handle_word_token(lexer, IS_A_VARIABLE, \
-									IS_A_POSSIBLE_NAME));		
-	
- 	if (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) || \
+									IS_A_POSSIBLE_NAME));	*/	
+	if (lexer->c == '$')
+	{
+		if (is_valid_variable_char(lexer_peek(lexer, 1)))
+			return (handle_variable_token(lexer));
+		return (NULL);
+	}
+	if (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c)))
+ 	/* if (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) || \
 		(lexer->c == '_') || (lexer->c == '-') || \
-		(lexer->c == '/') || (lexer->c == '.'))
-		return (handle_word_token(lexer, IS_NOT_A_VARIABLE, \
-									IS_NOT_A_POSSIBLE_NAME));
+		(lexer->c == '/') || (lexer->c == '.')) */
+		return (handle_word_token(lexer));
 	if (ft_isdigit(lexer->c))
 		return (lexer_advance_with(lexer, lexer_parse_number(lexer)));
 	return (NULL);

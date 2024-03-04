@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/03 09:42:40 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/04 11:22:29 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,16 @@ typedef enum TOKEN_TYPE_ENUM
 {
 	T_START = 0,
 	T_WORD = 1,
-	T_NAME = 2,
-	T_VARIABLE = 3,	
-	T_ASSIGNMENT_WORD  = 4,
-	T_IO_NUMBER = 5,
-	T_DOLLAR = 6,	
-	T_PIPE = 7,
-	T_REDIRECT_IN = 8,
-	T_REDIRECT_OUT = 9,
-	T_HEREDOC = 10,
-	T_APPEND_OUT = 11,
-	T_LINEBREAK = 12,
-	T_QUOTED_STRING = 13,
-	T_DOUBLE_QUOTED_STRING = 14	
+	T_VARIABLE = 2,	
+	T_IO_NUMBER = 3,
+	T_PIPE = 4,
+	T_REDIRECT_IN = 5,
+	T_REDIRECT_OUT = 6,
+	T_HEREDOC = 7,
+	T_APPEND_OUT = 8,
+	T_LINEBREAK = 9,
+	T_QUOTED_STRING = 10,
+	T_DOUBLE_QUOTED_STRING = 11
 }	t_token_type_E;
 
 typedef struct TOKEN_STRUCT
@@ -140,6 +137,7 @@ typedef struct ENVLIST
 typedef struct CORESTRUCT
 {
 	t_env_list				*env_list;
+	t_token_T				**token_head;
 }	t_core_struct;
 
 
