@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/04 11:28:40 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:14:43 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ void	set_read_from(t_redircmd_P *cmd, int readable);
 void print_cmd(t_cmd_P *cmd);
 
 char    *ft_quote_heredoc(char *string);
+char    *quote_string(char *str, t_core_struct *core, int quotes);
+
 
 #endif

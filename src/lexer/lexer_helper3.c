@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:13:30 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/04 10:31:29 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:08:49 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_token_T	*lexer_parse_quoted_string(t_lexer_T *lexer)
 	value[0] = '\'';
 	value[1] = '\0';
 	lexer_advance(lexer);
-	while ((lexer->c != 39) && (lexer_peek(lexer, 1) != ' '))
+	while ((lexer->c != 39) || ((lexer->c == 39) && ft_isprint(lexer_peek(lexer, 1)) && !ft_iswhitespace(lexer_peek(lexer, 1))))
 	{
 		if (lexer->c == '\0')
 			panic("end of line reached before quote finished");
@@ -111,7 +111,7 @@ t_token_T	*lexer_parse_double_quoted_string(t_lexer_T *lexer)
 	value[0] = '\"';
 	value[1] = '\0';
 	lexer_advance(lexer);
-	while ((lexer->c != 34) && (lexer_peek(lexer, 1) != ' '))
+	while ((lexer->c != 34) || ((lexer->c == 34) && ft_isprint(lexer_peek(lexer, 1)) && !ft_iswhitespace(lexer_peek(lexer, 1))))
 	{
 		if (lexer->c == '\0')
 			panic("end of line reached before quote finished");

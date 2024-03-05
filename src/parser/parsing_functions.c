@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/04 12:06:46 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:21:26 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,19 @@ t_cmd_P* parse_exec(t_core_struct *core)
     while ((*core->token_head)->type != T_PIPE)
     {
         // Quoting
+        if ((*core->token_head)->type == T_QUOTED_STRING)
+        {
+            printf ("value of quote before: %s\n", (*core->token_head)->value);
+            (*core->token_head)->value = quote_string((*core->token_head)->value, core, 1);
+            printf ("value of quote after: %s\n", (*core->token_head)->value);
+        }
+        if ((*core->token_head)->type == T_DOUBLE_QUOTED_STRING)
+        {
+            printf ("value of quote before: %s\n", (*core->token_head)->value);
+            (*core->token_head)->value = quote_string((*core->token_head)->value, core, 2);
+            printf ("value of quote after: %s\n", (*core->token_head)->value);
+        }
+        // End of quoting
         if ((*core->token_head)->type == T_LINEBREAK)
             break ;
         if ((*core->token_head)->type == T_VARIABLE)

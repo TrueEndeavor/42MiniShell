@@ -6,7 +6,7 @@
 #    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/03/04 10:54:26 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/03/05 16:37:58 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRCS =  src/main.c \
 		src/builtins/env/get_env.c \
 		src/builtins/env/get_node.c \
 		src/builtins/env/set_env.c \
+		src/parser/quoting.c \
 		
 OBJS = $(SRCS:%.c=%.o)
 
