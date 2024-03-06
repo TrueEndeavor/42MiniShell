@@ -6,11 +6,13 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/04 13:10:23 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:31:57 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_signum;
 
 t_token_T	*minishell_compile(char *src)
 {
@@ -25,7 +27,6 @@ t_token_T	*minishell_compile(char *src)
 	token_head = tok;
 	while (tok->type != T_LINEBREAK)
 	{
-		if (tok)
 		if (prev_tok != NULL)
 			prev_tok->next = tok;
 		prev_tok = tok;
@@ -44,13 +45,17 @@ void	display_new_prompt(t_core_struct *core)
 	t_token_T	*token_head;
 	t_cmd_P	*   root;
 
+	prompt = NULL;
+	g_signum = 0;
 	while (1)
 	{
+		// Signals: Readline
+		set_signal_receiver_readline();
 		prompt = readline("jollyshell$> ");
-		if (prompt == NULL)
+		if (prompt[0] == '\0')
 		{
-			perror("readline");
-			exit(EXIT_FAILURE);
+			//perror("readline");
+			exit (EXIT_FAILURE);
 		}
 		len = ft_strlen(prompt);
 		if (len > 0 && prompt[len - 1] == '\n')
