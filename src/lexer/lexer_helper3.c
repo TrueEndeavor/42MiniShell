@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:13:30 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/05 16:08:49 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/06 09:46:34 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_token_T	*handle_redirect_tokens(t_lexer_T *lexer)
 t_token_T	*handle_quoted_strings(t_lexer_T *lexer)
 {
 	if (lexer->c == '\'')
-		return (lexer_advance_with(lexer, lexer_parse_quoted_string(lexer)));
+		return (lexer_parse_quoted_string(lexer));
 	if (lexer->c == '\"')
 		return (lexer_advance_with(lexer, lexer_parse_double_quoted_string(lexer)));
 	return (NULL);
@@ -74,11 +74,10 @@ t_token_T	*lexer_parse_quoted_string(t_lexer_T *lexer)
 	t_token_T	*ret_token;
 
 	ret_token = NULL;
-	value = ft_calloc(2, sizeof(char));
-	value[0] = '\'';
-	value[1] = '\0';
+	value = ft_calloc(1, sizeof(char));
+	value[0] = '\0';
 	lexer_advance(lexer);
-	while ((lexer->c != 39) || ((lexer->c == 39) && ft_isprint(lexer_peek(lexer, 1)) && !ft_iswhitespace(lexer_peek(lexer, 1))))
+	while (lexer->c != 39)
 	{
 		if (lexer->c == '\0')
 			panic("end of line reached before quote finished");
@@ -89,12 +88,16 @@ t_token_T	*lexer_parse_quoted_string(t_lexer_T *lexer)
 		value[new_size - 1] = '\0';
 		lexer_advance(lexer);
 	}
-		new_size = ft_strlen(value) + 2;
+		new_size = ft_strlen(value) + 1;
 		new_value = ft_calloc(new_size, sizeof(char));
 		ft_strlcpy(new_value, value, new_size);
-		value[new_size - 2] = lexer->c;
 		value[new_size - 1] = '\0';
 		lexer_advance(lexer);
+		if (value[0] == '\0')
+		{
+			free (value);
+			return (lexer_scan_token(lexer));
+		}
 	ret_token = init_token(value, T_QUOTED_STRING);
 	return (ret_token);
 }
@@ -107,11 +110,10 @@ t_token_T	*lexer_parse_double_quoted_string(t_lexer_T *lexer)
 	t_token_T	*ret_token;
 
 	ret_token = NULL;
-	value = ft_calloc(2, sizeof(char));
-	value[0] = '\"';
-	value[1] = '\0';
+	value = ft_calloc(1, sizeof(char));
+	value[0] = '\0';
 	lexer_advance(lexer);
-	while ((lexer->c != 34) || ((lexer->c == 34) && ft_isprint(lexer_peek(lexer, 1)) && !ft_iswhitespace(lexer_peek(lexer, 1))))
+	while (lexer->c != 34)
 	{
 		if (lexer->c == '\0')
 			panic("end of line reached before quote finished");
@@ -122,12 +124,16 @@ t_token_T	*lexer_parse_double_quoted_string(t_lexer_T *lexer)
 		value[new_size - 1] = '\0';
 		lexer_advance(lexer);
 	}
-	new_size = ft_strlen(value) + 2;
+	new_size = ft_strlen(value) + 1;
 	new_value = ft_calloc(new_size, sizeof(char));
 	ft_strlcpy(new_value, value, new_size);
-	value[new_size - 2] = lexer->c;
 	value[new_size - 1] = '\0';
 	lexer_advance(lexer);
+	if (value[0] == '\0')
+	{
+		free (value);
+		return (lexer_scan_token(lexer));
+	}
 	ret_token = init_token(value, T_DOUBLE_QUOTED_STRING);
 	return (ret_token);
 }

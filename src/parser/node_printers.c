@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 19:11:57 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/27 16:29:47 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/06 09:55:21 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void print_pipecmd(t_cmd_P *cmd)
     print_cmd(pipeCmd->right);
 }
 
-void printf_herecmd(t_cmd_P *cmd)
+void print_herecmd(t_cmd_P *cmd)
 {
     t_herecmd_P *hereCmd = (t_herecmd_P *)cmd;
     printf("type: HERE_CMD\n");
@@ -76,6 +76,9 @@ void print_cmd(t_cmd_P *cmd)
             break;
         case PIPE_CMD:
             print_pipecmd(cmd);
+            break;
+        case HERE_CMD:
+            print_herecmd(cmd);
             break;
         default:
             printf("Unknown command type\n");

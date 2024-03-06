@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/05 16:21:26 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/06 09:52:54 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,7 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_core_struct *core)
         }
         else if ((current_token)->type == T_HEREDOC)
         {
-            if (((next_tolkien)->type == T_QUOTED_STRING) || ((next_tolkien)->type == T_DOUBLE_QUOTED_STRING))
-                cmd = create_herecmd(cmd, ft_quote_heredoc(file_name));
-            else
-                cmd = create_herecmd(cmd, file_name);
+            cmd = create_herecmd(cmd, file_name);
             *core->token_head = advance_token(&next_tolkien);
             break ;
         }        
@@ -142,16 +139,10 @@ t_cmd_P* parse_exec(t_core_struct *core)
     while ((*core->token_head)->type != T_PIPE)
     {
         // Quoting
-        if ((*core->token_head)->type == T_QUOTED_STRING)
-        {
-            printf ("value of quote before: %s\n", (*core->token_head)->value);
-            (*core->token_head)->value = quote_string((*core->token_head)->value, core, 1);
-            printf ("value of quote after: %s\n", (*core->token_head)->value);
-        }
         if ((*core->token_head)->type == T_DOUBLE_QUOTED_STRING)
         {
             printf ("value of quote before: %s\n", (*core->token_head)->value);
-            (*core->token_head)->value = quote_string((*core->token_head)->value, core, 2);
+            //(*core->token_head)->value = quote_string((*core->token_head)->value, core, 2);
             printf ("value of quote after: %s\n", (*core->token_head)->value);
         }
         // End of quoting
