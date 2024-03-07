@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/07 11:12:32 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:18:55 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	display_new_prompt(t_core_struct *core)
 	t_cmd_P	*   root;
 
 	prompt = NULL;
-	g_signum = 0;
+	g_signum = 5;
 	while (1)
 	{
 		// Signals: Readline
