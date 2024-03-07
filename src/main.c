@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/07 12:09:41 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:50:26 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	display_new_prompt(t_core_struct *core)
 	t_cmd_P	*   root;
 
 	prompt = NULL;
-	g_signum = 0;
+	g_exit_code = 0;
 	while (1)
 	{
 		// Signals: Readline
@@ -85,8 +85,8 @@ print_token_list(*core->token_head);
 					printf("child pid: %d\n", getpid());
 					run_cmd(root, core);
 				}
-				g_signum = 0;
-				waitpid(-1, &g_signum, 0);
+				g_exit_code = 0;
+				waitpid(-1, &g_exit_code, 0);
 				//wait(0);
 			}
 		}

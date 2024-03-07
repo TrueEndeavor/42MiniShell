@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:49:03 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/22 19:02:33 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:26:18 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		fork1(void);
 
 /*----------------------------- PIPEX Functions -----------------------------*/
 
-void	ft_execute(char **argv, char **envp);
+int 	ft_execute(char **argv, char **envp);
 char	*ft_get_path(char *cmd, char **envp);
 void	ft_error(char *str);
 void	ft_free(char *path, char **cmd);

@@ -3,39 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:25:40 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/26 10:30:24 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:48:01 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_execute(char **cmd, char **envp)
+int		ft_execute(char **cmd, char **envp)
 {
 	char	*path;
-
+	
+	path = NULL;
 	if (cmd[0][0] == '/' || ft_strncmp(cmd[0], "./", 2) == 0)
 	{
 		if (execve(cmd[0], cmd, envp) == -1)
 		{
-			ft_free(NULL, cmd);
-			ft_error("execve failed\n");
+			printf("execve failed\n");
+			return (1);
 		}
 	}
 	path = ft_get_path(cmd[0], envp);
-	printf ("path is %s\n", path);
-	if (!path)
+	printf ("path is:-%s-\n", path);
+	if (path == NULL)
 	{
-		ft_free(path, cmd);
-		ft_error("PATH not found\n");
+		printf ("got here\n");
+		ft_free(path, NULL);
+		printf("PATH not found\n");
+		return (127);
 	}
 	if (execve(path, cmd, envp) == -1)
 	{
-		ft_free(path, cmd);
-		ft_error("execve failed\n");
+		printf ("got there\n");
+		ft_free(path, NULL);
+		printf("execve failed\n");
 	}
+	printf ("E\n");
+	return (1);
 }
 
 char	*ft_get_path(char *cmd, char **envp)
@@ -83,10 +89,3 @@ void	ft_free(char *path, char **cmd)
 		free(cmd);
 	}
 }
-
-void	ft_error(char *str)
-{
-	ft_putstr_fd(str, 2);
-	exit(EXIT_FAILURE);
-}
-

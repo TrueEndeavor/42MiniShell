@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/07 11:29:30 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:48:37 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ void	runcmd_exec(t_cmd_P *cmd, t_core_struct *core)
 		exit (1);
 	printf("######RUNCMD_EXEC######\n");
 	printf("THE COMMAND IS = %s\n", ecmd->argv[0]);
-	ft_execute(ecmd->argv, convert_env_to_stringarray(core->env_list));
+	g_exit_code = ft_execute(ecmd->argv, convert_env_to_stringarray(core->env_list));
 	dprintf(2, "exec %s failed\n", ecmd->argv[0]);
+	exit(g_exit_code);
 }
 
 void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core)
