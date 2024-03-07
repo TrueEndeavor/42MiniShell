@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/07 10:26:35 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:12:57 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	display_new_prompt(t_core_struct *core)
 	t_cmd_P	*   root;
 
 	prompt = NULL;
-	g_signum = 0;
+	g_signum = 2;
 	while (1)
 	{
 		// Signals: Readline
