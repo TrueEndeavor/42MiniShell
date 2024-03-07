@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/04 13:50:03 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 10:36:46 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ int	builtin_cd(t_execcmd_P *ecmd, t_core_struct *core)
     
     old_pwd = get_node(core, "OLDPWD");
     pwd = get_node(core, "PWD");
-    if (ft_strcmp(ecmd->argv[1], "-") == 0)
+    if (ecmd->argv[1] == NULL)
+        chdir(get_env(core, "HOME"));
+    else if (ft_strcmp(ecmd->argv[1], "-") == 0)
     {
         if (chdir (old_pwd->value) == -1)
         {

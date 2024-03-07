@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:05:08 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/06 17:54:14 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 09:35:57 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,23 @@ void sighandler_readline(int signum)
 		rl_on_new_line();
 		rl_redisplay();
 	}
+	if (signum == SIGQUIT)
+	{
+	    write(1, "\33[2K\r", 5);
+		rl_on_new_line();
+		rl_redisplay();
+    }
 }
 
 void set_signal_receiver_readline(void)
 {
-    // 3 possibilities - just like that, static, malloc from the main
 	struct sigaction readline_sig;
-	struct sigaction readline_sig1;
 	
 	readline_sig.sa_handler = sighandler_readline;
-	readline_sig.sa_flags = 0;
+	readline_sig.sa_flags = SA_RESTART;
 	sigemptyset(&readline_sig.sa_mask);
 	sigaction(SIGINT, &readline_sig, NULL);
-	
-	
-	
-	readline_sig1.sa_handler = SIG_IGN;
-	readline_sig1.sa_flags = 0;
-	sigemptyset(&readline_sig1.sa_mask);
-	sigaction(SIGQUIT, &readline_sig1, NULL);	
+	sigaction(SIGQUIT, &readline_sig, NULL);	
 }
 
 

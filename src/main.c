@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/06 16:31:57 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 10:26:35 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,30 @@ print_token_list(*core->token_head);
 		// built-ins
 		if (root->type == EXEC_CMD)
 		{
+		printf("parent pid: %d\n", getpid());
 			if (!match_builtin(root, core))
 			{
 				if(fork1() == 0)
+				{
+					printf("child pid: %d\n", getpid());
 					run_cmd(root, core);
-				wait(0);
+				}
+				g_signum = 0;
+				waitpid(-1, &g_signum, 0);
+				//wait(0);
 			}
 		}
 		else
 		{
+			printf("parent pid: %d\n", getpid());
 			if(fork1() == 0)
+			{
+				printf("child pid: %d\n", getpid());
 				run_cmd(root, core);
-			wait(0);
+			}
+			g_signum = 0;
+			waitpid(-1, &g_signum, 0);
+			//wait(0);
 		}
 		}
 		else
@@ -96,6 +108,7 @@ print_token_list(*core->token_head);
 			printf("syntax check finished\n");
 			//free everything
 		}
+			printf ("g_signum: %d\n", g_signum);
 	}
 }
 

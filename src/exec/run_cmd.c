@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/27 16:26:53 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 10:14:34 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void	runcmd_here(t_cmd_P *cmd, t_core_struct *core)
 	pid_t		pid;
 	char		*line;
 	int			fd[2];
+	//int status;
 
 	hcmd = (t_herecmd_P *) cmd;
 	if (pipe(fd) == -1)
@@ -148,7 +149,10 @@ void	runcmd_here(t_cmd_P *cmd, t_core_struct *core)
 	dup2(fd[0], STDIN_FILENO);
 	close (fd[0]);
 	close (fd[1]);
-	wait(NULL);
+	//wait(NULL);
+	g_signum = wait(NULL);
+	printf ("g_signum: %d\n", g_signum);
+	//waitpid(-1, &status, )
 	run_cmd(hcmd->cmd, core);
 }
 
