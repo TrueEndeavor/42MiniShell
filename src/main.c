@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/07 11:12:57 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:15:33 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ print_token_list(*core->token_head);
 					printf("child pid: %d\n", getpid());
 					run_cmd(root, core);
 				}
-				g_signum = 0;
+				g_signum = 1;
 				waitpid(-1, &g_signum, 0);
 				//wait(0);
 			}
