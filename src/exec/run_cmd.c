@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/07 10:14:34 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:29:30 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,8 @@ void	runcmd_here(t_cmd_P *cmd, t_core_struct *core)
 	close (fd[0]);
 	close (fd[1]);
 	//wait(NULL);
-	g_signum = wait(NULL);
-	printf ("g_signum: %d\n", g_signum);
+	g_exit_code = wait(NULL);
+	printf ("g_exit_code: %d\n", g_exit_code);
 	//waitpid(-1, &status, )
 	run_cmd(hcmd->cmd, core);
 }

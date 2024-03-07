@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:16:04 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/06 16:16:27 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:28:56 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@
 # include "signals.h"
 
 /* 
- * Flag "g_signum" takes in the signum/exit code
+ * Flag "g_exit_code" takes in the signum/exit code
  *       = 2 // SIGNINT
  *       = exit code
  */
-extern int g_signum;
+extern int g_exit_code;
 
 int		display_error(char *str);
 void	panic(char *str);

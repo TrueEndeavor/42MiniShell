@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/04 10:35:08 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:00:19 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,11 @@ t_token_T	*lexer_parse_variable(t_lexer_T *lexer)
 	t_token_T	*ret_token;
 
 	ret_token = NULL;
+	if ((lexer->c) == '?')
+	{
+		lexer_advance(lexer);
+		return (init_token("?", T_EXITCODE));
+	}
 	value = ft_calloc(1, sizeof(char));
 	value[0] = '\0';
 	while (is_valid_variable_char(lexer->c))

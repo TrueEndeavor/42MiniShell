@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/06 13:06:11 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:50:22 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ typedef enum TOKEN_TYPE_ENUM
 	T_APPEND_OUT = 8,
 	T_LINEBREAK = 9,
 	T_QUOTED_STRING = 10,
-	T_DOUBLE_QUOTED_STRING = 11
+	T_DOUBLE_QUOTED_STRING = 11,
+	T_EXITCODE = 12
 }	t_token_type_E;
 
 typedef struct TOKEN_STRUCT

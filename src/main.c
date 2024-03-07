@@ -6,13 +6,13 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/07 11:15:33 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:29:24 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_signum;
+int	g_exit_code;
 
 t_token_T	*minishell_compile(char *src)
 {
@@ -46,7 +46,7 @@ void	display_new_prompt(t_core_struct *core)
 	t_cmd_P	*   root;
 
 	prompt = NULL;
-	g_signum = 2;
+	g_exit_code = 0;
 	while (1)
 	{
 		// Signals: Readline
@@ -85,8 +85,8 @@ print_token_list(*core->token_head);
 					printf("child pid: %d\n", getpid());
 					run_cmd(root, core);
 				}
-				g_signum = 1;
-				waitpid(-1, &g_signum, 0);
+				g_exit_code = 0;
+				waitpid(-1, &g_exit_code, 0);
 				//wait(0);
 			}
 		}
@@ -98,8 +98,8 @@ print_token_list(*core->token_head);
 				printf("child pid: %d\n", getpid());
 				run_cmd(root, core);
 			}
-			g_signum = 0;
-			waitpid(-1, &g_signum, 0);
+			g_exit_code = 0;
+			waitpid(-1, &g_exit_code, 0);
 			//wait(0);
 		}
 		}
@@ -108,7 +108,7 @@ print_token_list(*core->token_head);
 			printf("syntax check finished\n");
 			//free everything
 		}
-			printf ("g_signum: %d\n", g_signum);
+			printf ("g_exit_code: %d\n", g_exit_code);
 	}
 }
 

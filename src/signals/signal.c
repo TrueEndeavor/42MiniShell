@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:05:08 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/07 09:35:57 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:02:39 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void sighandler_readline(int signum)
     // Ctrl+C
 	if (signum == SIGINT)
 	{
-		g_signum = signum;
+		g_exit_code = 130;
 		rl_replace_line("", 0);
         write(1, "\n", 1);
 		rl_on_new_line();
