@@ -6,7 +6,7 @@
 #    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/03/06 16:15:15 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/03/08 11:22:15 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ SRCS =  src/main.c \
 		src/parser/node_printers.c \
 		src/exec/run_cmd.c \
 		src/exec/exec.c \
-		src/signals/signal.c \
+		src/signals/signal_setters.c \
+		src/signals/signal_handlers.c \
 		src/builtins/builtins_checker.c \
 		src/builtins/builtins_utils.c \
 		src/parser/parsing_functions.c \

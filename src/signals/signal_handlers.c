@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   signal_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 15:05:08 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/07 12:02:39 by lannur-s         ###   ########.fr       */
+/*   Created: 2024/03/08 11:13:38 by lannur-s          #+#    #+#             */
+/*   Updated: 2024/03/08 11:16:52 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
- * When the user interrupts the terminal with
- * Ctrl + C =  clear the current input line and redisplay the prompt
- */
- // Signals: Readline
-void sighandler_readline(int signum) 
+void parent_sighandler(int signum) 
 {
     // Ctrl+C
 	if (signum == SIGINT)
@@ -36,25 +31,20 @@ void sighandler_readline(int signum)
     }
 }
 
-void set_signal_receiver_readline(void)
+void	child_sighandler(int signum)
 {
-	struct sigaction readline_sig;
-	
-	readline_sig.sa_handler = sighandler_readline;
-	readline_sig.sa_flags = SA_RESTART;
-	sigemptyset(&readline_sig.sa_mask);
-	sigaction(SIGINT, &readline_sig, NULL);
-	sigaction(SIGQUIT, &readline_sig, NULL);	
+	if (signum == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+	}
 }
 
-
-void set_signal_receiver_exec(void)
+void	heredoc_sighandler(int signum)
 {
-	struct sigaction exec_sig;
-	
-	exec_sig.sa_handler = SIG_IGN;
-	exec_sig.sa_flags = 0;
-	sigemptyset(&exec_sig.sa_mask);
-	sigaction(SIGINT, &exec_sig, NULL);
-	sigaction(SIGQUIT, &exec_sig, NULL);
+	close_if(0);
+	if (signum == SIGINT)
+		g_exit_code = 1;
+	write(2, "\n", 1);
 }

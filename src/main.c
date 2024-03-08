@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/07 12:50:26 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:20:59 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	display_new_prompt(t_core_struct *core)
 	while (1)
 	{
 		// Signals: Readline
-		set_signal_receiver_readline();
+		setup_parent_signals();
 		prompt = readline("jollyshell$> ");
 		if (prompt[0] == '\0')
 		{
@@ -77,11 +77,13 @@ print_token_list(*core->token_head);
 		// built-ins
 		if (root->type == EXEC_CMD)
 		{
-		printf("parent pid: %d\n", getpid());
+			printf("parent pid: %d\n", getpid());
 			if (!match_builtin(root, core))
 			{
 				if(fork1() == 0)
 				{
+					// child signals
+					setup_child_signals();
 					printf("child pid: %d\n", getpid());
 					run_cmd(root, core);
 				}
