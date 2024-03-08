@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_signals.c                                    :+:      :+:    :+:   */
+/*   signal_setters.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:05:08 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/08 11:13:35 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:45:54 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ int setup_signal(int signal, void (*handler)(int))
 
 void setup_parent_signals(void)
 {
-	setup_signal(SIGINT, sighandler_parent);
-	setup_signal(SIGQUIT, sighandler_parent);	
+	setup_signal(SIGINT, parent_sighandler);
+	setup_signal(SIGQUIT, parent_sighandler);	
 }
 
-int setup_child_signals(void)
+void setup_child_signals(void)
 {
-	setup_signal(SIGINT, sighandler_child);
+	setup_signal(SIGINT, child_sighandler);
 	setup_signal(SIGQUIT, SIG_IGN);
 }
 
-int setup_heredoc_signals(void)
+void setup_heredoc_signals(void)
 {
-	setup_signal(SIGINT, sighandler_heredoc);
+	setup_signal(SIGINT, heredoc_sighandler);
 	setup_signal(SIGQUIT, SIG_IGN);
 }

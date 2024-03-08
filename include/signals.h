@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:17:00 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/08 11:16:36 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:46:14 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <signal.h>
 
 void	setup_parent_signals(void);
-int		setup_child_signals(void);
-int		setup_heredoc_signals(void);
+void	setup_child_signals(void);
+void	setup_heredoc_signals(void);
 
 void	parent_sighandler(int signum);
 void	child_sighandler(int signum);

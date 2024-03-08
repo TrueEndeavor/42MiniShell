@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/08 11:16:52 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:46:35 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	child_sighandler(int signum)
 
 void	heredoc_sighandler(int signum)
 {
-	close_if(0);
+	//check before close(0);
 	if (signum == SIGINT)
 		g_exit_code = 1;
 	write(2, "\n", 1);
