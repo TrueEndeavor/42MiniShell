@@ -30,6 +30,7 @@ char	**convert_env_to_stringarray(t_env_list *env_list);
 t_env_list    *init_env(char **envp);
 void	set_env(t_core_struct *core, char *key_value_pair);
 char	*get_env(t_core_struct *core, char *key_to_search);
+bool contains_only_char(char *str, char c);
 
 char *getKey(char *s);
 char *getValue(char *s);

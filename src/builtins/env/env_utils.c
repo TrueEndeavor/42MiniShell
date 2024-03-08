@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:38:25 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/29 11:00:54 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/08 10:11:46 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,21 +155,4 @@ void	display_env_from_list(t_env_list *env_list, int is_export)
 		}
 		env_list = (env_list)->next;
 	}
-}
-
-// TODO:Not useful anymore...just leaving it until final code cleanup
-int	count_of_strings(char **string_array)
-{
-	int		count;
-
-	count =0;
-	if (string_array == NULL)
-		return (0);
-	while (*string_array != NULL)
-	{
-		if ((*string_array)[0] != '\0')
-			count++;
-		string_array++;
-	}
-	return (count);
 }
