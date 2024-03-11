@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/08 11:20:29 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:11:26 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,8 @@ void	runcmd_exec(t_cmd_P *cmd, t_core_struct *core)
 		exit (1);
 	printf("######RUNCMD_EXEC######\n");
 	printf("THE COMMAND IS = %s\n", ecmd->argv[0]);
-	g_exit_code = ft_execute(ecmd->argv, convert_env_to_stringarray(core->env_list));
-	dprintf(2, "exec %s failed\n", ecmd->argv[0]);
-	exit(g_exit_code);
+	ft_execute(ecmd->argv, convert_env_to_stringarray(core->env_list));
+	//exit(g_exit_code);
 }
 
 void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core)
@@ -88,33 +87,55 @@ void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core)
 
 void	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core)
 {
-printf("++++++++++++++++runcmd_pipe\n");
+	printf("++++++++++++++++runcmd_pipe\n");
 	t_pipecmd_P	*pcmd;
 	int p[2];
-
+	int status;
+	int l_child;
+	int r_child;
+	int last_status;
+	
 	pcmd = (t_pipecmd_P *)cmd;
 	if (pipe(p) < 0)
 		panic("pipe");
-	if (fork1() == 0)
+	l_child = fork1();
+	if (l_child == 0)
 	{
-		close(1);
-		dup(p[1]);
+		dup2(p[1], STDOUT_FILENO);
 		close(p[0]);
 		close(p[1]);
 		run_cmd(pcmd->left, core);
 	}
-	if (fork1() == 0)
+	else
 	{
-		close(0);
-		dup(p[0]);
-		close(p[0]);
-		close(p[1]);
-		run_cmd(pcmd->right, core);
+		r_child = fork1();
+		if (r_child == 0)
+		{
+			close(0);
+			dup2(p[0], STDIN_FILENO);
+			close(p[0]);
+			close(p[1]);
+			run_cmd(pcmd->right, core);
+		}
+		else
+		{
+			close(p[0]);
+			close(p[1]);
+		/* 	wait(0);
+			wait(0);
+		 */
+			while (waitpid(l_child, &status, 0) > 0 || \
+				waitpid(r_child, &status, 0) > 0) 
+				{
+	                if (WIFEXITED(status)) {
+	                    last_status = WEXITSTATUS(status);
+	                }
+				}
+	        printf("Exit status of the last child was %d\n", last_status);
+	        exit(last_status);
+		}
 	}
-	close(p[0]);
-	close(p[1]);
-	wait(0);
-	wait(0);
+
 }
 
 
@@ -160,12 +181,32 @@ void	runcmd_here(t_cmd_P *cmd, t_core_struct *core)
 void	run_cmd(t_cmd_P *cmd, t_core_struct *core)
 {
 	//int				p[2];
+	int status;
+	int child_pid;
+	int last_status;
 
+	
 	if (cmd == 0)
 		exit (1);
 	if (cmd->type == EXEC_CMD)
 	{
-		runcmd_exec(cmd, core);
+		child_pid = fork1();
+		if(child_pid == 0)
+		{
+			// child signals
+			setup_child_signals();
+			runcmd_exec(cmd, core);
+		}
+		else 
+        { 
+	        last_status = waitpid(child_pid, &status, 0);
+	        if (WIFEXITED(status)) 
+	        {
+	            last_status = WEXITSTATUS(status);
+	            printf("Exit status of the child was %d\n", last_status);
+	        }
+	        exit(last_status);
+    }
 	}
 	if (cmd->type == REDIR_CMD)
 		runcmd_redir(cmd, core);
@@ -177,7 +218,8 @@ void	run_cmd(t_cmd_P *cmd, t_core_struct *core)
 	if (cmd->type == HERE_CMD)
 	{
 		runcmd_here(cmd, core);
-	}	
-	panic ("runcmd");
-	exit (1);
+	}
+	//else
+	//	panic ("runcmd panic");
+	exit (0);
 }

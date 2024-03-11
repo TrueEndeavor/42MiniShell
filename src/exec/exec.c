@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:25:40 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/07 12:48:01 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/11 12:25:45 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,45 @@ int		ft_execute(char **cmd, char **envp)
 {
 	char	*path;
 	
-	path = NULL;
+ 	path = NULL;
 	if (cmd[0][0] == '/' || ft_strncmp(cmd[0], "./", 2) == 0)
 	{
 		if (execve(cmd[0], cmd, envp) == -1)
 		{
-			printf("execve failed\n");
-			return (1);
+			if (errno == EACCES) 
+            {
+	            printf("Permission denied\n");
+	            exit(126);
+	        }
+			perror("execve");
+			exit(EXIT_FAILURE);
 		}
 	}
 	path = ft_get_path(cmd[0], envp);
 	printf ("path is:-%s-\n", path);
 	if (path == NULL)
 	{
-		printf ("got here\n");
-		ft_free(path, NULL);
-		printf("PATH not found\n");
-		return (127);
+		//printf ("got here\n");
+		//ft_free(path, NULL);
+		//return (127);
+		printf("%s: command not found\n", cmd[0]);
+		exit(127);
 	}
 	if (execve(path, cmd, envp) == -1)
 	{
-		printf ("got there\n");
-		ft_free(path, NULL);
-		printf("execve failed\n");
+		//printf ("got there\n");
+		//ft_free(path, NULL);
+		//printf("execve failed\n");
+        if (errno == EACCES) 
+        {
+            printf("Permission denied\n");
+            exit(126);
+        }		
+		perror("execve");
+		exit(EXIT_FAILURE);
 	}
-	printf ("E\n");
-	return (1);
+	//printf ("E\n");
+	return (1); 
 }
 
 char	*ft_get_path(char *cmd, char **envp)

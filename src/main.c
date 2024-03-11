@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/08 11:20:59 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:11:02 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ void	display_new_prompt(t_core_struct *core)
 	int			len;
 	t_token_T	*token_head;
 	t_cmd_P	*   root;
+	int         child_pid;
+	int         status;
 
 	prompt = NULL;
 	g_exit_code = 0;
 	while (1)
 	{
-		// Signals: Readline
+		// Signals: Readline - setup signals only in the interactive mode
 		setup_parent_signals();
 		prompt = readline("jollyshell$> ");
 		if (prompt[0] == '\0')
@@ -74,43 +76,33 @@ print_token_list(*core->token_head);
 	    if (syntax_analyzer(*core->token_head))
 		{
 			root = parse_cmd(core);
-		// built-ins
-		if (root->type == EXEC_CMD)
-		{
-			printf("parent pid: %d\n", getpid());
-			if (!match_builtin(root, core))
+			// built-ins
+			if (root->type == EXEC_CMD || root->type == PIPE_CMD)
 			{
-				if(fork1() == 0)
+				if (!match_builtin(root, core))
 				{
-					// child signals
-					setup_child_signals();
-					printf("child pid: %d\n", getpid());
 					run_cmd(root, core);
 				}
-				g_exit_code = 0;
-				waitpid(-1, &g_exit_code, 0);
+			}
+			else
+			{
+				printf("// built-ins\n");
+				child_pid = fork1();
+				if(child_pid == 0)
+				{
+					run_cmd(root, core);
+				}
+				waitpid(child_pid, &status, 0);
 				//wait(0);
 			}
-		}
-		else
-		{
-			printf("parent pid: %d\n", getpid());
-			if(fork1() == 0)
-			{
-				printf("child pid: %d\n", getpid());
-				run_cmd(root, core);
-			}
-			g_exit_code = 0;
-			waitpid(-1, &g_exit_code, 0);
-			//wait(0);
-		}
 		}
 		else
 		{
 			printf("syntax check finished\n");
 			//free everything
 		}
-			printf ("g_exit_code: %d\n", g_exit_code);
+
+		printf ("g_exit_code: %d\n", g_exit_code);
 	}
 }
 
