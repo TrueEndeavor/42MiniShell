@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoting.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/06 13:09:19 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/11 10:02:04 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@ void    copy_variable(char *ret, char *var, int i)
     int j;
 
     j = 0;
-    while (var[j] != '\0')
+    while ((var)[j] != '\0')
     {
-        ret[i] = var[j];
+        (ret)[i] = (var)[j];
         i++;
         j++;
     }
-    ret[i] = '\0';
     return ;
 }
 
@@ -70,7 +69,7 @@ char    *quote_string(char **str, t_core_struct *core)
     var = malloc(1 * sizeof(char *));
     while (i < (int)ft_strlen(*str))
     {
-        if (*str[i] == '$')
+        if ((*str)[i] == '$')
         {
             name[i_var] = malloc(1 * sizeof(char *));
             var[i_var] = malloc(1 * sizeof(char *));
@@ -84,29 +83,34 @@ char    *quote_string(char **str, t_core_struct *core)
     }    
     i_var = 0;
     size = (int)ft_strlen(*str);
-    while (var_count > 0)
+    while (var_count != 0)
     {
         size += ft_strlen(var[i_var]);
-        size -= ft_strlen(name[i_var]);
+        size -= (ft_strlen(name[i_var]) + 1);
         i_var++;
         var_count--;
     }
     ret = malloc ((size + 1) *(sizeof(char)));
     i = 0;
     i_var = 0;
-    while (i < (int)ft_strlen(*str))
+    while ((*str)[var_count] != '\0')
     {
-        if (*str[i] == '$')
+        printf ("current char: %c\n", (*str)[var_count]);
+        if ((*str)[var_count] == '$')
         {
             copy_variable(ret, var[i_var], i);
             i+= ((int)ft_strlen(var[i_var]));
+            printf ("i: %d\n", i);
+            var_count+= ((int)ft_strlen(name[i_var]) + 1);
             i_var++;
         }
         else
         {
-            ret[i] = *str[i];
+            printf ("got here\n");
+            ret[i] = (*str)[var_count];
+            i++;
+            var_count++;
         }
-        i++;
     }
     ret[i] = '\0';
     free(*str);
