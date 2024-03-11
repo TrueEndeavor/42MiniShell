@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/11 14:11:02 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/11 15:30:07 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,14 @@ print_token_list(*core->token_head);
 			{
 				if (!match_builtin(root, core))
 				{
+					setup_mother_signals();
 					run_cmd(root, core);
 				}
 			}
 			else
 			{
 				printf("// built-ins\n");
+				// doesnt ned fork
 				child_pid = fork1();
 				if(child_pid == 0)
 				{
@@ -98,10 +100,10 @@ print_token_list(*core->token_head);
 		}
 		else
 		{
-			printf("syntax check finished\n");
+			//printf("syntax check finished\n");
 			//free everything
 		}
-
+		
 		printf ("g_exit_code: %d\n", g_exit_code);
 	}
 }

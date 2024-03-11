@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/08 11:46:35 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/11 15:15:25 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@ void parent_sighandler(int signum)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	if (signum == SIGQUIT)
-	{
-	    write(1, "\33[2K\r", 5);
-		rl_on_new_line();
-		rl_redisplay();
-    }
 }
 
 void	child_sighandler(int signum)
@@ -39,6 +33,14 @@ void	child_sighandler(int signum)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 	}
+	if (signum == SIGQUIT)
+	{
+	    write(1, "\33[2K\r", 5);
+		rl_on_new_line();
+		write(1, "\\^\\Quit (core dumped)",0);
+		rl_redisplay();
+		
+    }
 }
 
 void	heredoc_sighandler(int signum)

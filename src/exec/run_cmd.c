@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/11 14:11:26 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:00:29 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,16 @@ void	run_cmd(t_cmd_P *cmd, t_core_struct *core)
 	            last_status = WEXITSTATUS(status);
 	            printf("Exit status of the child was %d\n", last_status);
 	        }
-	        exit(last_status);
+	        else if (WIFSIGNALED(last_status))
+			{
+				if (last_status == SIGTERM)
+					write(1, "\n", 1);
+				else if (last_status == SIGQUIT)
+					write(2, "Quit (core dumped)\n", 18);
+				last_status += 128;
+			}
+		//return (WTERMSIG(childval));
+	        g_exit_code = last_status;
     }
 	}
 	if (cmd->type == REDIR_CMD)

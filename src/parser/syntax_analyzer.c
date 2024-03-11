@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:06:36 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/08 11:44:23 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:35:15 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ bool	syntax_analyzer(t_token_T *tokens)
 			state = transition(state, current->type);
 		else
 		{
-			printf("syntax error near unexpected token\n");
+			printf("syntax error near unexpected token `%s'\n", token_type_to_symbol(current->type));
 			return (false);
 		}
 		current = current->next;

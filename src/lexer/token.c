@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:01:56 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/04 10:05:11 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:30:23 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,33 @@ char	*token_type_to_str(int type)
 		return ("T_HEREDOC");
 	if (type == T_LINEBREAK)
 		return ("T_LINEBREAK");
+	if (type == T_QUOTED_STRING)
+		return ("T_QUOTED_STRING");
+	if (type == T_DOUBLE_QUOTED_STRING)
+		return ("DOUBLE_QUOTED_STRING");		
+	return ("Not stringable");
+}
+
+char	*token_type_to_symbol(int type)
+{
+	if (type == T_WORD)
+		return ("T_WORD");
+	if (type == T_VARIABLE)
+		return ("T_VARIABLE");		
+	if (type == T_IO_NUMBER)
+		return ("T_IO_NUMBER");
+	if (type == T_PIPE)
+		return ("|");
+	if (type == T_REDIRECT_IN)
+		return ("<");
+	if (type == T_REDIRECT_OUT)
+		return (">");
+	if (type == T_APPEND_OUT)
+		return (">>");
+	if (type == T_HEREDOC)
+		return ("<<");
+	if (type == T_LINEBREAK)
+		return ("newline");
 	if (type == T_QUOTED_STRING)
 		return ("T_QUOTED_STRING");
 	if (type == T_DOUBLE_QUOTED_STRING)
