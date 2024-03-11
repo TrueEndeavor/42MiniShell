@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
+#    By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/03/08 11:22:15 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/03/11 11:22:41 by trysinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,8 @@ SRCS =  src/main.c \
 		src/builtins/env/get_node.c \
 		src/builtins/env/set_env.c \
 		src/parser/quoting.c \
+		src/parser/quoting_helper.c \
+		
 		
 OBJS = $(SRCS:%.c=%.o)
 
