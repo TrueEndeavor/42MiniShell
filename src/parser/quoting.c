@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/11 10:02:04 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/11 10:43:52 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ char    *quote_string(char **str, t_core_struct *core)
             name[i_var] = get_name(*str, i);
             i += (int)ft_strlen(name[i_var]);
             var[i_var] = get_env(core, name[i_var]);
+            if (var[i_var] == NULL)
+                return (NULL);
             i_var++;
             var_count++;
         }
@@ -106,7 +108,6 @@ char    *quote_string(char **str, t_core_struct *core)
         }
         else
         {
-            printf ("got here\n");
             ret[i] = (*str)[var_count];
             i++;
             var_count++;
