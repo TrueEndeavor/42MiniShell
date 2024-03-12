@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/11 12:25:03 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:24:31 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void print_cmd(t_cmd_P *cmd);
 char    *quote_string(char **str, t_core_struct *core);
 char    *free_quotes(char **str, char **name, char **var);
 char    *duplicate(const char *src);
+char    *ft_expand(t_core_struct *core, char **file_name);
+
 
 
 

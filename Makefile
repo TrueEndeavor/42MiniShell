@@ -6,7 +6,7 @@
 #    By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/03/12 09:54:34 by trysinsk         ###   ########.fr        #
+#    Updated: 2024/03/12 13:24:59 by trysinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRCS =  src/main.c \
 		src/builtins/builtins_checker.c \
 		src/builtins/builtins_utils.c \
 		src/parser/parsing_functions.c \
+		src/parser/parsing_helper.c \
 		src/parser/syntax_analyzer.c \
 		src/builtins/cd.c \
 		src/builtins/echo.c \

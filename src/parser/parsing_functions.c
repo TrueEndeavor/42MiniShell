@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/12 11:13:47 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:23:07 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_core_struct *core)
         next_tolkien = peek_next_token(current_token);
         /* if (next_tolkien->type != T_WORD)
             panic("missing file for redirection"); */
-        file_name = next_tolkien->value;        
+        file_name = next_tolkien->value;
         if ((current_token)->type == T_REDIRECT_IN)
         {
             if (next_tolkien->type == T_VARIABLE)
             {
                 // The expand has to happen here
-                file_name = get_env(core, file_name);
+                file_name = ft_expand(core, &file_name);
             }
             cmd = create_redircmd(cmd, file_name, O_RDONLY, 0);
             *core->token_head = advance_token(&next_tolkien);
@@ -94,7 +94,7 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_core_struct *core)
             if (next_tolkien->type == T_VARIABLE)
             {
                 // The expand has to happen here
-                file_name = get_env(core, file_name);
+                file_name = ft_expand(core, &file_name);
             }        
             cmd = create_redircmd(cmd, file_name, O_WRONLY | O_CREAT | O_TRUNC, 1);
             *core->token_head = advance_token(&next_tolkien);
@@ -110,7 +110,7 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_core_struct *core)
             if (next_tolkien->type == T_VARIABLE)
             {
                 // The expand has to happen here
-                file_name = ft_strdup(get_env(core, file_name));
+                file_name = get_env(core, file_name);
             }        
             cmd = create_redircmd(cmd, file_name, O_WRONLY | O_CREAT, 1);
             *core->token_head = advance_token(&next_tolkien);

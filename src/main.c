@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 12:01:47 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:52:00 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int	display_new_prompt(t_core_struct *core)
 		}
 		else // Ctrl+D
 		{
+			ft_free_env(core->env_list);
+			free(core);
 			ft_printf("exit from the prompt level\n");
 			// free everything
 			return (1);

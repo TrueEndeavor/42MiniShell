@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:38:25 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/08 10:11:46 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:04:39 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ t_env_list	*init_env(char **envp)
 	{
 		if ((ft_strchr(envp[i], '=')) != NULL)
 		{
-			if (!getKey(envp[i]) || !getValue(envp[i]))
-				return ((ft_lstclear_env(&minishell_envp_head, free), NULL));
+			//if (!getKey(envp[i]) || !getValue(envp[i]))
+			//	return ((ft_lstclear_env(&minishell_envp_head, free), NULL));
 			new = ft_lstnew_env(getKey(envp[i]), getValue(envp[i]));
 			if (!new)
 				return ((ft_lstclear_env(&minishell_envp_head, free), NULL));
