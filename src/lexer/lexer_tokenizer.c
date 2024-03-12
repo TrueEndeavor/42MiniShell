@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 10:23:19 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:39:30 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 		handle_unexpected_character(lexer);
 		break ;
 	}
-	return (init_token(";", T_LINEBREAK));
+	return (init_token(ft_strdup(";"), T_LINEBREAK));
 }
 	
 	

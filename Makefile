@@ -6,7 +6,7 @@
 #    By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/03/11 11:22:41 by trysinsk         ###   ########.fr        #
+#    Updated: 2024/03/12 09:54:34 by trysinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS =  src/main.c \
 		src/utils.c \
 		src/dev/dev_utils.c \
 		src/error/error_handler.c \
+		src/error/free_handler.c \
 		src/lexer/lexer_core.c \
 		src/lexer/lexer_helper1.c \
 		src/lexer/lexer_helper2.c \
