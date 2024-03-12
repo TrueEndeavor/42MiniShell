@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 09:56:39 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:52:20 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_get_line(char **line)
 	return (readable);
 }
 
-void	runcmd_exec(t_cmd_P *cmd, t_core_struct *core)
+int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core)
 {
 	t_execcmd_P	*ecmd;
 
@@ -61,8 +61,8 @@ void	runcmd_exec(t_cmd_P *cmd, t_core_struct *core)
 		exit (1);
 	printf("######RUNCMD_EXEC######\n");
 	printf("THE COMMAND IS = %s\n", ecmd->argv[0]);
-	ft_execute(ecmd->argv, convert_env_to_stringarray(core->env_list));
-	//exit(g_exit_code);
+	g_exit_code = ft_execute(ecmd->argv, convert_env_to_stringarray(core->env_list));
+	exit(g_exit_code);
 }
 
 void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core)
@@ -82,10 +82,11 @@ void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core)
 		dup2(fd, rcmd->fd);
 	else
 		close(fd);
- */	run_cmd(rcmd->cmd, core);
+ */	
+    run_cmd(rcmd->cmd, core);
 }
 
-void	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core)
+int	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core)
 {
 	printf("++++++++++++++++runcmd_pipe\n");
 	t_pipecmd_P	*pcmd;
@@ -95,13 +96,15 @@ void	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core)
 	int r_child;
 	int last_status;
 	
+	last_status = 0;
 	pcmd = (t_pipecmd_P *)cmd;
 	if (pipe(p) < 0)
 		panic("pipe");
 	l_child = fork1();
 	if (l_child == 0)
 	{
-		dup2(p[1], STDOUT_FILENO);
+		close(1);
+		dup(p[1]);
 		close(p[0]);
 		close(p[1]);
 		run_cmd(pcmd->left, core);
@@ -112,19 +115,21 @@ void	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core)
 		if (r_child == 0)
 		{
 			close(0);
-			dup2(p[0], STDIN_FILENO);
+			dup(p[0]);
 			close(p[0]);
 			close(p[1]);
 			run_cmd(pcmd->right, core);
 		}
+	
 		else
 		{
 			close(p[0]);
 			close(p[1]);
-		/* 	wait(0);
+/* 			wait(0);
 			wait(0);
-		 */
-			while (waitpid(l_child, &status, 0) > 0 || \
+		} */
+		
+ 			while (waitpid(l_child, &status, 0) > 0 || \
 				waitpid(r_child, &status, 0) > 0) 
 				{
 	                if (WIFEXITED(status)) {
@@ -132,12 +137,10 @@ void	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core)
 	                }
 				}
 	        printf("Exit status of the last child was %d\n", last_status);
-	        exit(last_status);
-		}
+		} 
 	}
-
+	    exit(last_status);
 }
-
 
 void	runcmd_here(t_cmd_P *cmd, t_core_struct *core)
 {
@@ -194,6 +197,7 @@ void	run_cmd(t_cmd_P *cmd, t_core_struct *core)
 		if(child_pid == 0)
 		{
 			// child signals
+			printf("-----------------within child");
 			setup_child_signals();
 			runcmd_exec(cmd, core);
 		}
