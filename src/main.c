@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 09:42:35 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 09:59:23 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_token_T	*minishell_compile(char *src)
 	prev_tok = NULL;
 	lexer = init_lexer(src);
 	tok = lexer_scan_token(lexer);
+	if (tok == NULL)
+		return (NULL);
 	token_head = tok;
 	while (tok->type != T_LINEBREAK)
 	{
@@ -31,6 +33,11 @@ t_token_T	*minishell_compile(char *src)
 			prev_tok->next = tok;
 		prev_tok = tok;
 		tok = lexer_scan_token(lexer);
+		if (tok == NULL)
+		{
+			ft_free_tok_list(&token_head);
+			return (NULL);
+		}
 		tok->next = NULL;
 	}
 	prev_tok->next = tok;
@@ -106,6 +113,8 @@ int	display_new_prompt(t_core_struct *core)
 			}
 			else
 			{
+				printf ("error during check of arguments, freeing...\n");
+				ft_free_tok_list(core->token_head);
 				//printf("syntax check finished\n");
 				//free everything
 			}
