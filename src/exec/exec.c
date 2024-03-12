@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:25:40 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/11 12:25:45 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:41:51 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		ft_execute(char **cmd, char **envp)
 		//ft_free(path, NULL);
 		//return (127);
 		printf("%s: command not found\n", cmd[0]);
-		exit(127);
+		return(127);
 	}
 	if (execve(path, cmd, envp) == -1)
 	{
@@ -48,13 +48,12 @@ int		ft_execute(char **cmd, char **envp)
         if (errno == EACCES) 
         {
             printf("Permission denied\n");
-            exit(126);
+            return(126);
         }		
 		perror("execve");
-		exit(EXIT_FAILURE);
+		return(EXIT_FAILURE);
 	}
-	//printf ("E\n");
-	return (1); 
+	return (0); 
 }
 
 char	*ft_get_path(char *cmd, char **envp)

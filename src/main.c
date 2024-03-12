@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 11:35:48 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:51:43 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	display_new_prompt(t_core_struct *core)
 			    if (syntax_analyzer(*core->token_head))
 				{
 					root = parse_cmd(core);
-					// built-ins
+					// normal commands
 					if (root->type == EXEC_CMD || root->type == PIPE_CMD)
 					{
 						if (!match_builtin(root, core))

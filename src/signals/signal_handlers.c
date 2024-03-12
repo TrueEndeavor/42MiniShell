@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 10:04:47 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:45:56 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	readline_sighandler(int signum)
 
 void	child_sighandler(int signum)
 {
+	printf("inside child_sighandler");
 	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -36,7 +37,8 @@ void	child_sighandler(int signum)
 	{
 	    write(1, "\33[2K\r", 5);
 		rl_on_new_line();
-		write(1, "\\^\\Quit (core dumped)",0);
+		write(1, "\\^\\Quit (core dumped)",18);
+		g_exit_code = 131;
 		rl_redisplay();
 	}
 }
