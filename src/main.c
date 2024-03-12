@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 10:04:21 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:29:36 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,18 @@ int	display_new_prompt(t_core_struct *core)
 	g_exit_code = 0;
 	while (1)
 	{
-		// Signals: Readline - setup signals only in the interactive mode
 		setup_readline_signals();
-		// display prompt in interactive mode
 		if (isatty(STDIN_FILENO))
 			prompt = readline("jollyshell$> ");
 		if (prompt != NULL)
 		{
 			if (*prompt)
 			{
+				if (*prompt == EOF)
+				{
+					ft_printf("exit\n");
+					return (1);
+				}
 				add_history(prompt);
 				if (strcmp(prompt, "exit") == 0 || strcmp(prompt, "quit") == 0)
 				{
@@ -67,11 +70,10 @@ int	display_new_prompt(t_core_struct *core)
 				}
 				token_head = minishell_compile(prompt);
 				core->token_head = &token_head;
-				print_token_list(*core->token_head);
+				print_token_list(*core->token_head); //debug
 			    if (syntax_analyzer(*core->token_head))
 				{
 					root = parse_cmd(core);
-					// built-ins
 					if (root->type == EXEC_CMD || root->type == PIPE_CMD)
 					{
 						if (!match_builtin(root, core))
