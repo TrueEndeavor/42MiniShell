@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:05:08 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/11 16:08:20 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:27:57 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void setup_mother_signals(void)
 void setup_child_signals(void)
 {
 	setup_signal(SIGINT, SIG_DFL);
-	setup_signal(SIGQUIT, child_handler);
+	setup_signal(SIGQUIT, child_sighandler);
 }
 
 void setup_heredoc_signals(void)

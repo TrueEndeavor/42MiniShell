@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/11 15:30:07 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 09:42:35 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_token_T	*minishell_compile(char *src)
 	return (token_head);
 }
 
-void	display_new_prompt(t_core_struct *core)
+int	display_new_prompt(t_core_struct *core)
 {
 	char		*prompt;
 	int			len;
@@ -53,66 +53,77 @@ void	display_new_prompt(t_core_struct *core)
 	{
 		// Signals: Readline - setup signals only in the interactive mode
 		setup_parent_signals();
-		prompt = readline("jollyshell$> ");
-		if (prompt[0] == '\0')
+		// display prompt in interactive mode
+		if (isatty(STDIN_FILENO))
+			prompt = readline("jollyshell$> ");
+		if (prompt != NULL)
 		{
-			//perror("readline");
-			exit (EXIT_FAILURE);
-		}
-		len = ft_strlen(prompt);
-		if (len > 0 && prompt[len - 1] == '\n')
-		{
-
-			prompt[len - 1] = '\0';
-		}
-		add_history(prompt);
-		if (strcmp(prompt, "exit") == 0 || strcmp(prompt, "quit") == 0)
-		{
-			break ;
-		}
-		token_head = minishell_compile(prompt);
-		core->token_head = &token_head;
-print_token_list(*core->token_head);
-	    if (syntax_analyzer(*core->token_head))
-		{
-			root = parse_cmd(core);
-			// built-ins
-			if (root->type == EXEC_CMD || root->type == PIPE_CMD)
+			// If it is a blank line it returns an empty string
+			if (!(*prompt))
 			{
-				if (!match_builtin(root, core))
+				if (isatty(STDIN_FILENO))
+					ft_printf("exit\n");
+				return (1);
+			}
+			len = ft_strlen(prompt);
+			if (len > 0 && prompt[len - 1] == '\n')
+			{
+				prompt[len - 1] = '\0';
+			}
+			if (*prompt && *prompt != '\n')
+				add_history(prompt);
+			if (strcmp(prompt, "exit") == 0 || strcmp(prompt, "quit") == 0)
+			{
+				break ;
+			}
+			token_head = minishell_compile(prompt);
+			core->token_head = &token_head;
+	print_token_list(*core->token_head);
+		    if (syntax_analyzer(*core->token_head))
+			{
+				root = parse_cmd(core);
+				// built-ins
+				if (root->type == EXEC_CMD || root->type == PIPE_CMD)
 				{
-					setup_mother_signals();
-					run_cmd(root, core);
+					if (!match_builtin(root, core))
+					{
+						setup_mother_signals();
+						run_cmd(root, core);
+					}
+				}
+				else
+				{
+					printf("// built-ins\n");
+					// doesnt ned fork
+					child_pid = fork1();
+					if(child_pid == 0)
+					{
+						run_cmd(root, core);
+					}
+					waitpid(child_pid, &status, 0);
+					//wait(0);
 				}
 			}
 			else
 			{
-				printf("// built-ins\n");
-				// doesnt ned fork
-				child_pid = fork1();
-				if(child_pid == 0)
-				{
-					run_cmd(root, core);
-				}
-				waitpid(child_pid, &status, 0);
-				//wait(0);
+				//printf("syntax check finished\n");
+				//free everything
 			}
+			
+			printf ("g_exit_code: %d\n", g_exit_code);
 		}
-		else
-		{
-			//printf("syntax check finished\n");
-			//free everything
-		}
-		
-		printf ("g_exit_code: %d\n", g_exit_code);
 	}
+	return (0);
 }
 
 int	main(int ac, char *av[], char **envp)
 {
 	(void) av;
 	t_core_struct   *core;
+	int ret_value;
 	core = NULL;
+	
+	
 	if (ac > 1)
 	{
 		panic("No input required. \
@@ -122,6 +133,6 @@ int	main(int ac, char *av[], char **envp)
 	core = malloc(1 * sizeof(t_core_struct));
 	core->env_list = init_env(envp);
 	printf("address of el in main %p\n", &core->env_list);
-	display_new_prompt(core);
-	return (0);
+	ret_value = display_new_prompt(core);
+	return (ret_value);
 }
