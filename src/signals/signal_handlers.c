@@ -6,20 +6,19 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/11 15:15:25 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:04:47 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void parent_sighandler(int signum) 
+void	readline_sighandler(int signum) 
 {
-    // Ctrl+C
 	if (signum == SIGINT)
 	{
 		g_exit_code = 130;
 		rl_replace_line("", 0);
-        write(1, "\n", 1);
+		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
 	}
@@ -39,8 +38,7 @@ void	child_sighandler(int signum)
 		rl_on_new_line();
 		write(1, "\\^\\Quit (core dumped)",0);
 		rl_redisplay();
-		
-    }
+	}
 }
 
 void	heredoc_sighandler(int signum)
