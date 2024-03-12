@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 11:47:01 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:01:47 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,6 @@ int	display_new_prompt(t_core_struct *core)
 		{
 			if (*prompt)
 			{
-				if (*prompt == EOF)
-				{
-					ft_printf("exit\n");
-					return (1);
-				}
 				add_history(prompt);
 				if (strcmp(prompt, "exit") == 0 || strcmp(prompt, "quit") == 0)
 				{
@@ -113,6 +108,12 @@ int	display_new_prompt(t_core_struct *core)
 				
 				printf ("g_exit_code: %d\n", g_exit_code);
 			}
+		}
+		else // Ctrl+D
+		{
+			ft_printf("exit from the prompt level\n");
+			// free everything
+			return (1);
 		}
 	}
 	return (0);
