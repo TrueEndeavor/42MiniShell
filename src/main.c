@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 09:59:23 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:23:58 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_token_T	*minishell_compile(char *src)
 int	display_new_prompt(t_core_struct *core)
 {
 	char		*prompt;
-	int			len;
+	//int			len;
 	t_token_T	*token_head;
 	t_cmd_P	*   root;
 	int         child_pid;
@@ -59,25 +59,14 @@ int	display_new_prompt(t_core_struct *core)
 	while (1)
 	{
 		// Signals: Readline - setup signals only in the interactive mode
-		setup_parent_signals();
+		setup_readline_signals();
 		// display prompt in interactive mode
 		if (isatty(STDIN_FILENO))
 			prompt = readline("jollyshell$> ");
 		if (prompt != NULL)
 		{
-			// If it is a blank line it returns an empty string
-			if (!(*prompt))
+			if (*prompt)
 			{
-				if (isatty(STDIN_FILENO))
-					ft_printf("exit\n");
-				return (1);
-			}
-			len = ft_strlen(prompt);
-			if (len > 0 && prompt[len - 1] == '\n')
-			{
-				prompt[len - 1] = '\0';
-			}
-			if (*prompt && *prompt != '\n')
 				add_history(prompt);
 			if (strcmp(prompt, "exit") == 0 || strcmp(prompt, "quit") == 0)
 			{

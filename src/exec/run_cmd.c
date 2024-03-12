@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/11 16:00:29 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 09:56:39 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,6 @@ void	run_cmd(t_cmd_P *cmd, t_core_struct *core)
 					write(2, "Quit (core dumped)\n", 18);
 				last_status += 128;
 			}
-		//return (WTERMSIG(childval));
 	        g_exit_code = last_status;
     }
 	}
@@ -230,5 +229,6 @@ void	run_cmd(t_cmd_P *cmd, t_core_struct *core)
 	}
 	//else
 	//	panic ("runcmd panic");
-	exit (0);
+	//exit (0);
+	
 }
