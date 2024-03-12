@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 11:51:43 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:01:46 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,8 @@ int	main(int ac, char *av[], char **envp)
 	}
 	core = malloc(1 * sizeof(t_core_struct));
 	core->env_list = init_env(envp);
-	// increment SHLVL and update env
+	printf("address of el in main %p\n", &core->env_list);
+	ft_update_SHLVL(core);
 	ret_value = display_new_prompt(core);
 	return (ret_value);
 }
