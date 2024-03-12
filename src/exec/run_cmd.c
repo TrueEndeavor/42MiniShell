@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 12:52:20 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:46:24 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core)
 	ecmd = (t_execcmd_P *) cmd;
 	if (ecmd->argv[0] == 0)
 		exit (1);
-	printf("######RUNCMD_EXEC######\n");
-	printf("THE COMMAND IS = %s\n", ecmd->argv[0]);
+	dprintf(2, "######RUNCMD_EXEC######\n");
+	dprintf(2, "THE COMMAND IS = %s\n", ecmd->argv[0]);
 	g_exit_code = ft_execute(ecmd->argv, convert_env_to_stringarray(core->env_list));
+	//return(g_exit_code);
 	exit(g_exit_code);
 }
 
@@ -184,48 +185,23 @@ void	runcmd_here(t_cmd_P *cmd, t_core_struct *core)
 void	run_cmd(t_cmd_P *cmd, t_core_struct *core)
 {
 	//int				p[2];
-	int status;
+/* 	int status;
 	int child_pid;
-	int last_status;
+	int last_status; */
 
 	
 	if (cmd == 0)
 		exit (1);
 	if (cmd->type == EXEC_CMD)
 	{
-		child_pid = fork1();
-		if(child_pid == 0)
-		{
-			// child signals
-			printf("-----------------within child");
-			setup_child_signals();
-			runcmd_exec(cmd, core);
-		}
-		else 
-        { 
-	        last_status = waitpid(child_pid, &status, 0);
-	        if (WIFEXITED(status)) 
-	        {
-	            last_status = WEXITSTATUS(status);
-	            printf("Exit status of the child was %d\n", last_status);
-	        }
-	        else if (WIFSIGNALED(last_status))
-			{
-				if (last_status == SIGTERM)
-					write(1, "\n", 1);
-				else if (last_status == SIGQUIT)
-					write(2, "Quit (core dumped)\n", 18);
-				last_status += 128;
-			}
-	        g_exit_code = last_status;
-    }
+		runcmd_exec(cmd, core);
 	}
 	if (cmd->type == REDIR_CMD)
 		runcmd_redir(cmd, core);
 	if (cmd->type == PIPE_CMD)
 	{
-	printf("++++++++++++++++calling runcmd_pipe\n");
-		runcmd_pipe(cmd, core);
+		printf("++++++++++++++++calling runcmd_pipe\n");
+		g_exit_code = runcmd_pipe(cmd, core);
 	}
 	if (cmd->type == HERE_CMD)
 	{

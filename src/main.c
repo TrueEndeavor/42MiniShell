@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 13:44:43 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:52:48 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	display_new_prompt(t_core_struct *core)
 	//int			len;
 	t_token_T	*token_head;
 	t_cmd_P	*   root;
-	int         child_pid;
-	int         status;
+	//int         child_pid;
+	//int         status;
 
 	prompt = NULL;
 	g_exit_code = 0;
@@ -77,25 +77,38 @@ int	display_new_prompt(t_core_struct *core)
 				{
 					root = parse_cmd(core);
 					// normal commands
-					if (root->type == EXEC_CMD || root->type == PIPE_CMD)
+					if (!match_builtin(root, core))
 					{
-						if (!match_builtin(root, core))
-						{
-							setup_mother_signals();
-							run_cmd(root, core);
-						}
-					}
-					else
-					{
-						printf("// built-ins\n");
-						// doesnt ned fork
+						setup_mother_signals();
+						int status;
+						int child_pid;
+						int last_status;
 						child_pid = fork1();
 						if(child_pid == 0)
 						{
+							// child signals
+							printf("-----------------within child");
+							setup_child_signals();
 							run_cmd(root, core);
 						}
-						waitpid(child_pid, &status, 0);
-						//wait(0);
+						else 
+						{ 
+							last_status = waitpid(child_pid, &status, 0);
+							if (WIFEXITED(status)) 
+							{
+								last_status = WEXITSTATUS(status);
+								printf("Exit status of the child was %d\n", last_status);
+							}
+							else if (WIFSIGNALED(last_status))
+							{
+								if (last_status == SIGTERM)
+									write(1, "\n", 1);
+								else if (last_status == SIGQUIT)
+									write(2, "Quit (core dumped)\n", 18);
+								last_status += 128;
+							}
+							g_exit_code = last_status;
+						}
 					}
 				}
 				else
@@ -113,7 +126,7 @@ int	display_new_prompt(t_core_struct *core)
 		{
 			ft_free_env(core->env_list);
 			free(core);
-			ft_printf("exit from the prompt level\n");
+			ft_printf("exit\n");
 			// free everything
 			return (1);
 		}

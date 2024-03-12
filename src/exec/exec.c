@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:25:40 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 12:41:51 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:22:08 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ int		ft_execute(char **cmd, char **envp)
 		}
 	}
 	path = ft_get_path(cmd[0], envp);
-	printf ("path is:-%s-\n", path);
+	//printf ("path is:-%s-\n", path);
 	if (path == NULL)
 	{
 		//printf ("got here\n");
 		//ft_free(path, NULL);
 		//return (127);
 		printf("%s: command not found\n", cmd[0]);
-		return(127);
+		exit(127);
 	}
 	if (execve(path, cmd, envp) == -1)
 	{
@@ -48,12 +48,12 @@ int		ft_execute(char **cmd, char **envp)
         if (errno == EACCES) 
         {
             printf("Permission denied\n");
-            return(126);
+            exit(126);
         }		
 		perror("execve");
-		return(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
-	return (0); 
+	exit (0); 
 }
 
 char	*ft_get_path(char *cmd, char **envp)
