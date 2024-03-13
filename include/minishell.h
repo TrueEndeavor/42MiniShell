@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:16:04 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 12:32:37 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:37:47 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		display_error(char *str);
 void	panic(char *str);
 void    ft_free_tok_list(t_token_T **token_head);
 void    ft_free_env(t_env_list *env);
+void    ft_free_cmd(t_cmd_P *cmd);
 void	ft_update_SHLVL(t_core_struct *core);
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node_printers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 19:11:57 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/06 09:55:21 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:53:28 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ void print_redircmd(t_cmd_P *cmd)
         printf("Sub-command:\n");
         print_cmd(redirectCmd->cmd);
     }
+    printf("Permission: %d\n", redirectCmd->permission);
+    printf("Read from: %d\n", redirectCmd->read_from);
+    printf("Write into: %d\n", redirectCmd->write_into);    
 }
 
 void print_pipecmd(t_cmd_P *cmd)

@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 11:58:30 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:29:58 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	display_new_prompt(t_core_struct *core)
 							// child signals
 							printf("-----------------within child");
 							setup_child_signals();
-							run_cmd(root, core);
+							run_cmd(root, core, root);
 						}
 						else 
 						{ 
@@ -128,7 +128,9 @@ int	display_new_prompt(t_core_struct *core)
 					//printf("syntax check finished\n");
 					//free everything
 				}
-				printf("freeing token list...\n");
+				printf("freeing cmd in main list\n");
+				ft_free_cmd(root);
+				printf("freeing token list in main...\n");
 				ft_free_tok_list(core->token_head);
 				free(prompt);
 				printf ("g_exit_code: %d\n", g_exit_code);

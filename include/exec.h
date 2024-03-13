@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:49:03 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/11 14:10:25 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:06:50 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "structs.h"
 
-void	run_cmd(t_cmd_P *cmd, t_core_struct *core);
+void	run_cmd(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd);
 int		fork1(void);
 
 /*----------------------------- PIPEX Functions -----------------------------*/

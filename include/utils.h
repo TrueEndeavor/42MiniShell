@@ -15,6 +15,5 @@
 
 int		max_int(int a, int b);
 int		min_int(int a, int b);
-void	ft_update_SHLVL(t_core_struct *core);
 
 #endif

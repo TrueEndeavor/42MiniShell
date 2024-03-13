@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 09:17:37 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:50:26 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_get_line(char **line)
 	return (readable);
 }
 
-int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core)
+int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	t_execcmd_P	*ecmd;
 	char    **env_array;
@@ -66,16 +66,27 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core)
 	dprintf(2, "THE COMMAND IS = %s\n", ecmd->argv[0]);
 	g_exit_code = ft_execute(ecmd->argv, env_array);
 	//free(env_array);
+	dprintf(2, "freeing cmd in child\n");
+	ft_free_cmd(fcmd);
+	dprintf(2, "freeing tok list in child\n");
+	ft_free_tok_list(core->token_head);
+	dprintf(2, "freeing env_list in child\n");
+	ft_free_env(core->env_list);
+	dprintf(2, "freeing core in child\n");
+	free(core);
+	dprintf(2, "freeing env** in child\n");
+	ft_free(NULL, env_array);
+	dprintf(2, "done\n");
 	exit(g_exit_code);
 }
 
-void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core)
+void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	t_redircmd_P	*rcmd;
 	//int     fd;
 
 	rcmd = (t_redircmd_P *) cmd;
-	if (rcmd->write_into == 1 || rcmd->read_from == 1)	
+	if (rcmd->write_into == 1 || rcmd->read_from == 1)
 		close(rcmd->fd);
 	if ((open (rcmd->file, rcmd->mode, rcmd->permission)) < 0)
 	{
@@ -87,10 +98,10 @@ void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core)
 	else
 		close(fd);
  */	
-    run_cmd(rcmd->cmd, core);
+    run_cmd(rcmd->cmd, core, fcmd);
 }
 
-int	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core)
+int	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	printf("++++++++++++++++runcmd_pipe\n");
 	t_pipecmd_P	*pcmd;
@@ -111,7 +122,7 @@ int	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core)
 		dup(p[1]);
 		close(p[0]);
 		close(p[1]);
-		run_cmd(pcmd->left, core);
+		run_cmd(pcmd->left, core, fcmd);
 	}
 	else
 	{
@@ -122,7 +133,7 @@ int	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core)
 			dup(p[0]);
 			close(p[0]);
 			close(p[1]);
-			run_cmd(pcmd->right, core);
+			run_cmd(pcmd->right, core, fcmd);
 		}
 	
 		else
@@ -143,10 +154,19 @@ int	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core)
 	        printf("Exit status of the last child was %d\n", last_status);
 		} 
 	}
+		dprintf(2, "freeing cmd in pipe\n");
+		ft_free_cmd(fcmd);
+		dprintf(2, "freeing tok list in pipe\n");
+		ft_free_tok_list(core->token_head);
+		dprintf(2, "freeing env_list in pipe\n");
+		ft_free_env(core->env_list);
+		dprintf(2, "freeing core in pipe\n");
+		free(core);
+		dprintf(2, "done\n");
 	    exit(last_status);
 }
 
-void	runcmd_here(t_cmd_P *cmd, t_core_struct *core)
+void	runcmd_here(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	t_herecmd_P *hcmd;
 	pid_t		pid;
@@ -182,10 +202,10 @@ void	runcmd_here(t_cmd_P *cmd, t_core_struct *core)
 	g_exit_code = wait(NULL);
 	printf ("g_exit_code: %d\n", g_exit_code);
 	//waitpid(-1, &status, )
-	run_cmd(hcmd->cmd, core);
+	run_cmd(hcmd->cmd, core, fcmd);
 }
 
-void	run_cmd(t_cmd_P *cmd, t_core_struct *core)
+void	run_cmd(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	//int				p[2];
 /* 	int status;
@@ -197,18 +217,18 @@ void	run_cmd(t_cmd_P *cmd, t_core_struct *core)
 		exit (1);
 	if (cmd->type == EXEC_CMD)
 	{
-		runcmd_exec(cmd, core);
+		runcmd_exec(cmd, core, fcmd);
 	}
 	if (cmd->type == REDIR_CMD)
-		runcmd_redir(cmd, core);
+		runcmd_redir(cmd, core, fcmd);
 	if (cmd->type == PIPE_CMD)
 	{
 		printf("++++++++++++++++calling runcmd_pipe\n");
-		g_exit_code = runcmd_pipe(cmd, core);
+		g_exit_code = runcmd_pipe(cmd, core, fcmd);
 	}
 	if (cmd->type == HERE_CMD)
 	{
-		runcmd_here(cmd, core);
+		runcmd_here(cmd, core, fcmd);
 	}
 	//else
 	//	panic ("runcmd panic");
