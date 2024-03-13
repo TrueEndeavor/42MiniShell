@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/12 13:23:07 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:54:21 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,17 @@ t_cmd_P	*parse_cmd(t_core_struct *core)
 	t_cmd_P		*cmd;
 	t_token_T   *token_list_copy;
 	
+	token_list_copy = NULL;
+	
 	if (core->token_head == NULL || *core->token_head == NULL)
 	{
 		return (NULL);
 	}
 	token_list_copy = (*core->token_head);
+	//printf("address of the copy = %p\n, address of the original = %p\n",token_list_copy, (*core->token_head));
 	cmd = parse_pipe(core);
 	print_cmd(cmd);
-	core->token_head = &token_list_copy;
+	(*core->token_head) = token_list_copy;
 	
 	return (cmd);
 }

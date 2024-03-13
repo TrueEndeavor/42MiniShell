@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_tokenizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 10:39:30 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:55:47 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int is_valid_variable_char(char c)
 t_token_T	*lexer_parse_variable(t_lexer_T *lexer)
 {
 	char		*value;
-	char		*new_value;
+	char		*copy;
 	int			new_size;
 	t_token_T	*ret_token;
 
@@ -84,15 +84,19 @@ t_token_T	*lexer_parse_variable(t_lexer_T *lexer)
 	while (is_valid_variable_char(lexer->c))
 	{
 		new_size = ft_strlen(value) + 2;
-		new_value = ft_calloc(new_size, sizeof(char));
-		if (!new_value)
+		copy = ft_calloc(new_size, sizeof(char));
+		if (!copy)
 		{
 			free (value);
 			return (NULL);
 		}
-		ft_strlcpy(new_value, value, new_size);
+		ft_strlcpy(copy, value, new_size);
+		free(value);
+		value = ft_calloc(new_size, sizeof(char));
+		ft_strlcpy(value, copy, new_size);
 		value[new_size - 2] = lexer->c;
 		value[new_size - 1] = '\0';
+		free(copy);
 		lexer_advance(lexer);
 	}
     ret_token = init_token(value, T_VARIABLE);
@@ -116,7 +120,7 @@ t_token_T	*lexer_parse_variable(t_lexer_T *lexer)
 t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 {
 	char		*value;
-	char		*new_value;
+	char		*copy;
 	int			new_size;
 	t_token_T	*ret_token;
 
@@ -124,20 +128,21 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 	value = ft_calloc(1, sizeof(char));
 	value[0] = '\0';
 	while (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c)))
-	/* while (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) ||
-		(lexer->c == '_') || (lexer->c == '-') || \
-		(lexer->c == '/') || (lexer->c == '.'))	 */
 	{
 		new_size = ft_strlen(value) + 2;
-		new_value = ft_calloc(new_size, sizeof(char));
-		if (!new_value)
+		copy = ft_calloc(new_size, sizeof(char));
+		if (!copy)
 		{
 			free (value);
 			return (NULL);
 		}
-		ft_strlcpy(new_value, value, new_size);
+		ft_strlcpy(copy, value, new_size);
+		free(value);
+		value = ft_calloc(new_size, sizeof(char));
+		ft_strlcpy(value, copy, new_size);
 		value[new_size - 2] = lexer->c;
 		value[new_size - 1] = '\0';
+		free(copy);
 		lexer_advance(lexer);
 	}
     ret_token = init_token(value, T_WORD);

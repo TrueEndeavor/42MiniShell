@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 14:52:48 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:58:30 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ t_token_T	*minishell_compile(char *src)
 	lexer = init_lexer(src);
 	tok = lexer_scan_token(lexer);
 	if (tok == NULL)
+	{
+		free(lexer);
 		return (NULL);
+	}
 	token_head = tok;
 	while (tok->type != T_LINEBREAK)
 	{
@@ -35,6 +38,7 @@ t_token_T	*minishell_compile(char *src)
 		tok = lexer_scan_token(lexer);
 		if (tok == NULL)
 		{
+			free(lexer);
 			ft_free_tok_list(&token_head);
 			return (NULL);
 		}
@@ -42,6 +46,7 @@ t_token_T	*minishell_compile(char *src)
 	}
 	prev_tok->next = tok;
 	tok->next = NULL;
+	free(lexer);
 	return (token_head);
 }
 
@@ -68,6 +73,11 @@ int	display_new_prompt(t_core_struct *core)
 				add_history(prompt);
 				if (strcmp(prompt, "exit") == 0 || strcmp(prompt, "quit") == 0)
 				{
+					ft_free_env(core->env_list);
+					free(core);
+					printf ("history cleared\n");
+					free(prompt);
+					rl_clear_history();
 					break ;
 				}
 				token_head = minishell_compile(prompt);
@@ -75,7 +85,7 @@ int	display_new_prompt(t_core_struct *core)
 				print_token_list(*core->token_head);
 			    if (syntax_analyzer(*core->token_head))
 				{
-					root = parse_cmd(core);
+					root = parse_cmd(core);					
 					// normal commands
 					if (!match_builtin(root, core))
 					{
@@ -118,7 +128,9 @@ int	display_new_prompt(t_core_struct *core)
 					//printf("syntax check finished\n");
 					//free everything
 				}
-				
+				printf("freeing token list...\n");
+				ft_free_tok_list(core->token_head);
+				free(prompt);
 				printf ("g_exit_code: %d\n", g_exit_code);
 			}
 		}
