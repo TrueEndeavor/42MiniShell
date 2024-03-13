@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:38:25 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 13:04:39 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/13 09:18:49 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char **convert_env_to_stringarray(t_env_list *env_list)
 	new_envp[i] = NULL;
 	return (new_envp); 
 }
+// function to free_env_array
 
 char *getKey(char *s)
 {

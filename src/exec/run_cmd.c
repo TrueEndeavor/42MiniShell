@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 14:46:24 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/13 09:17:37 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,17 @@ int	ft_get_line(char **line)
 int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core)
 {
 	t_execcmd_P	*ecmd;
+	char    **env_array;
 
+	env_array = NULL;
 	ecmd = (t_execcmd_P *) cmd;
 	if (ecmd->argv[0] == 0)
 		exit (1);
+	env_array = convert_env_to_stringarray(core->env_list);
 	dprintf(2, "######RUNCMD_EXEC######\n");
 	dprintf(2, "THE COMMAND IS = %s\n", ecmd->argv[0]);
-	g_exit_code = ft_execute(ecmd->argv, convert_env_to_stringarray(core->env_list));
-	//return(g_exit_code);
+	g_exit_code = ft_execute(ecmd->argv, env_array);
+	//free(env_array);
 	exit(g_exit_code);
 }
 
