@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:53:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/29 13:27:33 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:01:45 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int    match_builtin(t_cmd_P *root, t_core_struct *core)
 	t_execcmd_P	*ecmd;
 
 	ecmd = (t_execcmd_P *) root;
+    dprintf(2, "######OUTPUT######\n\n\n");
     if (ft_strcmp(ecmd->argv[0], "env") == 0)
     {
         printf("matched builtin = env\n");

@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:38:43 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/04 10:00:52 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:19:33 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 t_token_T	*handle_heredoc_token(t_lexer_T *lexer)
 {
 	lexer_advance(lexer);
-	return (lexer_advance_with(lexer, init_token("<<", T_HEREDOC)));
+	return (lexer_advance_with(lexer, init_token(ft_strdup("<<"), T_HEREDOC)));
 }
 
 t_token_T	*handle_redirect_in_token(t_lexer_T *lexer)

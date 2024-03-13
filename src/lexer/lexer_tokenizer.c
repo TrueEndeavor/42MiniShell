@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_tokenizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 11:55:47 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:26:03 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_token_T	*lexer_parse_variable(t_lexer_T *lexer)
 	if ((lexer->c) == '?')
 	{
 		lexer_advance(lexer);
-		return (init_token("?", T_EXITCODE));
+		return (init_token(ft_strdup("?"), T_EXITCODE));
 	}
 	value = ft_calloc(1, sizeof(char));
 	value[0] = '\0';
@@ -200,7 +200,7 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 		if (lexer->c == '>' && lexer_peek(lexer, 1) == '>')
 		{
 			lexer_advance(lexer);
-			return (lexer_advance_with(lexer, init_token(">>", T_APPEND_OUT)));
+			return (lexer_advance_with(lexer, init_token(ft_strdup(">>"), T_APPEND_OUT)));
 		}
 		if (lexer->c == '<' && lexer_peek(lexer, 1) == '<')
 			return (handle_heredoc_token(lexer));			

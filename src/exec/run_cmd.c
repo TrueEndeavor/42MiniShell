@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 14:50:26 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:59:42 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	env_array = convert_env_to_stringarray(core->env_list);
 	dprintf(2, "######RUNCMD_EXEC######\n");
 	dprintf(2, "THE COMMAND IS = %s\n", ecmd->argv[0]);
+	dprintf(2, "\033[0;36m######OUTPUT######\n\n\n");
 	g_exit_code = ft_execute(ecmd->argv, env_array);
+	//printf ("//core->exit_code =: %d\n", //core->exit_code =);
+	dprintf(2, "\n\n\n######OUTPUT######\n");
 	//free(env_array);
 	dprintf(2, "freeing cmd in child\n");
 	ft_free_cmd(fcmd);
@@ -78,6 +81,7 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	ft_free(NULL, env_array);
 	dprintf(2, "done\n");
 	exit(g_exit_code);
+	//printf ("//core->exit_code =: %d\n", //core->exit_code =);
 }
 
 void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
@@ -201,6 +205,7 @@ void	runcmd_here(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	//wait(NULL);
 	g_exit_code = wait(NULL);
 	printf ("g_exit_code: %d\n", g_exit_code);
+	//printf ("//core->exit_code =: %d\n", //core->exit_code =);
 	//waitpid(-1, &status, )
 	run_cmd(hcmd->cmd, core, fcmd);
 }
@@ -225,6 +230,7 @@ void	run_cmd(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	{
 		printf("++++++++++++++++calling runcmd_pipe\n");
 		g_exit_code = runcmd_pipe(cmd, core, fcmd);
+		//printf ("//core->exit_code =: %d\n", //core->exit_code =);
 	}
 	if (cmd->type == HERE_CMD)
 	{

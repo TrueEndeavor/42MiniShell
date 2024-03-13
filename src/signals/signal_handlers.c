@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 12:45:56 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:08:15 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	readline_sighandler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		g_exit_code = 130;
+		//g_exit_code = 130;
+		g_exit_code = signum; // to say that I got hit by a signal
 		rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_on_new_line();
@@ -27,18 +28,18 @@ void	readline_sighandler(int signum)
 void	child_sighandler(int signum)
 {
 	printf("inside child_sighandler");
-	if (signum == SIGINT)
+/* 	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
-	}
+	} */
 	if (signum == SIGQUIT)
 	{
 	    write(1, "\33[2K\r", 5);
 		rl_on_new_line();
 		write(1, "\\^\\Quit (core dumped)",18);
-		g_exit_code = 131;
+		//g_exit_code = 131;
 		rl_redisplay();
 	}
 }

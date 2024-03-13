@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 14:29:58 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:03:13 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ int	display_new_prompt(t_core_struct *core)
 		setup_readline_signals();
 		if (isatty(STDIN_FILENO))
 			prompt = readline("jollyshell$> ");
+			/* if (g_exit_code != 0)
+			{
+				core->exit_code += g_exit_code + 128;
+				g_exit_code = 0;
+			} */
 		if (prompt != NULL)
 		{
 			if (*prompt)
@@ -109,8 +114,10 @@ int	display_new_prompt(t_core_struct *core)
 								last_status = WEXITSTATUS(status);
 								printf("Exit status of the child was %d\n", last_status);
 							}
-							else if (WIFSIGNALED(last_status))
+							else if (WIFSIGNALED(status))
 							{
+						 		last_status = WTERMSIG(status);
+								printf("...Exit status of the child was %d\n", last_status);
 								if (last_status == SIGTERM)
 									write(1, "\n", 1);
 								else if (last_status == SIGQUIT)
@@ -118,6 +125,7 @@ int	display_new_prompt(t_core_struct *core)
 								last_status += 128;
 							}
 							g_exit_code = last_status;
+							//core->exit_code = last_status;
 						}
 					}
 				}
@@ -134,6 +142,7 @@ int	display_new_prompt(t_core_struct *core)
 				ft_free_tok_list(core->token_head);
 				free(prompt);
 				printf ("g_exit_code: %d\n", g_exit_code);
+				//printf ("//core->exit_code =: %d\n", //core->exit_code =);
 			}
 		}
 		else // Ctrl+D

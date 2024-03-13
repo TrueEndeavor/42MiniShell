@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 12:33:28 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:35:44 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-# define MAXARGS 10
+# define MAXARGS 20
 
 # define IS_A_VARIABLE 1
 # define IS_NOT_A_VARIABLE 0
@@ -139,6 +139,7 @@ typedef struct CORESTRUCT
 {
 	t_env_list				*env_list;
 	t_token_T				**token_head;
+	int						exit_code;
 }	t_core_struct;
 
 

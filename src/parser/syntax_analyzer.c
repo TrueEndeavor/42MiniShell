@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:06:36 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 10:23:39 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:59:46 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
 			(token_type == T_REDIRECT_OUT) || \
 			(token_type == T_HEREDOC) || \
 			(token_type == T_APPEND_OUT))
-			return (STATE_Q1);
+			return (STATE_Q2);
 		return (STATE_ERROR);
 	}
 	if (state == STATE_Q1)
@@ -94,7 +94,7 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
 			(token_type == T_HEREDOC) || \
 			(token_type == T_APPEND_OUT))
 			return (STATE_Q2);
-	return (STATE_ERROR);
+		return (STATE_ERROR);
 	}
 	return (state);
 }
@@ -118,16 +118,22 @@ bool	syntax_analyzer(t_token_T *tokens)
 	}
 	current = tokens;
 	state = STATE_Q0;
+			state = transition(state, current->type);
 	while (current != NULL)
 	{
-		if (state != STATE_ERROR)
-			state = transition(state, current->type);
-		else
+		printf(".................state=%d\n", state);
+		if (state == STATE_ERROR)
 		{
 			printf("syntax error near unexpected token `%s'\n", token_type_to_symbol(current->type));
+			g_exit_code = 2;
+			//printf ("//core->exit_code =: %d\n", //core->exit_code =);
 			return (false);
 		}
-		current = current->next;
+		if (state != STATE_ERROR)
+		{
+			state = transition(state, current->type);
+			current = current->next;
+		}
 	}
 	return (true);
 }
