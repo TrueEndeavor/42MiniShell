@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:25:40 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 13:13:44 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/14 09:50:17 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_execute(char **cmd, char **envp)
 		{
 			if (errno == EACCES) 
             {
-	            printf("Permission denied\n");
+	            ft_printf("Permission denied\n");
 	            return (126);
 	        }
 			perror("execve");
@@ -31,23 +31,16 @@ int		ft_execute(char **cmd, char **envp)
 		}
 	}
 	path = ft_get_path(cmd[0], envp);
-	//printf ("path is:-%s-\n", path);
 	if (path == NULL)
 	{
-		//printf ("got here\n");
-		//ft_free(path, NULL);
-		//return (127);
-		printf("%s: command not found\n", cmd[0]);
+		ft_printf("%s: command not found\n", cmd[0]);
 		return (127);
 	}
 	if (execve(path, cmd, envp) == -1)
 	{
-		//printf ("got there\n");
-		//ft_free(path, NULL);
-		//printf("execve failed\n");
         if (errno == EACCES) 
         {
-            printf("Permission denied\n");
+            ft_printf("Permission denied\n");
             return(126);
         }		
 		perror("execve");

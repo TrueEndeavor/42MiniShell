@@ -6,13 +6,13 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 19:03:13 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 09:45:50 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_exit_code;
+int	g_signum;
 
 t_token_T	*minishell_compile(char *src)
 {
@@ -60,17 +60,19 @@ int	display_new_prompt(t_core_struct *core)
 	//int         status;
 
 	prompt = NULL;
-	g_exit_code = 0;
+	g_signum = 0;
 	while (1)
 	{
 		setup_readline_signals();
 		if (isatty(STDIN_FILENO))
+		{
 			prompt = readline("jollyshell$> ");
-			/* if (g_exit_code != 0)
+			if (g_signum != 0)
 			{
-				core->exit_code += g_exit_code + 128;
-				g_exit_code = 0;
-			} */
+				core->exit_code += (g_signum + 128);
+				g_signum = 0;
+			}
+		}
 		if (prompt != NULL)
 		{
 			if (*prompt)
@@ -88,7 +90,8 @@ int	display_new_prompt(t_core_struct *core)
 				token_head = minishell_compile(prompt);
 				core->token_head = &token_head;
 				print_token_list(*core->token_head);
-			    if (syntax_analyzer(*core->token_head))
+				core->exit_code = syntax_analyzer(*core->token_head);
+			    if (core->exit_code == 0)
 				{
 					root = parse_cmd(core);					
 					// normal commands
@@ -101,8 +104,6 @@ int	display_new_prompt(t_core_struct *core)
 						child_pid = fork1();
 						if(child_pid == 0)
 						{
-							// child signals
-							printf("-----------------within child");
 							setup_child_signals();
 							run_cmd(root, core, root);
 						}
@@ -117,15 +118,13 @@ int	display_new_prompt(t_core_struct *core)
 							else if (WIFSIGNALED(status))
 							{
 						 		last_status = WTERMSIG(status);
-								printf("...Exit status of the child was %d\n", last_status);
 								if (last_status == SIGTERM)
 									write(1, "\n", 1);
 								else if (last_status == SIGQUIT)
 									write(2, "Quit (core dumped)\n", 18);
 								last_status += 128;
 							}
-							g_exit_code = last_status;
-							//core->exit_code = last_status;
+							core->exit_code = last_status;
 						}
 					}
 				}
@@ -133,16 +132,13 @@ int	display_new_prompt(t_core_struct *core)
 				{
 					printf ("error during check of arguments, freeing...\n");
 					ft_free_tok_list(core->token_head);
-					//printf("syntax check finished\n");
-					//free everything
 				}
 				printf("freeing cmd in main list\n");
 				ft_free_cmd(root);
 				printf("freeing token list in main...\n");
 				ft_free_tok_list(core->token_head);
 				free(prompt);
-				printf ("g_exit_code: %d\n", g_exit_code);
-				//printf ("//core->exit_code =: %d\n", //core->exit_code =);
+				printf ("core->exit_code: %d\n", core->exit_code);
 			}
 		}
 		else // Ctrl+D
@@ -150,7 +146,6 @@ int	display_new_prompt(t_core_struct *core)
 			ft_free_env(core->env_list);
 			free(core);
 			ft_printf("exit\n");
-			// free everything
 			return (1);
 		}
 	}
@@ -173,7 +168,6 @@ int	main(int ac, char *av[], char **envp)
 	}
 	core = malloc(1 * sizeof(t_core_struct));
 	core->env_list = init_env(envp);
-	printf("address of el in main %p\n", &core->env_list);
 	ft_update_SHLVL(core);
 	ret_value = display_new_prompt(core);
 	return (ret_value);

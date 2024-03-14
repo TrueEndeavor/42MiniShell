@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 09:27:03 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/13 14:57:35 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/14 09:50:03 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void    ft_free_tok_list(t_token_T **token_head)
     if (token_head)
     {
         printf ("commencing free of token list\n");
-//        free(): invalid pointer
-//        zsh: IOT instruction (core dumped)  ./minishell
         while ((*token_head) != NULL)
         {
             helper = (*token_head)->next;

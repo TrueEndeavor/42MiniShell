@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 18:56:52 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 09:37:47 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ int	builtin_export(t_execcmd_P *ecmd, t_core_struct *core)
 	if (ft_isdigit(ecmd->argv[1][0]) == 1)
 	{
 		printf("export: `%s%s': not a valid identifier\n", ecmd->argv[1], ecmd->argv[2]);
-		g_exit_code = 1;
-		//printf ("//core->exit_code =: %d\n", //core->exit_code =);
-		return (g_exit_code);
+		core->exit_code = 1;
+		return (core->exit_code);
 	}
 	
 	while (ecmd->argv[1] && i < 10)
@@ -50,7 +49,7 @@ int	builtin_export(t_execcmd_P *ecmd, t_core_struct *core)
 	return (0);
 	
 	/* Test case 1: if existing and if the expanded name is not variable name - error and exit 1
-	set g_exit_code=1
+	set core->exit_code=1
 	 lannur-s@bess-f4r5s5:~$ export $var=dd
 	bash: export: `1212=dd': not a valid identifier
 	lannur-s@bess-f4r5s5:~$ echo $?

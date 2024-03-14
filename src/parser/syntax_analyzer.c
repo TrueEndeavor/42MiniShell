@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:06:36 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 18:59:46 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 09:52:23 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
    which is display_prompt/parse_cmd.
    Ok, let's go.
 */
-bool	syntax_analyzer(t_token_T *tokens)
+int	syntax_analyzer(t_token_T *tokens)
 {
 	t_token_T	*current;
 	t_state_enum	state;
@@ -121,13 +121,10 @@ bool	syntax_analyzer(t_token_T *tokens)
 			state = transition(state, current->type);
 	while (current != NULL)
 	{
-		printf(".................state=%d\n", state);
 		if (state == STATE_ERROR)
 		{
-			printf("syntax error near unexpected token `%s'\n", token_type_to_symbol(current->type));
-			g_exit_code = 2;
-			//printf ("//core->exit_code =: %d\n", //core->exit_code =);
-			return (false);
+			ft_printf("syntax error near unexpected token `%s'\n", token_type_to_symbol(current->type));
+			return (2);
 		}
 		if (state != STATE_ERROR)
 		{
@@ -135,5 +132,5 @@ bool	syntax_analyzer(t_token_T *tokens)
 			current = current->next;
 		}
 	}
-	return (true);
+	return (0);
 }

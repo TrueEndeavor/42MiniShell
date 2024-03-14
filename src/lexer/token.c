@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:01:56 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/11 14:30:23 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 09:50:57 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*token_type_to_symbol(int type)
 	return ("Not stringable");
 }
 
-char	*token_to_str(t_token_T *token)
+/* char	*token_to_str(t_token_T *token)
 {
 	char	*type_str;
 	char	*template;
@@ -92,4 +92,4 @@ char	*token_to_str(t_token_T *token)
 		sizeof(char));
 	sprintf(str, template, type_str, token->type, token->value);
 	return (str);
-}
+} */

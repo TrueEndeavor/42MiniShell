@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 13:24:31 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/14 09:42:45 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-bool    syntax_analyzer(t_token_T *current_token);
+int    syntax_analyzer(t_token_T *current_token);
 
 t_cmd_P	*parse_cmd(t_core_struct *core);
 t_cmd_P* parse_pipe(t_core_struct *core);
