@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:06:36 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/14 09:52:23 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:21:07 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,18 +105,17 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
    which is display_prompt/parse_cmd.
    Ok, let's go.
 */
-int	syntax_analyzer(t_token_T *tokens)
+bool	syntax_analyzer(t_core_struct *core)
 {
 	t_token_T	*current;
 	t_state_enum	state;
 
-	current = tokens;
+	current = (*core->token_head);
 	if (current == NULL)
 	{
 		ft_printf("Token list empty\n");
 		return (false);
 	}
-	current = tokens;
 	state = STATE_Q0;
 			state = transition(state, current->type);
 	while (current != NULL)
@@ -124,7 +123,8 @@ int	syntax_analyzer(t_token_T *tokens)
 		if (state == STATE_ERROR)
 		{
 			ft_printf("syntax error near unexpected token `%s'\n", token_type_to_symbol(current->type));
-			return (2);
+			core->exit_code = 2;
+			return (false);
 		}
 		if (state != STATE_ERROR)
 		{
@@ -132,5 +132,5 @@ int	syntax_analyzer(t_token_T *tokens)
 			current = current->next;
 		}
 	}
-	return (0);
+	return (true);
 }
