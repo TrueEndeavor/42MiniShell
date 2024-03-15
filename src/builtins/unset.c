@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/14 13:25:47 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/15 10:09:30 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	builtin_unset(t_execcmd_P *ecmd, t_core_struct *core)
 
 	current = core->env_list;
 	previous = current;
+	if ((ecmd->argv[1] == NULL) || (ecmd->argv[1][0] == '\0'))
+		return (1);	
 	while (ft_strcmp(current->name, ecmd->argv[1]) != 0)
 	{
 		previous = current;
