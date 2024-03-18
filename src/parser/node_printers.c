@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 19:11:57 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 14:53:28 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:49:39 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void print_execcmd(t_cmd_P *cmd)
     t_execcmd_P *execCmd = (t_execcmd_P *)cmd;
     printf("Type: EXEC_CMD\n");
     for (int i=0; i < MAXARGS; i++)
-        printf("argv: %s\n", execCmd->argv[i]);
+        printf("argv: -%s-\n", execCmd->argv[i]);
     // Add any additional fields specific to t_execcmd_P if needed
 }
 

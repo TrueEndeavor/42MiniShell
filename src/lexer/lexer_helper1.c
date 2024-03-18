@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_helper1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:20:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 10:37:11 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:24:07 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@
  * ************************************************************************* */
 t_token_T	*handle_word_token(t_lexer_T *lexer)
 {
-	return (lexer_advance_with(lexer, lexer_parse_word(lexer)));
+	//return (lexer_advance_with(lexer, lexer_parse_word(lexer)));
+	return (lexer_parse_word(lexer));
 }
 
 t_token_T	*handle_variable_token(t_lexer_T *lexer)
 {
 	lexer_advance(lexer);
-	return (lexer_advance_with(lexer, lexer_parse_variable(lexer)));
+	//return (lexer_advance_with(lexer, lexer_parse_variable(lexer)));
+	return (lexer_parse_variable(lexer));
 }
 
 /* t_token_T	*handle_number_token(t_lexer_T *lexer)

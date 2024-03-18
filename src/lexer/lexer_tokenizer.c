@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_tokenizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 10:26:10 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:00:53 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,8 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 	ret_token = NULL;
 	value = ft_calloc(1, sizeof(char));
 	value[0] = '\0';
-	while (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c)))
+	while (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c))
+	&& (lexer->c != '\'') && (lexer->c != '\"'))
 	{
 		new_size = ft_strlen(value) + 2;
 		copy = ft_calloc(new_size, sizeof(char));

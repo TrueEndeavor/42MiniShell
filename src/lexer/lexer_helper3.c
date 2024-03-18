@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_helper3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:13:30 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 10:33:57 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:19:33 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ t_token_T	*handle_quoted_strings(t_lexer_T *lexer)
 	if (lexer->c == '\'')
 		return (lexer_parse_quoted_string(lexer));
 	if (lexer->c == '\"')
-		return (lexer_advance_with(lexer, lexer_parse_double_quoted_string(lexer)));
+		//return (l(lexer, lexer_parse_double_quoted_string(lexer)));
+		return (lexer_parse_double_quoted_string(lexer));
 	return (NULL);
 }
 
@@ -91,7 +92,7 @@ t_token_T	*lexer_parse_quoted_string(t_lexer_T *lexer)
 	value = ft_calloc(1, sizeof(char));
 	value[0] = '\0';
 	lexer_advance(lexer);
-	while (lexer->c != 39)
+	while (lexer->c != '\'')
 	{
 		if (lexer->c == '\0')
 			panic("end of line reached before quote finished");
@@ -127,7 +128,7 @@ t_token_T	*lexer_parse_double_quoted_string(t_lexer_T *lexer)
 	value = ft_calloc(1, sizeof(char));
 	value[0] = '\0';
 	lexer_advance(lexer);
-	while (lexer->c != 34)
+	while (lexer->c != '\"')
 	{
 		if (lexer->c == '\0')
 			panic("end of line reached before quote finished");
