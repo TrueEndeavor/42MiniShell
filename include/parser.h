@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/14 13:15:55 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:10:48 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ char    *quote_string(char **str, t_core_struct *core);
 char    *free_quotes(char **str, char **name, char **var);
 char    *duplicate(const char *src);
 char    *ft_expand(t_core_struct *core, char **file_name);
+char    *ft_here(char **value);
+void    ft_initialize_tab(char **name, char **var);
 
 
 

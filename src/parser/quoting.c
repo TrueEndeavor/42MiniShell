@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/11 12:25:18 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/18 11:54:19 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,25 @@ void    copy_variable(char *ret, char *var, int i)
 char    *get_name(char *str, int i)
 {
     char *ret;
-    int     i_name;
-	char		*new_value;    
-	int			new_size;    
+	char		*copy;    
+	size_t      new_size;    
 
-    i_name = 0;
     i++;
     ret = ft_calloc(1, sizeof(char));
 	ret[0] = '\0';
     while (str[i] != '\0' && ((ft_isalnum(str[i])) || str[i] == '_'))
     {
         new_size = ft_strlen(ret) + 2;
-		new_value = ft_calloc(new_size, sizeof(char));
-        ret[i_name] = str[i];
-        ret[i_name + 1] = '\0';
-        i_name++;
+		copy = ft_calloc(new_size, sizeof(char));
+        ft_strlcpy(copy, ret, new_size);
+        free(ret);
+        ret = ft_calloc(new_size, sizeof(char));
+        ft_strlcpy(ret, copy, new_size);
+        ret[new_size - 2] = str[i];
+        ret[new_size - 1] = '\0';
+        free(copy);
         i++;
     }
-    ret[i_name] = '\0';
     return (ret);
 }
 
@@ -55,9 +56,9 @@ int     fill_values(char **str, char **name, char **var, t_core_struct *core)
     int     i;
     int     i_var;
     int     var_count;
-    char    *temp;
 
     printf ("begining of fill_values\n");
+    ft_initialize_tab(name, var);
     var_count = 0;
     i_var = 0;
     i = 0;
@@ -65,16 +66,12 @@ int     fill_values(char **str, char **name, char **var, t_core_struct *core)
     {
         if ((*str)[i] == '$')
         {
-            name[i_var] = malloc(1 * sizeof(char *));
-            var[i_var] = malloc(1 * sizeof(char *));
+            name[i_var] = NULL;
+            var[i_var] = NULL;
             name[i_var] = get_name(*str, i);
             i += (int)ft_strlen(name[i_var]);
-            temp = duplicate(get_env(core, name[i_var]));
-            printf ("temp: -%s-\n", temp);
-            printf ("got here huh....\n");
-            var[i_var] = temp;
-            //var[i_var] = ft_strdup(get_env(core, name[i_var]));
-            printf ("finaly huh....\n");
+            var[i_var] = duplicate(get_env(core, name[i_var]));
+            printf ("var: -%s-\n", var[i_var]);
             if (var[i_var] == NULL)
                 return (-1);
             i_var++;
@@ -123,8 +120,8 @@ char    *quote_string(char **str, t_core_struct *core)
     int     size;
     int     i_var;
 
-    name = malloc(1 * sizeof(char *));
-    var = malloc(1 * sizeof(char *));
+    name = malloc(10 * sizeof(char *));
+    var = malloc(10 * sizeof(char *));
     var_count = fill_values(str, name, var, core);
     if (var_count == -1)
         return (free_quotes(str, name, var));

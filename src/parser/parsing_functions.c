@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/14 09:51:36 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:10:07 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_core_struct *core)
 		}
 		else if ((current_token)->type == T_HEREDOC)
 		{
+			(next_tolkien)->value = ft_here(&(next_tolkien)->value);
 			cmd = create_herecmd(cmd, (next_tolkien)->value);
 			*core->token_head = advance_token(&next_tolkien);
 			break ;
