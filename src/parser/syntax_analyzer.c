@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analyzer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:06:36 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/14 13:21:07 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:27:31 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,14 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
 	}
 	if (state == STATE_Q2)
 	{
+		printf("within Q2: current state=  %d\n", state);
+		printf("within Q2: token type=  %d\n", token_type);
 		if ((token_type == T_WORD) || (token_type == T_VARIABLE) ||\
 			(token_type == T_QUOTED_STRING) || (token_type == T_DOUBLE_QUOTED_STRING) ||\
 			(token_type == T_EXITCODE))
-			return (STATE_Q1);
+			{
+				return (STATE_Q1);
+			}
 		return (STATE_ERROR);
 	}
 	if (state == STATE_Q3)
@@ -118,8 +122,11 @@ bool	syntax_analyzer(t_core_struct *core)
 	}
 	state = STATE_Q0;
 			state = transition(state, current->type);
+			current = current->next;
 	while (current != NULL)
 	{
+			printf("current state= %d\n", state);
+			ft_printf("current token is%s'\n", token_type_to_symbol(current->type));
 		if (state == STATE_ERROR)
 		{
 			ft_printf("syntax error near unexpected token `%s'\n", token_type_to_symbol(current->type));

@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/18 12:10:07 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:36:17 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ t_cmd_P	*parse_cmd(t_core_struct *core)
 
 t_cmd_P* parse_redirs(t_cmd_P *cmd, t_core_struct *core)
 {
-	//char    *file_name;
 	t_token_T *next_tolkien;
 	t_token_T *current_token;    
 
@@ -70,14 +69,12 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_core_struct *core)
 	while ((search_for(current_token, T_REDIRECT_IN) != NULL) || \
 			(search_for(current_token, T_REDIRECT_OUT) != NULL) || \
 			(search_for(current_token, T_HEREDOC) != NULL) || \
-			(search_for(current_token, T_APPEND_OUT) != NULL))         
+			(search_for(current_token, T_APPEND_OUT) != NULL))
 	{
 		next_tolkien = peek_next_token(current_token);
 		/* if (next_tolkien->type != T_WORD)
 			panic("missing file for redirection"); */
-		//file_name = next_tolkien->value;
 		if ((next_tolkien->type == T_VARIABLE) && (current_token->type != T_HEREDOC))
-				//file_name = ft_expand(core, &file_name);
 				(next_tolkien)->value = ft_expand(core, &(next_tolkien)->value);
 		if ((current_token)->type == T_REDIRECT_IN)
 		{
@@ -107,12 +104,13 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_core_struct *core)
 			if (((*core->token_head)->type != T_REDIRECT_IN) && \
 				((*core->token_head)->type != T_REDIRECT_OUT) && \
 				((*core->token_head)->type != T_APPEND_OUT))
-					set_write_into((t_redircmd_P *)cmd, 1);			
+					set_write_into((t_redircmd_P *)cmd, 1);
 			break ;
 		}
 		else if ((current_token)->type == T_HEREDOC)
 		{
-			(next_tolkien)->value = ft_here(&(next_tolkien)->value);
+			if ((next_tolkien)->type == T_VARIABLE)
+				(next_tolkien)->value = ft_here(&(next_tolkien)->value);
 			cmd = create_herecmd(cmd, (next_tolkien)->value);
 			*core->token_head = advance_token(&next_tolkien);
 			break ;

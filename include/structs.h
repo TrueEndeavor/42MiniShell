@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 09:39:11 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:24:10 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ typedef struct LEXER_STRUCT
 
 typedef enum STATE_ENUM
 {
-	STATE_Q0,
-	STATE_Q1,
-	STATE_Q2,
-	STATE_Q3,
-	STATE_ERROR
+	STATE_Q0 =0,
+	STATE_Q1 = 1,
+	STATE_Q2 = 2,
+	STATE_Q3 = 3,
+	STATE_ERROR = 4
 } t_state_enum;
 
 /*---------------------- Structures for Parser  ----------------------*/
