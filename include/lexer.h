@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/04 10:00:26 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:32:12 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_token_T	*handle_heredoc_token(t_lexer_T *lexer);
 void		handle_unexpected_character(t_lexer_T *lexer);
 
 t_token_T	*handle_expected_tokens(t_lexer_T *lexer);
+t_token_T	*handle_dollar_token(t_lexer_T *lexer);
 t_token_T	*handle_redirect_tokens(t_lexer_T *lexer);
 t_token_T	*handle_quoted_strings(t_lexer_T *lexer);
 t_token_T	*lexer_parse_quoted_string(t_lexer_T *lexer);

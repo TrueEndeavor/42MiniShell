@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:52:44 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/12 11:57:00 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:38:15 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,8 @@ void	ft_update_SHLVL(t_core_struct *core)
 	t_env_list *node;
 
 	node = get_node(core, "SHLVL");
-	printf ("SHLVL->value before: %s\n", node->value);
 	i = ft_atoi(node->value);
-	printf ("i before incrementing: %d\n", i);
 	i++;
-	printf ("i after incrementing: %d\n", i);
 	free(node->value);
 	node->value = ft_itoa(i);
-	printf ("SHLVL->value after: %s\n", node->value);
 }

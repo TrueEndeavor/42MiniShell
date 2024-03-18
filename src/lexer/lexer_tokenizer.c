@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 15:26:03 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:26:10 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,11 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 		if (lexer->c == '>' || lexer->c == '<')
 			return (handle_redirect_tokens(lexer));
 		if (lexer->c == '$')
-			return (handle_variable_token(lexer));		
+		{
+			return (handle_dollar_token(lexer));
+		//	return (handle_variable_token(lexer, init_token(ft_strdup("$"), T_DOLLAR)));
+			//handle_variable_token(lexer);
+		}
 		if ((lexer->c == 34) || (lexer->c == 39))
 			return (handle_quoted_strings(lexer));			
 		if (lexer->c == '\0')
@@ -222,57 +226,3 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 	}
 	return (init_token(ft_strdup(";"), T_LINEBREAK));
 }
-	
-	
-	
-	
-	/**** OLD PARSE WORD FUNCTION WITH NAME VALIDATIONS AND FLAGS FOR VARIABLE
-	
-	t_token_T	*lexer_parse_word(t_lexer_T *lexer, int is_variable, \
-							int is_possible_name)
-{
-	char		*value;
-	char		*new_value;
-	int			new_size;
-	int			is_name_by_default;
-	t_token_T	*ret_token;
-
-	ret_token = NULL;
-	is_name_by_default = 1;
-	value = ft_calloc(1, sizeof(char));
-	value[0] = '\0';
-	//while (ft_isascii(lexer->c))
-	while (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) ||
-		(lexer->c == '_') || (lexer->c == '-') || \
-		(lexer->c == '/') || (lexer->c == '.'))	
-	{
-		if (!is_valid_variable_char(lexer->c))
-				is_possible_name = 0;
-		new_size = ft_strlen(value) + 2;
-		new_value = ft_calloc(new_size, sizeof(char));
-		if (!new_value)
-		{
-			free (value);
-			return (NULL);
-		}
-		ft_strlcpy(new_value, value, new_size);
-		value[new_size - 2] = lexer->c;
-		value[new_size - 1] = '\0';
-		lexer_advance(lexer);
-	}
-	if (is_variable & is_possible_name & is_name_by_default)
-	{
-        ret_token = init_token("$", T_VARIABLE);	
-	}
-	else if (is_possible_name & is_name_by_default)
-	{
-        ret_token = init_token(value, T_NAME);
-    } 
-    else if (!(is_possible_name & is_name_by_default))
-    {
-        ret_token = init_token(value, T_WORD);
-    }
-	return (ret_token);
-}
-
-	*/

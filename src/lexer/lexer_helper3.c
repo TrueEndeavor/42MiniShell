@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_helper3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:13:30 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 11:47:26 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:33:57 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,20 @@ t_token_T	*handle_redirect_tokens(t_lexer_T *lexer)
 	return (NULL);
 }
 
+t_token_T	*handle_dollar_token(t_lexer_T *lexer)
+{
+	if (lexer->c == '$')
+	{
+		if (ft_iswhitespace(lexer_peek(lexer, 1)) || lexer_peek(lexer, 1) == '\0')
+		{
+			lexer_advance(lexer);
+			return (init_token(ft_strdup("$"), T_DOLLAR));
+		}
+		else
+			return handle_variable_token(lexer);
+	}
+	return (NULL);
+}
 
 t_token_T	*handle_quoted_strings(t_lexer_T *lexer)
 {
