@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analyzer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:06:36 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 12:27:31 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:06:27 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
 {
 	if (state == STATE_Q0)
 	{
-		if ((token_type == T_WORD) || (token_type == T_VARIABLE) ||\
+		if ((token_type == T_WORD) || (token_type == T_VARIABLE) || (token_type == T_DOLLAR) ||\
 			(token_type == T_QUOTED_STRING) || (token_type == T_DOUBLE_QUOTED_STRING) ||\
 			(token_type == T_EXITCODE))
 			return (STATE_Q1);
@@ -59,6 +59,8 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
 			(token_type == T_HEREDOC) || \
 			(token_type == T_APPEND_OUT))
 			return (STATE_Q2);
+		if (token_type == T_LINEBREAK)  
+			return (state);
 		return (STATE_ERROR);
 	}
 	if (state == STATE_Q1)
@@ -74,18 +76,18 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
 			(token_type == T_HEREDOC) || \
 			(token_type == T_APPEND_OUT))
 			return (STATE_Q2);
+		if (token_type == T_LINEBREAK)  
+			return (state);
 		return (STATE_ERROR);
 	}
 	if (state == STATE_Q2)
 	{
-		printf("within Q2: current state=  %d\n", state);
-		printf("within Q2: token type=  %d\n", token_type);
 		if ((token_type == T_WORD) || (token_type == T_VARIABLE) ||\
 			(token_type == T_QUOTED_STRING) || (token_type == T_DOUBLE_QUOTED_STRING) ||\
 			(token_type == T_EXITCODE))
-			{
-				return (STATE_Q1);
-			}
+			return (STATE_Q1);
+		if (token_type == T_LINEBREAK)  
+			return (state);
 		return (STATE_ERROR);
 	}
 	if (state == STATE_Q3)
@@ -98,6 +100,8 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
 			(token_type == T_HEREDOC) || \
 			(token_type == T_APPEND_OUT))
 			return (STATE_Q2);
+		if (token_type == T_LINEBREAK)  
+			return (state);
 		return (STATE_ERROR);
 	}
 	return (state);
@@ -112,8 +116,10 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
 bool	syntax_analyzer(t_core_struct *core)
 {
 	t_token_T	*current;
+	t_token_T	*prev;
 	t_state_enum	state;
 
+	prev = NULL;
 	current = (*core->token_head);
 	if (current == NULL)
 	{
@@ -121,23 +127,23 @@ bool	syntax_analyzer(t_core_struct *core)
 		return (false);
 	}
 	state = STATE_Q0;
-			state = transition(state, current->type);
-			current = current->next;
 	while (current != NULL)
 	{
-			printf("current state= %d\n", state);
-			ft_printf("current token is%s'\n", token_type_to_symbol(current->type));
+		state = transition(state, current->type);
 		if (state == STATE_ERROR)
 		{
 			ft_printf("syntax error near unexpected token `%s'\n", token_type_to_symbol(current->type));
 			core->exit_code = 2;
 			return (false);
 		}
-		if (state != STATE_ERROR)
-		{
-			state = transition(state, current->type);
-			current = current->next;
-		}
+		prev = current;
+		current = current->next;
+	}
+	if (state != STATE_Q1)
+	{
+		ft_printf("syntax error near unexpected token `%s'\n", token_type_to_symbol(prev->type));
+		core->exit_code = 2;
+		return (false);
 	}
 	return (true);
 }
