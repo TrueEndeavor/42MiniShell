@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:01:56 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/14 09:50:57 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/18 20:04:09 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ char	*token_type_to_symbol(int type)
 {
 	if (type == T_WORD)
 		return ("T_WORD");
+	if (type == T_DOLLAR)
+		return ("$");		
 	if (type == T_VARIABLE)
 		return ("T_VARIABLE");		
 	if (type == T_IO_NUMBER)

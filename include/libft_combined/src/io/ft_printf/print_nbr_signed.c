@@ -26,13 +26,13 @@ int	print_nbr_signed(int n)
 	}
 	if (n < 0)
 	{
-		ft_putchar_fd('-', STD_OUT);
+		ft_putchar_fd('-', STD_ERR);
 		n = -n;
 		len++;
 	}
 	if (n >= 10)
 		len += print_nbr_signed(n / 10);
-	ft_putchar_fd(n % 10 + adjustment + '0', STD_OUT);
+	ft_putchar_fd(n % 10 + adjustment + '0', STD_ERR);
 	len++;
 	return (len);
 }

@@ -16,12 +16,12 @@ int	print_string(char *s)
 {
 	if (!s)
 	{
-		ft_putstr_fd(NULL_STRING, STD_OUT);
+		ft_putstr_fd(NULL_STRING, STD_ERR);
 		return (6);
 	}
 	else
 	{
-		ft_putstr_fd(s, STD_OUT);
+		ft_putstr_fd(s, STD_ERR);
 		return ((int)ft_strlen(s));
 	}
 }

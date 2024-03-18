@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:06:36 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 16:06:27 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/18 20:06:49 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
 	}
 	if (state == STATE_Q1)
 	{
-		if ((token_type == T_WORD) || (token_type == T_VARIABLE) ||\
+		if ((token_type == T_WORD) || (token_type == T_VARIABLE) || (token_type == T_DOLLAR) ||\
 			(token_type == T_QUOTED_STRING) || (token_type == T_DOUBLE_QUOTED_STRING) ||\
 			(token_type == T_EXITCODE))
 			return (STATE_Q1);
@@ -123,7 +123,7 @@ bool	syntax_analyzer(t_core_struct *core)
 	current = (*core->token_head);
 	if (current == NULL)
 	{
-		ft_printf("Token list empty\n");
+//		ft_printf("Token list empty\n");
 		return (false);
 	}
 	state = STATE_Q0;

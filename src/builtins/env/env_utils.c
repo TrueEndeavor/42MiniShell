@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:38:25 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 09:18:49 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/18 20:06:39 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ t_env_list	*init_env(char **envp)
 		}
 		i++;
 	}
-	printf("minishell_envp_head address=%p\n", minishell_envp_head);	
 	return (minishell_envp_head);
 }
 
@@ -145,14 +144,14 @@ void	display_env_from_list(t_env_list *env_list, int is_export)
 		if (is_export == 0)
 		{
 			if ((env_list)->value != NULL)
-				ft_printf("%s=%s\n", (env_list)->name, (env_list)->value);
+				printf("%s=%s\n", (env_list)->name, (env_list)->value);
 		}
 		if (is_export == 1)
 		{
 			if ((env_list)->value != NULL)
-				ft_printf("export %s=\"%s\"\n", (env_list)->name, (env_list)->value);
+				printf("export %s=\"%s\"\n", (env_list)->name, (env_list)->value);
 			else
-				ft_printf("export %s\n", (env_list)->name);
+				printf("export %s\n", (env_list)->name);
 		}
 		env_list = (env_list)->next;
 	}

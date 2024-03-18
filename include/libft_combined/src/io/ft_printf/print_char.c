@@ -14,6 +14,6 @@
 
 int	print_char(char c)
 {
-	ft_putchar_fd(c, STD_OUT);
+	ft_putchar_fd(c, STD_ERR);
 	return (1);
 }

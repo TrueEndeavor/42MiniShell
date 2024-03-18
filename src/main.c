@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 10:37:39 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/18 20:06:14 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int	display_new_prompt(t_core_struct *core)
 						if(child_pid == 0)
 						{
 							// child signals
-							printf("-----------------within child");
 							setup_child_signals();
 							run_cmd(root, core, root);
 						}
@@ -114,12 +113,12 @@ int	display_new_prompt(t_core_struct *core)
 							if (WIFEXITED(status)) 
 							{
 								last_status = WEXITSTATUS(status);
-								printf("Exit status of the child was %d\n", last_status);
+//								printf("Exit status of the child was %d\n", last_status);
 							}
 							else if (WIFSIGNALED(status))
 							{
 						 		last_status = WTERMSIG(status);
-								printf("...Exit status of the child was %d\n", last_status);
+//								printf("...Exit status of the child was %d\n", last_status);
 								if (last_status == SIGTERM)
 									write(1, "\n", 1);
 								else if (last_status == SIGQUIT)
@@ -134,8 +133,6 @@ int	display_new_prompt(t_core_struct *core)
 				{
 					printf ("error during check of arguments, freeing...\n");
 					ft_free_tok_list(core->token_head);
-					//printf("syntax check finished\n");
-					//free everything
 				}
 				printf("freeing cmd in main list\n");
 				ft_free_cmd(root);
@@ -149,7 +146,7 @@ int	display_new_prompt(t_core_struct *core)
 		{
 			ft_free_env(core->env_list);
 			free(core);
-			ft_printf("exit\n");
+			printf("exit\n");
 			// free everything
 			return (1);
 		}

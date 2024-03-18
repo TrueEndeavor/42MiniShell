@@ -39,7 +39,7 @@ static int	do_print(const char c, va_list args)
 	else if (c == 'p')
 		return (print_pointer((unsigned long) va_arg(args, unsigned long)));
 	else if (c == '%')
-		return (ft_putchar_fd('%', STD_OUT), 1);
+		return (ft_putchar_fd('%', STD_ERR), 1);
 	else
 		return (-1);
 }
@@ -62,7 +62,7 @@ int	ft_printf(const char *format, ...)
 		}
 		else
 		{
-			ft_putchar_fd(*format, STD_OUT);
+			ft_putchar_fd(*format, STD_ERR);
 			length++;
 		}
 		format++;

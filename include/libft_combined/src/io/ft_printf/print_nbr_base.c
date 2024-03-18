@@ -22,12 +22,12 @@ int	print_nbr_base(unsigned long nbr, int base, int uppercase)
 	if (nbr % base >= 10)
 	{
 		if (uppercase == UPPER)
-			ft_putchar_fd(((nbr % base) - 10) + 'A', STD_OUT);
+			ft_putchar_fd(((nbr % base) - 10) + 'A', STD_ERR);
 		else
-			ft_putchar_fd(((nbr % base) - 10) + 'a', STD_OUT);
+			ft_putchar_fd(((nbr % base) - 10) + 'a', STD_ERR);
 	}
 	else
-		ft_putchar_fd((nbr % base) + '0', STD_OUT);
+		ft_putchar_fd((nbr % base) + '0', STD_ERR);
 	length++;
 	return (length);
 }
