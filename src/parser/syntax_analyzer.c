@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:06:36 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 20:06:49 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/18 20:12:24 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
 			(token_type == T_HEREDOC) || \
 			(token_type == T_APPEND_OUT))
 			return (STATE_Q2);
-		if (token_type == T_LINEBREAK)  
+		if (token_type == T_LINEBREAK)
 			return (state);
 		return (STATE_ERROR);
 	}
@@ -86,7 +86,7 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
 			(token_type == T_QUOTED_STRING) || (token_type == T_DOUBLE_QUOTED_STRING) ||\
 			(token_type == T_EXITCODE))
 			return (STATE_Q1);
-		if (token_type == T_LINEBREAK)  
+		if (token_type == T_LINEBREAK)
 			return (state);
 		return (STATE_ERROR);
 	}
