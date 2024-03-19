@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:25:40 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/15 13:16:37 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:07:14 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,22 @@ bool	is_directory(char *path)
 	return (true);
 }
 
-int		ft_execute(char **cmd, char **envp)
+int	ft_execute(char **cmd, char **envp)
 {
 	char	*path;
-	
- 	path = NULL;
- 	if (is_directory(cmd[0]))
+
+	path = NULL;
+	if (is_directory(cmd[0]))
 		return (126);
 	if (cmd[0][0] == '/' || ft_strncmp(cmd[0], "./", 2) == 0)
 	{
 		if (execve(cmd[0], cmd, envp) == -1)
 		{
-			if (errno == EACCES) 
-            {
-	            ft_printf("Permission denied\n");
-	            return (126);
-	        }
+			if (errno == EACCES)
+			{
+				ft_printf(" Permission denied\n");
+				return (126);
+			}
 			perror("execve");
 			return (EXIT_FAILURE);
 		}
@@ -62,15 +62,15 @@ int		ft_execute(char **cmd, char **envp)
 	}
 	if (execve(path, cmd, envp) == -1)
 	{
-        if (errno == EACCES) 
-        {
-            ft_printf("Permission denied\n");
-            return(126);
-        }		
+		if (errno == EACCES)
+		{
+			ft_printf(" Permission denied\n");
+			return (126);
+		}
 		perror("execve");
 		return (EXIT_FAILURE);
 	}
-	return (0); 
+	return (0);
 }
 
 char	*ft_get_path(char *cmd, char **envp)

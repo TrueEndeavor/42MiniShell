@@ -6,17 +6,17 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/14 09:52:32 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:39:32 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	readline_sighandler(int signum) 
+void	readline_sighandler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		g_signum = signum; // to say that I got hit by a signal
+		g_signum = signum;
 		rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_on_new_line();
@@ -28,9 +28,9 @@ void	child_sighandler(int signum)
 {
 	if (signum == SIGQUIT)
 	{
-	    write(1, "\33[2K\r", 5);
+		write(1, "\33[2K\r", 5);
 		rl_on_new_line();
-		write(1, "\\^\\Quit (core dumped)",18);
+		write(1, "\\^\\Quit (core dumped)", 18);
 		g_signum = signum;
 		rl_redisplay();
 	}

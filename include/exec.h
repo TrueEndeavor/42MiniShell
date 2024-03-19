@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:49:03 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 13:06:50 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:16:08 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 
-#include "structs.h"
+# include "structs.h"
 
 void	run_cmd(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd);
 int		fork1(void);
 
 /*----------------------------- PIPEX Functions -----------------------------*/
 
-int 	ft_execute(char **argv, char **envp);
+int		ft_execute(char **argv, char **envp);
 char	*ft_get_path(char *cmd, char **envp);
 void	ft_error(char *str);
 void	ft_free(char *path, char **cmd);
@@ -32,6 +32,5 @@ char	*ft_substr(const char *s, unsigned int start, size_t len);
 void	ft_putstr_fd(char *s, int fd);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 void	ft_check_arg(int argc, char **argv);
-
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 12:24:10 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:15:20 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef enum STATE_ENUM
 	STATE_Q2 = 2,
 	STATE_Q3 = 3,
 	STATE_ERROR = 4
-} t_state_enum;
+}	t_state_enum;
 
 /*---------------------- Structures for Parser  ----------------------*/
 typedef enum PARSER_CMD_ENUM

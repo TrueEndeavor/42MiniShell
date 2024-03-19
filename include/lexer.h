@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 10:32:12 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:19:53 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_token_T	*lexer_advance_with(t_lexer_T *lexer, t_token_T *token);
 t_token_T	*lexer_advance_current(t_lexer_T *lexer, int type);
 void		lexer_skip_whitespace(t_lexer_T *lexer);
 t_token_T	*lexer_parse_word(t_lexer_T *lexer);
-t_token_T	*lexer_parse_variable(t_lexer_T *lexer);                                
+t_token_T	*lexer_parse_variable(t_lexer_T *lexer);
 t_token_T	*lexer_parse_number(t_lexer_T *lexer);
 t_token_T	*lexer_scan_token(t_lexer_T *lexer);
 

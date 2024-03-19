@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:38:43 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 15:19:33 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:25:34 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
  *
  * @return A token representing the identifier
  * ************************************************************************* */
-
 
 t_token_T	*handle_heredoc_token(t_lexer_T *lexer)
 {

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+         #
+#    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/03/12 13:24:59 by trysinsk         ###   ########.fr        #
+#    Updated: 2024/03/19 15:52:05 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,15 +38,16 @@ SRCS =  src/main.c \
 		src/parser/node_constructors.c \
 		src/parser/node_constructors2.c \
 		src/parser/node_printers.c \
+		src/parser/parsing_functions.c \
+		src/parser/parsing_helper.c \
+		src/parser/syntax_analyzer.c \
+		src/parser/transition_functions.c \
 		src/exec/run_cmd.c \
 		src/exec/exec.c \
 		src/signals/signal_setters.c \
 		src/signals/signal_handlers.c \
 		src/builtins/builtins_checker.c \
 		src/builtins/builtins_utils.c \
-		src/parser/parsing_functions.c \
-		src/parser/parsing_helper.c \
-		src/parser/syntax_analyzer.c \
 		src/builtins/cd.c \
 		src/builtins/echo.c \
 		src/builtins/env.c \

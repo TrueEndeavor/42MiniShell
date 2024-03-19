@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_tokenizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 13:00:53 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:29:31 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ t_token_T	*lexer_advance_current(t_lexer_T *lexer, int type)
 	return (token);
 }
 
-int is_valid_variable_char(char c) 
+int	is_valid_variable_char(char c)
 {
-    return (ft_isalnum(c) || c == '_');
+	return (ft_isalnum(c) || c == '_');
 }
 
 t_token_T	*lexer_parse_variable(t_lexer_T *lexer)
@@ -99,10 +99,9 @@ t_token_T	*lexer_parse_variable(t_lexer_T *lexer)
 		free(copy);
 		lexer_advance(lexer);
 	}
-    ret_token = init_token(value, T_VARIABLE);
+	ret_token = init_token(value, T_VARIABLE);
 	return (ret_token);
 }
-
 
 /**
  * Parses alphabets (word) from the shell command and creates a corresponding 
@@ -128,7 +127,7 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 	value = ft_calloc(1, sizeof(char));
 	value[0] = '\0';
 	while (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c))
-	&& (lexer->c != '\'') && (lexer->c != '\"'))
+		&& (lexer->c != '\'') && (lexer->c != '\"'))
 	{
 		new_size = ft_strlen(value) + 2;
 		copy = ft_calloc(new_size, sizeof(char));
@@ -146,7 +145,7 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 		free(copy);
 		lexer_advance(lexer);
 	}
-    ret_token = init_token(value, T_WORD);
+	ret_token = init_token(value, T_WORD);
 	return (ret_token);
 }
 
@@ -204,7 +203,7 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 			return (lexer_advance_with(lexer, init_token(ft_strdup(">>"), T_APPEND_OUT)));
 		}
 		if (lexer->c == '<' && lexer_peek(lexer, 1) == '<')
-			return (handle_heredoc_token(lexer));			
+			return (handle_heredoc_token(lexer));
 		if (lexer->c == '>' || lexer->c == '<')
 			return (handle_redirect_tokens(lexer));
 		if (lexer->c == '$')
@@ -217,9 +216,6 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 			return (handle_quoted_strings(lexer));			
 		if (lexer->c == '\0')
 			break ;
- 		/*if (ft_isalpha(lexer->c) || ft_isdigit(lexer->c) ||
-		(lexer->c == '_') || (lexer->c == '-') || \
-		(lexer->c == '/') || (lexer->c == '.')) */
 		if (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c)))
 			return (handle_expected_tokens(lexer));
 		handle_unexpected_character(lexer);
