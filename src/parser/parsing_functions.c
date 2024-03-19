@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/18 12:36:17 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/19 10:22:28 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,14 @@ t_cmd_P* parse_exec(t_core_struct *core)
 	while ((*core->token_head)->type != T_PIPE)
 	{
 		// Quoting
-		if ((*core->token_head)->type == T_DOUBLE_QUOTED_STRING)
+		while ((*core->token_head)->type == T_DOUBLE_QUOTED_STRING)
 		{
 			printf ("value of quote before: %s\n", (*core->token_head)->value);
 			(*core->token_head)->value = quote_string(&(*core->token_head)->value, core);
 			printf ("value of quote after: %s\n", (*core->token_head)->value);
+			(*core->token_head)->type = T_WORD;
+			if ((*core->token_head)->value[0] == '\0')
+				(*core->token_head) = (*core->token_head)->next;
 		}
 		// End of quoting
 		if ((*core->token_head)->type == T_LINEBREAK)

@@ -18,7 +18,7 @@
 # include "libft.h"
 
 # define STD_OUT 1
-# define STD_ERR 1
+# define STD_ERR 2
 # define BASE_HEX 16
 # define BASE_DEC 10
 # define UPPER 1
