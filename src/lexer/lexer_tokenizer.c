@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 15:29:31 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:40:01 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,6 @@ t_token_T	*lexer_advance_current(t_lexer_T *lexer, int type)
 	token = init_token(value, type);
 	lexer_advance(lexer);
 	return (token);
-}
-
-int	is_valid_variable_char(char c)
-{
-	return (ft_isalnum(c) || c == '_');
 }
 
 t_token_T	*lexer_parse_variable(t_lexer_T *lexer)

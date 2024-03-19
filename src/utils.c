@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:52:44 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 10:38:15 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:42:17 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,24 @@ int	min_int(int a, int b)
 		return (a);
 	else
 		return (b);
+}
+
+int	is_valid_variable_char(char c)
+{
+	return (ft_isalnum(c) || c == '_');
+}
+
+bool	is_valid_variable_name(char *name)
+{
+	if (!is_valid_variable_char(*name))
+		return (false);
+	while (*(++name))
+	{
+		if (!is_valid_variable_char(*name))
+			return (false);
+		name++;
+	}
+	return (true);
 }
 
 void	ft_update_SHLVL(t_core_struct *core)

@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:16:04 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 15:19:00 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:43:13 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void		panic(char *str);
 void		ft_free_tok_list(t_token_T **token_head);
 void		ft_free_env(t_env_list *env);
 void		ft_free_cmd(t_cmd_P *cmd);
+int			is_valid_variable_char(char c);
+bool		is_valid_variable_name(char *name);
 void		ft_update_SHLVL(t_core_struct *core);
 
 #endif

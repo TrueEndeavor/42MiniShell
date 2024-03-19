@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 11:24:08 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:48:54 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,11 @@ t_token_T	*minishell_compile(char *src)
 int	display_new_prompt(t_core_struct *core)
 {
 	char		*prompt;
-	//int			len;
 	t_token_T	*token_head;
-	t_cmd_P	*   root;
-	//int         child_pid;
-	//int         status;
-
+	t_cmd_P		*root;
+	
 	prompt = NULL;
+	root = NULL;
 	g_signum = 0;
 	while (1)
 	{
@@ -140,6 +138,7 @@ int	display_new_prompt(t_core_struct *core)
 				ft_free_tok_list(core->token_head);
 				free(prompt);
 				printf ("core->exit_code: %d\n", core->exit_code);
+				//return (core->exit_code);
 			}
 		}
 		else // Ctrl+D
@@ -161,7 +160,6 @@ int	main(int ac, char *av[], char **envp)
 	int ret_value;
 	core = NULL;
 	
-	
 	if (ac > 1)
 	{
 		panic("No input required. \
@@ -169,6 +167,7 @@ int	main(int ac, char *av[], char **envp)
 		exit (1);
 	}
 	core = malloc(1 * sizeof(t_core_struct));
+	core->exit_code = EXIT_SUCCESS;
 	core->env_list = init_env(envp);
 	ft_update_SHLVL(core);
 	ret_value = display_new_prompt(core);
