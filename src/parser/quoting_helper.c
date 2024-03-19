@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:12:19 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/18 11:53:42 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/19 09:42:05 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,41 +17,26 @@ char    *free_quotes(char **str, char **name, char **var)
     int i;
 
     i = 0;
-    printf ("got to free quotes huh..\n");
     if (*str)
-    {
-        printf ("freeing str:-%s-\n", *str);
         free (*str);
-        printf("freed\n");
-    }
     if (name)
     {
-        printf ("there is name here\n");
         while ((name[i]) != NULL)
         {
-            printf ("freeing name:-%s-\n", name[i]);
             free((name)[i]);
-            printf("freed\n");
             i++;
         }
-        printf("freeing name pointer\n");
         free(name);
-        printf("freed\n");
     }
     i = 0;
     if (var)
     {
-        printf ("there is var here\n");
         while ((var[i]) != NULL)
         {
-            printf ("freeing var:-%s-\n", var[i]);
             free(var[i]);
-            printf("freed\n");
             i++;
         }
-        printf("freeing var pointer\n");
         free(var);
-        printf("freed\n");
     }
     return (NULL);
 }
@@ -88,4 +73,17 @@ void    ft_initialize_tab(char **name, char **var)
         var[i] = NULL;
         i++;
     }
+}
+
+size_t  ft_slen(const char *str)
+{
+    size_t i;
+
+    i = 0;
+    if (str != NULL)
+    {
+        while (str[i] != 0)
+            i++;
+    }
+    return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 11:54:19 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/19 09:41:15 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ void    copy_variable(char *ret, char *var, int i)
     int j;
 
     j = 0;
-    while ((var)[j] != '\0')
+    if (var != NULL)
     {
-        (ret)[i] = (var)[j];
-        i++;
-        j++;
+        while ((var)[j] != '\0')
+        {
+            (ret)[i] = (var)[j];
+            i++;
+            j++;
+        }
     }
     return ;
 }
@@ -57,7 +60,6 @@ int     fill_values(char **str, char **name, char **var, t_core_struct *core)
     int     i_var;
     int     var_count;
 
-    printf ("begining of fill_values\n");
     ft_initialize_tab(name, var);
     var_count = 0;
     i_var = 0;
@@ -71,15 +73,11 @@ int     fill_values(char **str, char **name, char **var, t_core_struct *core)
             name[i_var] = get_name(*str, i);
             i += (int)ft_strlen(name[i_var]);
             var[i_var] = duplicate(get_env(core, name[i_var]));
-            printf ("var: -%s-\n", var[i_var]);
-            if (var[i_var] == NULL)
-                return (-1);
             i_var++;
             var_count++;
         }
         i++;
     }
-    printf ("end of fill_values\n");
     return (var_count);
 }
 
@@ -97,8 +95,8 @@ void    fill_string(char **str, char **name, char **var, char *ret)
         if ((*str)[var_count] == '$')
         {
             copy_variable(ret, var[i_var], i);
-            i+= ((int)ft_strlen(var[i_var]));
-            var_count+= ((int)ft_strlen(name[i_var]) + 1);
+            i+= ((int)ft_slen(var[i_var]));
+            var_count+= ((int)ft_slen(name[i_var]) + 1);
             i_var++;
         }
         else
@@ -129,8 +127,8 @@ char    *quote_string(char **str, t_core_struct *core)
     i_var = 0;
     while (var_count != 0)
     {
-        size += ft_strlen(var[i_var]);
-        size -= (ft_strlen(name[i_var]) + 1);
+        size += ft_slen(var[i_var]);
+        size -= (ft_slen(name[i_var]) + 1);
         i_var++;
         var_count--;
     }
@@ -139,70 +137,3 @@ char    *quote_string(char **str, t_core_struct *core)
     free_quotes(str, name, var);
     return (ret);
 }
-
-/*char    *quote_string(char **str, t_core_struct *core)
-{
-    char    *ret;
-    char    **name;
-    char    **var;
-    int i_var;
-    int var_count;
-    int i;
-    int size;
-    
-    var = NULL;
-    name = NULL;
-    var_count = 0;
-    i_var = 0;
-    i = 0;
-    name = malloc(1 * sizeof(char *));
-    var = malloc(1 * sizeof(char *));
-    while (i < (int)ft_strlen(*str))
-    {
-        if ((*str)[i] == '$')
-        {
-            name[i_var] = malloc(1 * sizeof(char *));
-            var[i_var] = malloc(1 * sizeof(char *));
-            name[i_var] = get_name(*str, i);
-            i += (int)ft_strlen(name[i_var]);
-            var[i_var] = get_env(core, name[i_var]);
-            if (var[i_var] == NULL)
-                return (NULL);
-            i_var++;
-            var_count++;
-        }
-        i++;
-    }    
-    i_var = 0;
-    size = (int)ft_strlen(*str);
-    while (var_count != 0)
-    {
-        size += ft_strlen(var[i_var]);
-        size -= (ft_strlen(name[i_var]) + 1);
-        i_var++;
-        var_count--;
-    }
-    ret = malloc ((size + 1) *(sizeof(char)));
-    i = 0;
-    i_var = 0;
-    while ((*str)[var_count] != '\0')
-    {
-        printf ("current char: %c\n", (*str)[var_count]);
-        if ((*str)[var_count] == '$')
-        {
-            copy_variable(ret, var[i_var], i);
-            i+= ((int)ft_strlen(var[i_var]));
-            var_count+= ((int)ft_strlen(name[i_var]) + 1);
-            i_var++;
-        }
-        else
-        {
-            ret[i] = (*str)[var_count];
-            i++;
-            var_count++;
-        }
-    }
-    ret[i] = '\0';
-    free(*str);
-    return (ret);
-}*/

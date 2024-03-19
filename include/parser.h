@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 12:10:48 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/19 09:29:42 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	set_read_from(t_redircmd_P *cmd, int readable);
 
 void print_cmd(t_cmd_P *cmd);
 
+size_t  ft_slen(const char *str);
 char    *quote_string(char **str, t_core_struct *core);
 char    *free_quotes(char **str, char **name, char **var);
 char    *duplicate(const char *src);
