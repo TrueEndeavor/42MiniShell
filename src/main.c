@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 20:06:14 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:24:08 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,9 @@ int	display_new_prompt(t_core_struct *core)
 					printf ("error during check of arguments, freeing...\n");
 					ft_free_tok_list(core->token_head);
 				}
-				printf("freeing cmd in main list\n");
+				//printf("freeing cmd in main list\n");
 				ft_free_cmd(root);
-				printf("freeing token list in main...\n");
+				//printf("freeing token list in main...\n");
 				ft_free_tok_list(core->token_head);
 				free(prompt);
 				printf ("core->exit_code: %d\n", core->exit_code);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/13 18:03:40 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:58:40 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ int	builtin_cd(t_execcmd_P *ecmd, t_core_struct *core)
     t_env_list      *old_pwd;
     t_env_list      *pwd;
     
+    if (ecmd->argv [2] != NULL)
+        {
+            printf ("too many arg\n");
+            return (1);
+        }
     old_pwd = get_node(core, "OLDPWD");
     pwd = get_node(core, "PWD");
     if (ecmd->argv[1] == NULL)

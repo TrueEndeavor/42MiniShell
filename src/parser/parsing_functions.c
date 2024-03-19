@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/19 10:22:28 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/19 10:45:38 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,17 +142,21 @@ t_cmd_P* parse_exec(t_core_struct *core)
 				(*core->token_head) = (*core->token_head)->next;
 		}
 		// End of quoting
-		if ((*core->token_head)->type == T_LINEBREAK)
-			break ;
-		if ((*core->token_head)->type == T_VARIABLE)
+		while ((*core->token_head)->type == T_VARIABLE)
 		{
 			// The expand has to happen here
-			cmd->argv[argc] = get_env(core, (*core->token_head)->value);
+			/*cmd->argv[argc] = get_env(core, (*core->token_head)->value);
 			argc++;
 			if (argc >= MAXARGS)
 				panic("too many args");
-			*core->token_head = advance_token(core->token_head);
+			*core->token_head = advance_token(core->token_head);*/
+			(*core->token_head)->value = (duplicate(get_env(core, (*core->token_head)->value)));
+			(*core->token_head)->type = T_WORD;
+			if ((*core->token_head)->value == NULL)
+				(*core->token_head) = (*core->token_head)->next;
 		}
+		if ((*core->token_head)->type == T_LINEBREAK || ((*core->token_head)->type == T_PIPE))
+			break ;
 		else if (((*core->token_head)->type != T_REDIRECT_IN) && \
 			((*core->token_head)->type != T_REDIRECT_OUT) && \
 			((*core->token_head)->type != T_APPEND_OUT) && \

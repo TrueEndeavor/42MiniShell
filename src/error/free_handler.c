@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 09:27:03 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/14 09:50:03 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:23:32 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void    ft_free_tok_list(t_token_T **token_head)
     helper = NULL;
     if (token_head)
     {
-        printf ("commencing free of token list\n");
+        //printf ("commencing free of token list\n");
         while ((*token_head) != NULL)
         {
             helper = (*token_head)->next;
-            printf("value of current head: %s\n", (*token_head)->value);
+            //printf("value of current head: %s\n", (*token_head)->value);
             free((*token_head)->value);
             free(*token_head);
             (*token_head) = helper;
