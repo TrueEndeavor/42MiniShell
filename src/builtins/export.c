@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 17:01:23 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 09:01:58 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	builtin_export(t_execcmd_P *ecmd, t_core_struct *core)
 	}
 	if (!is_valid_variable_name(ecmd->argv[1]))
 	{
-		ft_printf("export: `%s
+		ft_printf("export: `%s \
 		': not a valid identifier\n", ecmd->argv[1]);
 		core->exit_code = 1;
 		return (core->exit_code);
