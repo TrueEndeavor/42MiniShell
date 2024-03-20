@@ -13,12 +13,12 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-int			match_builtin(t_cmd_P *root, t_core_struct *core);
+int			match_builtin(t_cmd_P *root, t_core_struct *core, char *prompt);
 
 int			builtin_cd(t_execcmd_P *ecmd, t_core_struct *core);
 int			builtin_echo(t_execcmd_P *ecmd, t_core_struct *core);
 int			builtin_env(t_execcmd_P *ecmd, t_core_struct *core);
-int			builtin_exitv(t_execcmd_P *ecmd, t_core_struct *core);
+int			builtin_exit(t_execcmd_P *ecmd, t_core_struct *core, char *prompt);
 int			builtin_export(t_execcmd_P *ecmd, t_core_struct *core);
 int			builtin_pwd(t_execcmd_P *ecmd, t_core_struct *core);
 int			builtin_unset(t_execcmd_P *ecmd, t_core_struct *core);

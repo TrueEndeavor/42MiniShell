@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/07 11:12:15 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/20 10:43:13 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,5 @@ int	builtin_pwd(t_execcmd_P *ecmd, t_core_struct *core)
         printf ("%s\n", buff);
         free(buff);
     }
-    printf ("test");
     return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 16:48:54 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 10:58:44 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,6 @@ int	display_new_prompt(t_core_struct *core)
 			if (*prompt)
 			{
 				add_history(prompt);
-				if (strcmp(prompt, "exit") == 0 || strcmp(prompt, "quit") == 0)
-				{
-					ft_free_env(core->env_list);
-					free(core);
-					printf ("history cleared\n");
-					free(prompt);
-					rl_clear_history();
-					break ;
-				}
 				token_head = minishell_compile(prompt);
 				core->token_head = &token_head;
 				print_token_list(*core->token_head);
@@ -92,7 +83,7 @@ int	display_new_prompt(t_core_struct *core)
 				{
 					root = parse_cmd(core);					
 					// normal commands
-					if (!match_builtin(root, core))
+					if (!match_builtin(root, core, prompt))
 					{
 						setup_mother_signals();
 						int status;
@@ -132,13 +123,10 @@ int	display_new_prompt(t_core_struct *core)
 					printf ("error during check of arguments, freeing...\n");
 					ft_free_tok_list(core->token_head);
 				}
-				//printf("freeing cmd in main list\n");
 				ft_free_cmd(root);
-				//printf("freeing token list in main...\n");
 				ft_free_tok_list(core->token_head);
 				free(prompt);
 				printf ("core->exit_code: %d\n", core->exit_code);
-				//return (core->exit_code);
 			}
 		}
 		else // Ctrl+D
@@ -146,7 +134,6 @@ int	display_new_prompt(t_core_struct *core)
 			ft_free_env(core->env_list);
 			free(core);
 			printf("exit\n");
-			// free everything
 			return (1);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/19 10:45:38 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/20 10:59:34 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_core_struct *core)
 			(search_for(current_token, T_APPEND_OUT) != NULL))
 	{
 		next_tolkien = peek_next_token(current_token);
-		/* if (next_tolkien->type != T_WORD)
-			panic("missing file for redirection"); */
 		if ((next_tolkien->type == T_VARIABLE) && (current_token->type != T_HEREDOC))
 				(next_tolkien)->value = ft_expand(core, &(next_tolkien)->value);
 		if ((current_token)->type == T_REDIRECT_IN)
@@ -114,7 +112,7 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_core_struct *core)
 			cmd = create_herecmd(cmd, (next_tolkien)->value);
 			*core->token_head = advance_token(&next_tolkien);
 			break ;
-		}        
+		}
 	}
 	return (cmd);    
 }
@@ -131,7 +129,6 @@ t_cmd_P* parse_exec(t_core_struct *core)
 	ret = parse_redirs(ret, core);
 	while ((*core->token_head)->type != T_PIPE)
 	{
-		// Quoting
 		while ((*core->token_head)->type == T_DOUBLE_QUOTED_STRING)
 		{
 			printf ("value of quote before: %s\n", (*core->token_head)->value);
@@ -141,15 +138,8 @@ t_cmd_P* parse_exec(t_core_struct *core)
 			if ((*core->token_head)->value[0] == '\0')
 				(*core->token_head) = (*core->token_head)->next;
 		}
-		// End of quoting
 		while ((*core->token_head)->type == T_VARIABLE)
 		{
-			// The expand has to happen here
-			/*cmd->argv[argc] = get_env(core, (*core->token_head)->value);
-			argc++;
-			if (argc >= MAXARGS)
-				panic("too many args");
-			*core->token_head = advance_token(core->token_head);*/
 			(*core->token_head)->value = (duplicate(get_env(core, (*core->token_head)->value)));
 			(*core->token_head)->type = T_WORD;
 			if ((*core->token_head)->value == NULL)
