@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/20 10:58:44 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:39:21 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int	main(int ac, char *av[], char **envp)
 	core = malloc(1 * sizeof(t_core_struct));
 	core->exit_code = EXIT_SUCCESS;
 	core->env_list = init_env(envp);
-	ft_update_SHLVL(core);
+	ft_update_shlvl(core);
 	ret_value = display_new_prompt(core);
 	return (ret_value);
 }

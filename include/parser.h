@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/20 13:00:46 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/20 14:42:52 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void			set_read_from(t_redircmd_P *cmd, int readable);
 
 void			print_cmd(t_cmd_P *cmd);
 
-size_t			ft_slen(const char *str);
-char			*quote_string(char **str, t_core_struct *core);
+int             ft_slen(const char *str);
+char			*quote_string(char **str, t_core_struct *core, int var_count, int _var);
 char			*free_quotes(char **str, char **name, char **var);
-char			*duplicate(const char *src);
+char			*dupl(const char *src);
 char			*ft_expand(t_core_struct *core, char **file_name);
 char			*ft_here(char **value);
 void			ft_initialize_tab(char **name, char **var);

@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:20:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 13:24:07 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/20 14:12:45 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,12 @@
  * ************************************************************************* */
 t_token_T	*handle_word_token(t_lexer_T *lexer)
 {
-	//return (lexer_advance_with(lexer, lexer_parse_word(lexer)));
 	return (lexer_parse_word(lexer));
 }
 
 t_token_T	*handle_variable_token(t_lexer_T *lexer)
 {
 	lexer_advance(lexer);
-	//return (lexer_advance_with(lexer, lexer_parse_variable(lexer)));
 	return (lexer_parse_variable(lexer));
 }
 
