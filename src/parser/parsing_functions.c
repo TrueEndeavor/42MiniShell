@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/20 13:01:53 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:16:16 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,27 @@ t_cmd_P* parse_exec(t_core_struct *core)
 	ret = parse_redirs(ret, core);
 	while ((*core->token_head)->type != T_PIPE)
 	{
-		ft_loop_quote(core);
+        t_token_T *next_token;
+        t_token_T *current_token;
+        t_token_T *temp_token;
+
+        current_token = *(core->token_head);
+        if (current_token->type == T_WORD && is_assignment_word(current_token->value)) 
+        {
+            temp_token = current_token;
+            next_token = peek_next_token(current_token);
+            if (next_token && next_token->type == T_DOUBLE_QUOTED_STRING)
+            {
+                next_token->value = quote_string(&(*next_token).value, core, 0, 0);
+                char *combined_value = ft_strjoin(temp_token->value, next_token->value);
+                free(current_token->value);
+                current_token->value = combined_value;
+                current_token->next = next_token->next;
+                free(next_token);
+            }
+		}
+		else
+			ft_loop_quote(core);
 		ft_loop_variable(core);
 		if ((*core->token_head)->type == T_LINEBREAK || ((*core->token_head)->type == T_PIPE))
 			break ;
