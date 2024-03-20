@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:52:44 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 16:42:17 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 10:30:04 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,19 @@ int	is_valid_variable_char(char c)
 
 bool	is_valid_variable_name(char *name)
 {
-	if (!is_valid_variable_char(*name))
+	int		i;
+	int		len;
+	
+	i = 0;
+	len = ft_strlen(name);
+	if (!is_valid_variable_char(name[i]))
 		return (false);
-	while (*(++name))
+	i++;
+	while (name[i] != '\0' || i < len)
 	{
-		if (!is_valid_variable_char(*name))
+		if (!is_valid_variable_char(name[i]))
 			return (false);
-		name++;
+		i++;
 	}
 	return (true);
 }
