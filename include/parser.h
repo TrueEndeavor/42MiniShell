@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/20 11:27:28 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:00:46 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ t_token_T	    *advance_token(t_token_T **current_token);
 void            ft_loop_quote(t_core_struct *core);
 void            ft_loop_variable(t_core_struct *core);
 void            ft_fill_exec(t_core_struct *core, int *argc, t_execcmd_P *cmd);
+
+t_cmd_P         *ft_r_in(t_core_struct *core, t_cmd_P **cmd, t_token_T *next_tolkien);
+t_cmd_P         *ft_r_out(t_core_struct *core, t_cmd_P **cmd, t_token_T *next_tolkien);
+t_cmd_P         *ft_app_out(t_core_struct *core, t_cmd_P **cmd, t_token_T *next_tolkien);
+t_cmd_P         *ft_cr_here(t_core_struct *core, t_cmd_P **cmd, t_token_T *next_tolkien);
 
 
 #endif

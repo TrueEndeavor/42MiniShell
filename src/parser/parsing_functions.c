@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/20 11:28:39 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:01:53 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_cmd_P	*parse_cmd(t_core_struct *core)
 t_cmd_P* parse_redirs(t_cmd_P *cmd, t_core_struct *core)
 {
 	t_token_T *next_tolkien;
-	t_token_T *current_token;    
+	t_token_T *current_token;
 
 	current_token = *(core->token_head);  
 	while ((search_for(current_token, T_REDIRECT_IN) != NULL) || \
@@ -46,43 +46,13 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_core_struct *core)
 		if ((next_tolkien->type == T_VARIABLE) && (current_token->type != T_HEREDOC))
 				(next_tolkien)->value = ft_expand(core, &(next_tolkien)->value);
 		if ((current_token)->type == T_REDIRECT_IN)
-		{
-			cmd = create_redircmd(cmd, (next_tolkien)->value, O_RDONLY, 0);
-			*core->token_head = advance_token(&next_tolkien);
-			if (((*core->token_head)->type != T_REDIRECT_IN) && \
-				((*core->token_head)->type != T_REDIRECT_OUT) && \
-				((*core->token_head)->type != T_APPEND_OUT))
-					set_read_from((t_redircmd_P *)cmd, 1);            
-			break ;
-		}
+			return (ft_r_in(core, &cmd, next_tolkien));
 		else if ((current_token)->type == T_REDIRECT_OUT)
-		{
-			cmd = create_redircmd(cmd, (next_tolkien)->value, O_WRONLY | O_CREAT | O_TRUNC, 1);
-			*core->token_head = advance_token(&next_tolkien);
-			if (((*core->token_head)->type != T_REDIRECT_IN) && \
-				((*core->token_head)->type != T_REDIRECT_OUT) && \
-				((*core->token_head)->type != T_APPEND_OUT))
-					set_write_into((t_redircmd_P *)cmd, 1);
-			break ;
-		}
+			return (ft_r_out(core, &cmd, next_tolkien));
 		else if ((current_token)->type == T_APPEND_OUT)
-		{
-			cmd = create_redircmd(cmd, (next_tolkien)->value, O_WRONLY | O_CREAT, 1);
-			*core->token_head = advance_token(&next_tolkien);
-			if (((*core->token_head)->type != T_REDIRECT_IN) && \
-				((*core->token_head)->type != T_REDIRECT_OUT) && \
-				((*core->token_head)->type != T_APPEND_OUT))
-					set_write_into((t_redircmd_P *)cmd, 1);
-			break ;
-		}
+			return (ft_app_out(core, &cmd, next_tolkien));
 		else if ((current_token)->type == T_HEREDOC)
-		{
-			if ((next_tolkien)->type == T_VARIABLE)
-				(next_tolkien)->value = ft_here(&(next_tolkien)->value);
-			cmd = create_herecmd(cmd, (next_tolkien)->value);
-			*core->token_head = advance_token(&next_tolkien);
-			break ;
-		}
+			return (ft_cr_here(core, &cmd, next_tolkien));
 	}
 	return (cmd);    
 }

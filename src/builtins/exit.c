@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/20 10:41:39 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:11:38 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	builtin_exit(t_execcmd_P *ecmd, t_core_struct *core, char *prompt)
         return (1);
     }
     if (((ecmd->argv[1]) && (!ft_isnumber(ecmd->argv[1]))) ||
-            ((ecmd->argv[1]) && (!ft_isdigit(ecmd->argv[1][1]))))
+            ((ecmd->argv[1]) && (ecmd->argv[1][1] == '+' || 
+                    ecmd->argv[1][1] == '-')))
     {
         printf ("exit: %s argument not numeric\n", ecmd->argv[1]);
         return (2);
@@ -38,5 +39,4 @@ int	builtin_exit(t_execcmd_P *ecmd, t_core_struct *core, char *prompt)
 	rl_clear_history();
     printf ("exit has a value of %d\n", ret);
     exit (ret);
-    return (0);
 }

@@ -6,7 +6,7 @@
 #    By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/03/20 11:17:35 by trysinsk         ###   ########.fr        #
+#    Updated: 2024/03/20 12:40:02 by trysinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS =  src/main.c \
 		src/parser/parsing_functions.c \
 		src/parser/parsing_helper.c \
 		src/parser/parsing_helper_2.c \
+		src/parser/parsing_helper_3.c \
 		src/parser/syntax_analyzer.c \
 		src/parser/transition_functions.c \
 		src/exec/run_cmd.c \
