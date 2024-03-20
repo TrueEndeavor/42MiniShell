@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/18 20:08:47 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 14:11:29 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	fork1(void)
 	return (pid);
 }
 
-
 int	ft_get_line(char **line)
 {
 	char	*buffer;
@@ -36,7 +35,6 @@ int	ft_get_line(char **line)
 	if (!buffer)
 		return (-1);
 	readable = read(0, &c, 1);
-	
 	while (readable && c != '\n' && c != '\0')
 	{
 		if (c != '\n' && c != '\0')
@@ -45,7 +43,7 @@ int	ft_get_line(char **line)
 		readable = read(0, &c, 1);
 	}
 	buffer[i] = '\0';
-	ft_putstr_fd("heredoc> ",STDOUT_FILENO);
+	ft_putstr_fd("heredoc> ", STDOUT_FILENO);
 	*line = buffer;
 	if (!readable)
 		free(buffer);
@@ -55,7 +53,7 @@ int	ft_get_line(char **line)
 int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	t_execcmd_P	*ecmd;
-	char    **env_array;
+	char		**env_array;
 
 	env_array = NULL;
 	ecmd = (t_execcmd_P *) cmd;

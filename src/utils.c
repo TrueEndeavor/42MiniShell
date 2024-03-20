@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:52:44 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 16:42:17 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:38:14 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ bool	is_valid_variable_name(char *name)
 	return (true);
 }
 
-void	ft_update_SHLVL(t_core_struct *core)
+void	ft_update_shlvl(t_core_struct *core)
 {
-	int i;
-	t_env_list *node;
+	int			i;
+	t_env_list	*node;
 
 	node = get_node(core, "SHLVL");
 	i = ft_atoi(node->value);
