@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 15:50:55 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:27:28 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,14 @@ char			*duplicate(const char *src);
 char			*ft_expand(t_core_struct *core, char **file_name);
 char			*ft_here(char **value);
 void			ft_initialize_tab(char **name, char **var);
+
+t_token_T       *search_for(t_token_T *current, int target_token_type);
+t_token_T	    *peek_next_token(t_token_T *current_token);
+t_token_T	    *advance_token(t_token_T **current_token);
+
+void            ft_loop_quote(t_core_struct *core);
+void            ft_loop_variable(t_core_struct *core);
+void            ft_fill_exec(t_core_struct *core, int *argc, t_execcmd_P *cmd);
+
 
 #endif

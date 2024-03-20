@@ -6,40 +6,11 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/20 10:59:34 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:28:39 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_token_T   *search_for(t_token_T *current, int target_token_type)
-{
-	t_token_T *tok = current;
-	if (tok->type == target_token_type)
-	{
-		return tok;
-	}
-	return NULL;
-}
-
-t_token_T	*peek_next_token(t_token_T *current_token)
-{
-	if (current_token && current_token->next)
-	{
-		return (current_token->next);
-	}
-	return (NULL);
-}
-
-
-t_token_T	*advance_token(t_token_T **current_token)
-{
-	if (*current_token && (*current_token)->next)
-	{
-		return ((*current_token)->next);
-	}
-	return (NULL);
-}
 
 t_cmd_P	*parse_cmd(t_core_struct *core)
 {
@@ -92,7 +63,6 @@ t_cmd_P* parse_redirs(t_cmd_P *cmd, t_core_struct *core)
 				((*core->token_head)->type != T_REDIRECT_OUT) && \
 				((*core->token_head)->type != T_APPEND_OUT))
 					set_write_into((t_redircmd_P *)cmd, 1);
-				
 			break ;
 		}
 		else if ((current_token)->type == T_APPEND_OUT)
@@ -129,36 +99,15 @@ t_cmd_P* parse_exec(t_core_struct *core)
 	ret = parse_redirs(ret, core);
 	while ((*core->token_head)->type != T_PIPE)
 	{
-		while ((*core->token_head)->type == T_DOUBLE_QUOTED_STRING)
-		{
-			printf ("value of quote before: %s\n", (*core->token_head)->value);
-			(*core->token_head)->value = quote_string(&(*core->token_head)->value, core);
-			printf ("value of quote after: %s\n", (*core->token_head)->value);
-			(*core->token_head)->type = T_WORD;
-			if ((*core->token_head)->value[0] == '\0')
-				(*core->token_head) = (*core->token_head)->next;
-		}
-		while ((*core->token_head)->type == T_VARIABLE)
-		{
-			(*core->token_head)->value = (duplicate(get_env(core, (*core->token_head)->value)));
-			(*core->token_head)->type = T_WORD;
-			if ((*core->token_head)->value == NULL)
-				(*core->token_head) = (*core->token_head)->next;
-		}
+		ft_loop_quote(core);
+		ft_loop_variable(core);
 		if ((*core->token_head)->type == T_LINEBREAK || ((*core->token_head)->type == T_PIPE))
 			break ;
 		else if (((*core->token_head)->type != T_REDIRECT_IN) && \
 			((*core->token_head)->type != T_REDIRECT_OUT) && \
 			((*core->token_head)->type != T_APPEND_OUT) && \
 			((*core->token_head)->type != T_HEREDOC))
-		{
-			cmd->argv[argc] = (*core->token_head)->value;
-			argc++;
-			if (argc >= MAXARGS)
-				panic("too many args");
-			*core->token_head = advance_token(core->token_head);
-		}
-		
+			ft_fill_exec(core, &argc, cmd);
 		ret = parse_redirs(ret, core);
 	}
 	cmd->argv[argc] = 0;
