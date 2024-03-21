@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
+#    By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/03/20 17:30:38 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/03/21 13:20:47 by trysinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,15 +33,16 @@ SRCS =  src/main.c \
 		src/lexer/lexer_helper1.c \
 		src/lexer/lexer_helper2.c \
 		src/lexer/lexer_helper3.c \
+		src/lexer/lexer_helper4.c \
 		src/lexer/lexer_tokenizer.c \
 		src/lexer/token.c \
 		src/parser/node_constructors.c \
 		src/parser/node_constructors2.c \
 		src/parser/node_printers.c \
 		src/parser/parsing_functions.c \
-		src/parser/parsing_helper.c \
-		src/parser/parsing_helper_2.c \
-		src/parser/parsing_helper_3.c \
+		src/parser/parsing_helper1.c \
+		src/parser/parsing_helper2.c \
+		src/parser/parsing_helper3.c \
 		src/parser/syntax_analyzer.c \
 		src/parser/transition_functions.c \
 		src/exec/run_cmd.c \

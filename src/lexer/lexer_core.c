@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:04:53 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/21 11:18:57 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/21 13:17:18 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,25 @@ void	lexer_advance(t_lexer_T *lexer)
 	}
 }
 
-void	handle_unexpected_character(t_lexer_T *lexer)
+/**
+ * Advances the lexer to the next character and associates the current
+ * character with the provided token
+ *
+ * This function is a utility for lexer advancement. It moves the lexer to the
+ * subsequent position in the shell command and associates the latest character
+ * encountered with the provided token. The token, which may already contain
+ * characters, is seamlessly extended or constructed during the tokenization 
+ * process
+ *
+ * @param lexer The lexer to advance
+ * @param token The token being constructed/extended with the current character
+ *
+ * @return The same token provided, now representing an extended or newly 
+ *         constructed version with the current character
+ */
+
+t_token_T	*lexer_advance_with(t_lexer_T *lexer, t_token_T *token)
 {
-	printf("[Lexer]: Unexpected character '%c'\n", lexer->c);
+	lexer_advance(lexer);
+	return (token);
 }

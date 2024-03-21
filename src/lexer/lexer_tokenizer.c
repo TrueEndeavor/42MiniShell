@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_tokenizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 16:40:01 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/21 13:17:08 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * Advances the lexer to the next character and associates the current
- * character with the provided token
- *
- * This function is a utility for lexer advancement. It moves the lexer to the
- * subsequent position in the shell command and associates the latest character
- * encountered with the provided token. The token, which may already contain
- * characters, is seamlessly extended or constructed during the tokenization 
- * process
- *
- * @param lexer The lexer to advance
- * @param token The token being constructed/extended with the current character
- *
- * @return The same token provided, now representing an extended or newly 
- *         constructed version with the current character
- */
-t_token_T	*lexer_advance_with(t_lexer_T *lexer, t_token_T *token)
-{
-	lexer_advance(lexer);
-	return (token);
-}
 
 /**
  * Advances the lexer, creating a token with the current character, 
@@ -192,13 +170,6 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 		lexer_skip_whitespace(lexer);
 		if (lexer->c == '|')
 			return (lexer_advance_current(lexer, T_PIPE));
-		if (lexer->c == '>' && lexer_peek(lexer, 1) == '>')
-		{
-			lexer_advance(lexer);
-			return (lexer_advance_with(lexer, init_token(ft_strdup(">>"), T_APPEND_OUT)));
-		}
-		if (lexer->c == '<' && lexer_peek(lexer, 1) == '<')
-			return (handle_heredoc_token(lexer));
 		if (lexer->c == '>' || lexer->c == '<')
 			return (handle_redirect_tokens(lexer));
 		if (lexer->c == '$')
@@ -208,7 +179,7 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 			//handle_variable_token(lexer);
 		}
 		if ((lexer->c == 34) || (lexer->c == 39))
-			return (handle_quoted_strings(lexer));			
+			return (handle_quoted_strings(lexer));
 		if (lexer->c == '\0')
 			break ;
 		if (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c)))

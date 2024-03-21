@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:13:30 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/21 12:32:36 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/21 13:23:04 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_get_quotes(char **value, int new_size, t_lexer_T *lexer, char c)
 {
-	char *copy;
+	char	*copy;
 
 	while (lexer->c != c)
 	{
@@ -59,7 +59,6 @@ t_token_T	*lexer_parse_quoted_string(t_lexer_T *lexer)
 	lexer_advance(lexer);
 	if (ft_get_quotes(&value, new_size, lexer, '\'') == 1)
 	{
-		printf ("oh heck\n");
 		free(value);
 		return (NULL);
 	}
@@ -81,7 +80,6 @@ t_token_T	*lexer_parse_double_quoted_string(t_lexer_T *lexer)
 	lexer_advance(lexer);
 	if (ft_get_quotes(&value, new_size, lexer, '\"') == 1)
 	{
-		printf ("oh heck\n");
 		free(value);
 		return (NULL);
 	}

@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:38:43 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/21 11:23:23 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/21 13:10:31 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ t_token_T	*handle_redirect_in_token(t_lexer_T *lexer)
 	return (lexer_advance_current(lexer, T_REDIRECT_IN));
 }
 
-t_token_T	*handle_append_out_token(t_lexer_T *lexer)
+t_token_T	*handle_append_out_token(t_lexer_T *lex)
 {
-	lexer_advance(lexer);
-	return (lexer_advance_with(lexer, init_token(ft_strdup(">>"), T_APPEND_OUT)));
+	lexer_advance(lex);
+	return (lexer_advance_with(lex, init_token(ft_strdup(">>"), T_APPEND_OUT)));
 }
 
 t_token_T	*handle_redirect_tokens(t_lexer_T *lexer)

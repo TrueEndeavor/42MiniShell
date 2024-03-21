@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:20:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/21 11:19:59 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/21 13:10:20 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ t_token_T	*handle_expected_tokens(t_lexer_T *lexer)
 	return (NULL);
 }
 
-
 t_token_T	*handle_dollar_token(t_lexer_T *lexer)
 {
 	if (lexer->c == '$')
@@ -61,4 +60,9 @@ t_token_T	*handle_dollar_token(t_lexer_T *lexer)
 			return (handle_variable_token(lexer));
 	}
 	return (NULL);
+}
+
+void	handle_unexpected_character(t_lexer_T *lexer)
+{
+	printf("[Lexer]: Unexpected character '%c'\n", lexer->c);
 }
