@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/20 14:47:02 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/21 10:33:49 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 	ret[i] = '\0';
 }
 
-char	*quote_string(char **str, t_core_struct *core, int var_count, int i_var)
+char	*quote(char **s, t_core_struct *co, int var_c, int i)
 {
 	char	*ret;
 	char	**name;
@@ -118,20 +118,20 @@ char	*quote_string(char **str, t_core_struct *core, int var_count, int i_var)
 
 	name = malloc(10 * sizeof(char *));
 	var = malloc(10 * sizeof(char *));
-	var_count = fill_values(str, name, var, core);
-	if (var_count == -1)
-		return (free_quotes(str, name, var));
-	size = (int)ft_strlen(*str);
-	i_var = 0;
-	while (var_count != 0)
+	var_c = fill_values(s, name, var, co);
+	if (var_c == -1)
+		return (free_quotes(s, name, var));
+	size = (int)ft_strlen(*s);
+	i = 0;
+	while (var_c != 0)
 	{
-		size += ft_slen(var[i_var]);
-		size -= (ft_slen(name[i_var]) + 1);
-		i_var++;
-		var_count--;
+		size += ft_slen(var[i]);
+		size -= (ft_slen(name[i]) + 1);
+		i++;
+		var_c--;
 	}
 	ret = malloc ((size + 1) *(sizeof(char)));
-	fill_string(str, name, var, ret);
-	free_quotes(str, name, var);
+	fill_string(s, name, var, ret);
+	free_quotes(s, name, var);
 	return (ret);
 }

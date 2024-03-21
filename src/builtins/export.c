@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/20 18:29:16 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/21 09:41:49 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	builtin_export(t_execcmd_P *ecmd, t_core_struct *core)
 		set_env(core, ecmd->argv[i]);
 		i++;
 	}
-		env_list_copy = deep_copy_env(core->env_list);
-		display_env_from_list(sort_env_list(env_list_copy), 1);
-		return (core->exit_code);
+	env_list_copy = deep_copy_env(core->env_list);
+	display_env_from_list(sort_env_list(env_list_copy), 1);
+	return (core->exit_code);
 }
 	
 	/* Test case 1: if existing and if the expanded name is not variable name - error and exit 1
