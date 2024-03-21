@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_core.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:04:53 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/01/25 14:04:25 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/21 11:18:57 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,9 @@ void	lexer_advance(t_lexer_T *lexer)
 		lexer->i++;
 		lexer->c = lexer->src[lexer->i];
 	}
+}
+
+void	handle_unexpected_character(t_lexer_T *lexer)
+{
+	printf("[Lexer]: Unexpected character '%c'\n", lexer->c);
 }

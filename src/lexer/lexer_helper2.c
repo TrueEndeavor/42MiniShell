@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_helper2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:38:43 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 15:25:34 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/21 11:23:23 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,25 @@ t_token_T	*handle_redirect_in_token(t_lexer_T *lexer)
 	return (lexer_advance_current(lexer, T_REDIRECT_IN));
 }
 
-void	handle_unexpected_character(t_lexer_T *lexer)
+t_token_T	*handle_append_out_token(t_lexer_T *lexer)
 {
-	printf("[Lexer]: Unexpected character '%c'\n", lexer->c);
+	lexer_advance(lexer);
+	return (lexer_advance_with(lexer, init_token(ft_strdup(">>"), T_APPEND_OUT)));
+}
+
+t_token_T	*handle_redirect_tokens(t_lexer_T *lexer)
+{
+	if (lexer->c == '>')
+	{
+		if (lexer_peek(lexer, 1) == '>')
+			return (handle_append_out_token(lexer));
+		return (lexer_advance_current(lexer, T_REDIRECT_OUT));
+	}
+	if (lexer->c == '<')
+	{
+		if (lexer_peek(lexer, 1) == '<')
+			return (handle_heredoc_token(lexer));
+		return (handle_redirect_in_token(lexer));
+	}
+	return (NULL);
 }
