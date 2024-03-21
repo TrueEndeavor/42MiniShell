@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:11:26 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/21 12:29:44 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/21 12:36:06 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,14 @@ void	ft_loop_quote(t_core_struct *c)
 
 void	ft_loop_variable(t_core_struct *c)
 {
-	while ((*c->token_head)->type == T_VARIABLE)
+	if ((*c->token_head)->type == T_VARIABLE)
 	{
 		(*c->token_head)->value = (dupl(get_env(c, (*c->token_head)->value)));
-		(*c->token_head)->type = T_WORD;
 		if ((*c->token_head)->value == NULL)
-			(*c->token_head) = (*c->token_head)->next;
+		{
+			free((*c->token_head)->value);
+			(*c->token_head)->value = ft_strdup("");
+		}
 	}
 }
 
