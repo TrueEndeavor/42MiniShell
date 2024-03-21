@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/21 05:08:52 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/21 10:46:06 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,22 @@
 
 void	print_the_output(t_execcmd_P *ecmd, int i)
 {
+	int	start_index;
+	int	last_index;
+	
+	start_index = i;
+	last_index = 0;
 	while (ecmd->argv[i] != NULL)
 	{
-		printf("%s", ecmd->argv[i]);
-		printf("%c", ' ');
+		last_index++;
 		i++;
+	}
+	while (ecmd->argv[start_index] != NULL)
+	{
+		printf("%s", ecmd->argv[start_index]);
+		if (start_index != last_index)
+			printf("%c", ' ');
+		start_index++;
 	}
 }
 
@@ -63,7 +74,7 @@ int	builtin_echo(t_execcmd_P *ecmd, t_core_struct *core)
 		count_n = 1;
 	print_the_output(ecmd, i);
 	core->exit_code = 0;
-	if (count_n != 1)
-		ft_printf ("\n");
+	if (count_n <= 0 || count_n == 2)
+		printf("\n");
 	return (0);
 }
