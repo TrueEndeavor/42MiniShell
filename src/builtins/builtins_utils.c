@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 10:31:57 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/20 13:52:27 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/21 05:07:38 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 bool	contains_only_char(char *str, char c)
 {
-	int	count;
-
-	count = 0;
 	str++;
 	while (*str != '\0')
 	{

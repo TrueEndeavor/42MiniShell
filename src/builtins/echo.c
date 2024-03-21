@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/20 13:59:13 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/21 05:08:52 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@ int	builtin_echo(t_execcmd_P *ecmd, t_core_struct *core)
 	int	i;
 	int	count_n;
 
+	core->exit_code = EXIT_SUCCESS;
 	i = 1;
 	count_n = 0;
 	if ((ecmd->argv[1] == NULL) || (ecmd->argv[1][0] == '\0'))
 	{
-		core->exit_code = 0;
+		core->exit_code = EXIT_SUCCESS;
 		ft_printf ("\n");
 		return (1);
 	}
@@ -54,8 +55,7 @@ int	builtin_echo(t_execcmd_P *ecmd, t_core_struct *core)
 		printf("%d", core->exit_code);
 		i++;
 		count_n = 2;
-		core->exit_code = 0;
-		//return (0);
+		core->exit_code = EXIT_SUCCESS;
 	}
 	while (ecmd->argv[i] && contains_n(ecmd->argv[i]))
 		i++;

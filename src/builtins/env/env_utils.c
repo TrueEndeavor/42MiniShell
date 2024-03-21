@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:38:25 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/20 19:08:43 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/21 05:44:33 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,16 @@ t_env_list	*init_env(char **envp)
 	int			i;
 
 	if (!envp || !*envp)
-		return (NULL);
+	{
+		new = ft_lstnew_env("PWD", getenv("PWD"));
+		if (!new)
+			return ((ft_lstclear_env(&minishell_envp_head, free), NULL));
+		ft_lstadd_back_env(&minishell_envp_head, new);
+		return (minishell_envp_head);
+	}
 	minishell_envp_head = NULL;
 	i = 0;
+		
 	while (envp[i])
 	{
 		if ((ft_strchr(envp[i], '=')) != NULL)

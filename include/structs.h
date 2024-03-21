@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 15:15:20 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/21 06:10:50 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ typedef struct EXECCMD
 {
 	int					type;
 	char				*argv[MAXARGS];
+	//char				**argv;
+	//int				argc;
 }	t_execcmd_P;
 
 typedef struct REDIRCMD

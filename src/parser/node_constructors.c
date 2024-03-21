@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:00:33 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/21 16:37:40 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/21 06:11:15 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@ t_cmd_P	*create_execcmd(void)
 	t_execcmd_P		*cmd;
 
 	cmd = malloc(sizeof(*cmd));
+	if (cmd == NULL)
+		return (NULL);
 	memset(cmd, 0, sizeof(*cmd));
 	cmd->type = EXEC_CMD;
+	//cmd->argv = NULL;
+	//cmd->argc = 0;
 	return ((t_cmd_P *)cmd);
 }
 
@@ -27,6 +31,8 @@ t_cmd_P	*create_redircmd(t_cmd_P *subcmd, char *file, int mode, int fd)
 	t_redircmd_P		*cmd;
 
 	cmd = malloc(sizeof(*cmd));
+	if (cmd == NULL)
+		return (NULL);
 	memset(cmd, 0, sizeof(*cmd));
 	cmd->type = REDIR_CMD;
 	cmd->cmd = subcmd;
@@ -54,6 +60,8 @@ t_cmd_P	*create_pipecmd(t_cmd_P *left, t_cmd_P *right)
 	t_pipecmd_P		*cmd;
 
 	cmd = malloc(sizeof(*cmd));
+	if (cmd == NULL)
+		return (NULL);
 	memset(cmd, 0, sizeof(*cmd));
 	cmd->type = PIPE_CMD;
 	cmd->left = left;
