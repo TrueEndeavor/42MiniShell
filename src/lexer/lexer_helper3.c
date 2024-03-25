@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_helper3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:13:30 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/21 13:23:04 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/25 07:05:06 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ t_token_T	*handle_quoted_strings(t_lexer_T *lexer)
 	if (lexer->c == '\'')
 		return (lexer_parse_quoted_string(lexer));
 	if (lexer->c == '\"')
-		return (lexer_parse_double_quoted_string(lexer));
+		//return (lexer_parse_double_quoted_string(lexer));
+		return (extract_quoted_string(lexer));
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 15:48:59 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 16:03:56 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/25 07:03:16 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ t_state_enum	transition_q0(t_state_enum state, t_token_type_E token_type)
 	if ((token_type == T_WORD) || (token_type == T_VARIABLE) || \
 		(token_type == T_DOLLAR) || (token_type == T_EXITCODE) || \
 		(token_type == T_QUOTED_STRING) || \
-		(token_type == T_DOUBLE_QUOTED_STRING))
+		(token_type == T_DOUBLE_QUOTED_STRING) || \
+		(token_type == T_DQ_STRING))
 		return (STATE_Q1);
 	else if ((token_type == T_REDIRECT_IN) || \
 		(token_type == T_REDIRECT_OUT) || \
@@ -48,7 +49,8 @@ t_state_enum	transition_q1(t_state_enum state, t_token_type_E token_type)
 	if ((token_type == T_WORD) || (token_type == T_VARIABLE) || \
 		(token_type == T_DOLLAR) || (token_type == T_EXITCODE) || \
 		(token_type == T_QUOTED_STRING) || \
-		(token_type == T_DOUBLE_QUOTED_STRING))
+		(token_type == T_DOUBLE_QUOTED_STRING) || \
+		(token_type == T_DQ_STRING))
 		return (STATE_Q1);
 	else if (token_type == T_PIPE)
 		return (STATE_Q3);
@@ -66,7 +68,8 @@ t_state_enum	transition_q2(t_state_enum state, t_token_type_E token_type)
 {
 	if ((token_type == T_WORD) || (token_type == T_VARIABLE) || \
 		(token_type == T_QUOTED_STRING) || \
-		(token_type == T_DOUBLE_QUOTED_STRING) || \
+		(token_type == T_DOUBLE_QUOTED_STRING) || 
+		(token_type == T_DQ_STRING) || \
 		(token_type == T_EXITCODE))
 		return (STATE_Q1);
 	else if (token_type == T_LINEBREAK)

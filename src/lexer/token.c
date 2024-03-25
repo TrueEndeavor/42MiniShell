@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:01:56 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 15:30:22 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/25 07:03:43 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ char	*token_type_to_str(int type)
 		return ("T_QUOTED_STRING");
 	if (type == T_DOUBLE_QUOTED_STRING)
 		return ("DOUBLE_QUOTED_STRING");
+	if (type == T_DQ_STRING)
+		return ("DQ_STRING");		
 	return ("Not stringable");
 }
 
