@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/25 19:13:20 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:34:34 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,123 +81,46 @@ int	fill_values(char **str, char **name, char **var, t_core_struct *core)
 	return (var_count);
 }
 
-/* void	fill_string_old(char **str, char **name, char **var, char *ret)
+void    in_single_quote(int *var_count, char **str, char *ret, int *i)
 {
-	int	i;
-	int	var_count;
-	int	i_var;
-	int flag;
-
-	flag = 0;
-	i = 0;
-	var_count = 0;
-	i_var = 0;
-	while ((*str)[var_count] != '\0')
+	while ((*str)[*var_count] != '\0')
 	{
-	printf("(*str)[var_count]=%c\n", (*str)[var_count]);
-		if ((*str)[var_count] == '\'')
+		if ((*str)[*var_count] == '\'')
 		{
-			if (flag == 0)
-			{
-				var_count++;
-				flag = 1;
-			}
-			else if (flag == 1)
-			{
-				var_count++;
-				flag = 0;
-			}
+			//(*var_count)++;
+			break ;
 		}
-		else if ((*str)[var_count] == '\"')
-		{
-			if (flag == 0)
-			{
-				var_count++;
-				flag = 2;
-			}
-			else if (flag == 2)
-			{
-				var_count++;
-				flag = 0;
-			}
-		}
-		else if ((*str)[var_count] == '$' && flag != 1)
-		{
-			copy_variable(ret, var[i_var], i);
-			i += ft_slen(var[i_var]);
-			var_count += (ft_slen(name[i_var]) + 1);
-			i_var++;
-		}
-		ret[i] = (*str)[var_count];
-		i++;
-		var_count++;
+		ret[*i] = (*str)[*var_count];
+		(*i)++;
+		(*var_count)++;
 	}
-	ret[i] = '\0';
-} */
+}
 
-/* void	fill_string(char **str, char **name, char **var, char *ret)
+void    in_double_quote(int *var_count, char **str, char **name, char **var, char *ret, int *i, int *i_var)
 {
-	int	i;
-	int	var_count;
-	int	i_var;
-	int flag;
-
-	flag = 0;
-	i = 0;
-	var_count = 0;
-	i_var = 0;
-	while ((*str)[var_count] != '\0')
+	while ((*str)[*var_count] != '\0')
 	{
-		if ((*str)[var_count] == '\'')
+		if ((*str)[*var_count] == '"')
 		{
-			if (flag == 0)
-			{
-				flag = 1;
-			}
-			else if (flag == 1)
-			{
-				flag = 0;
-			}
+			//(*var_count)++;
+			break ;
 		}
-		else if ((*str)[var_count] == '\"')
+		else if ((*str)[*var_count] == '$')
 		{
-			if (flag == 0)
-			{
-				flag = 2;
-			}
-			else if (flag == 2)
-			{
-				flag = 0;
-			}
+			copy_variable(ret, var[*i_var], *i);
+			*i += ft_slen(var[*i_var]);
+			*var_count += (ft_slen(name[*i_var]));
+			dprintf(1, "after replacing, var_count is set on this char........=%c\n", (*str)[*var_count]);
+			(*i_var)++;
 		}
-		if ((flag != 1) && (*str)[var_count] == '$')
+		else
 		{
-			copy_variable(ret, var[i_var], i);
-			i += ft_slen(var[i_var]);
-			//printf("strlen after replace = %d\n",ft_slen(name[i_var]) + 1 );
-			var_count += (ft_slen(name[i_var]) + 1);
-			printf("after replace........(*str)[var_count]=%c\n", (*str)[var_count]);
-			i_var++;
+			ret[*i] = (*str)[*var_count];
+			(*i)++;
 		}
-		printf("flag = %d && char = %c\n", flag, (*str)[var_count]);
-			
-		if (!((flag == 2 || flag == 0) && ((*str)[var_count] == '\"')) || \
-			!((flag == 1 || flag == 0) && ((*str)[var_count] == '\'')))
-		{
-				ret[i] = (*str)[var_count];
-				printf("ret = %s\n", ret);
-				i++;
-		}
-		if (((flag == 2) && ((*str)[var_count] == '\"')) || \
-			((flag == 1) && ((*str)[var_count] == '\'')))
-		{
-			flag = 0;
-		}
-		var_count++;
-	}
-	ret[i] = '\0';
-} */
-
+		(*var_count)++;
+	}   
+}
 void	fill_string(char **str, char **name, char **var, char *ret)
 {
 	int	i;
@@ -214,51 +137,39 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 	var_count = 0;
 	i_var = 0;
 	printf("(*str)=%s\n", (*str));		
+	printf("name[0]=%s\n", name[0]);	
+	printf("var[0]=%s\n", var[0]);		
 	printf("(*ret)=%s\n", (ret));		
 	while ((*str)[var_count] != '\0')
 	{
-		dprintf(1, "******start*****(*str)[var_count] = %c\n", (*str)[var_count]);
-		if ((doubleQuoteOpen && ((*str)[var_count] == '\'')) || \
-			(singleQuoteOpen && ((*str)[var_count] == '\'')))
+		if ((*str)[var_count] == '\'')
 		{
-			var_count++;
-		}
-		else if ((*str)[var_count] == '\'')
-		{
-			dprintf(1, "' ' ' ' 'var_count = %d\n", var_count);
-			dprintf(1, "' ' ' ' '(*str)[var_count] = %c\n", (*str)[var_count]);
-			singleQuoteOpen = !singleQuoteOpen;
-			ret[i] = (*str)[var_count];
-            i++;
-            continue ;
+            var_count++;
+			in_single_quote((&var_count), str, ret, &i);
+			if ((*str)[var_count] != '\0')
+				break ;
 		}
 		else if ((*str)[var_count] == '"')
 		{
 			var_count++;
-			doubleQuoteOpen = !doubleQuoteOpen;	
-			/* ret[i] = (*str)[var_count];
-            i++; */
+			in_double_quote(&var_count, str, name, var, ret, &i, &i_var);
+			if ((*str)[var_count] != '\0')
+				break ;
 		}
-		if (doubleQuoteOpen && (*str)[var_count] == '$')
+		else if ((*str)[var_count] == '$')
 		{
-			dprintf(1, ">>>>>>>var[i_var] = %s\n", var[i_var]);
-			dprintf(1, ">>>>>>>name[i_var] = %s\n", name[i_var]);
 			copy_variable(ret, var[i_var], i);
 			i += ft_slen(var[i_var]);
-			dprintf(1, ">>>>>>>i = %d\n", i);
 			var_count += (ft_slen(name[i_var]));
-			dprintf(1, ">>>>>>>var_count = %d\n", var_count);
-			dprintf(1, "after replace........(*str)[var_count]=%c\n", (*str)[var_count]);
+			dprintf(1, "after replacing, var_count is set on this char........=%c\n", (*str)[var_count]);
 			i_var++;
 		}
 		else
 		{
 			ret[i] = (*str)[var_count];
 			i++;
-			//var_count++;
 		}
-		if (doubleQuoteOpen || !singleQuoteOpen)
-			var_count++;
+		var_count++;
 	} 
 	ret[i] = '\0';
 }
