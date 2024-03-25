@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/21 10:35:06 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/25 11:02:36 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void			ft_loop_assign(t_core_struct *core);
 void			ft_loop_quote(t_core_struct *c);
 void			ft_loop_variable(t_core_struct *core);
 void			ft_fill_exec(t_core_struct *core, int *argc, t_execcmd_P *cmd);
+void			ft_ini(int *i, int *var_count, int *i_var);
+
 
 t_cmd_P			*ft_r_in(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok);
 t_cmd_P			*ft_r_out(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok);

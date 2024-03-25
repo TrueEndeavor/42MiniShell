@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/21 13:04:26 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/25 10:24:43 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	display_new_prompt(t_core_struct *core)
 				token_head = minishell_compile(prompt);
 				core->token_head = &token_head;
 				print_token_list(*core->token_head);
+				printf("token list check\n");
 			    if (syntax_analyzer(core))
 				{
 					root = parse_cmd(core);					
@@ -123,7 +124,8 @@ int	display_new_prompt(t_core_struct *core)
 					printf ("error during check of arguments, freeing...\n");
 					ft_free_tok_list(core->token_head);
 				}
-				ft_free_cmd(root);
+				if (root)
+					ft_free_cmd(root);
 				ft_free_tok_list(core->token_head);
 				free(prompt);
 				printf ("core->exit_code: %d\n", core->exit_code);

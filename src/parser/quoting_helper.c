@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoting_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:12:19 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/20 14:51:03 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/25 11:02:04 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,10 @@ int	ft_slen(const char *str)
 			i++;
 	}
 	return (i);
+}
+void	ft_ini(int *i, int *var_count, int *i_var)
+{
+	(*i) = 0;
+	(*var_count) = 0;
+	(*i_var) = 0;
 }

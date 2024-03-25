@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:21:28 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/25 06:56:30 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/25 09:54:11 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_token_T *extract_quoted_string(t_lexer_T *lexer)
 		{
             nesting_level++;
 		}
+		// check for nesting_level=0 finally, otherwise syntax error
         lexer_advance(lexer);
     }
     return NULL;
