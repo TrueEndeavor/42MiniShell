@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/27 16:48:28 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:33:55 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_token_T	*lexer_parse_variable(t_lexer_T *lexer)
 	if ((lexer->c) == '?')
 	{
 		lexer_advance(lexer);
-		return (init_token(ft_strdup("?"), T_EXITCODE));
+		return (init_token(ft_strdup("$?"), T_EXITCODE));
 	}
 	value = ft_calloc(1, sizeof(char));
 	value[0] = '\0';
