@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/25 21:34:34 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 09:34:54 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,6 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 	i = 0;
 	var_count = 0;
 	i_var = 0;
-	printf("(*str)=%s\n", (*str));		
-	printf("name[0]=%s\n", name[0]);	
-	printf("var[0]=%s\n", var[0]);		
-	printf("(*ret)=%s\n", (ret));		
 	while ((*str)[var_count] != '\0')
 	{
 		if ((*str)[var_count] == '\'')
@@ -170,6 +166,7 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 			i++;
 		}
 		var_count++;
+		printf("next char = (*str)[var_count]=%c\n", (*str)[var_count]);
 	} 
 	ret[i] = '\0';
 }
