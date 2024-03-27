@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_helper.c                                   :+:      :+:    :+:   */
+/*   parsing_helper1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:16:10 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/20 14:18:42 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:16:03 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_expand(t_core_struct *core, char **file_name)
+char	*ft_expand(t_core_struct *core, char **str)
 {
 	char	*ret;
 
-	ret = ft_strdup(get_env(core, (*file_name)));
-	free(*file_name);
+	ret = ft_strdup(get_env(core, (*str)));
+	free(*str);
 	return (ret);
 }
 

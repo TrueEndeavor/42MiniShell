@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/27 11:42:25 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:29:40 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	builtin_unset(t_execcmd_P *ecmd, t_core_struct *core)
 	{
 		if ((ecmd->argv[i] != NULL) && (!is_valid_variable_name(ecmd->argv[i])))
 		{
-			ft_printf("unset: `%s': not a valid identifier\n", ecmd->argv[i]);
+			ft_printf("minishell: unset: `%s': not a valid identifier\n", ecmd->argv[i]);
 			core->exit_code = EXIT_FAILURE;
 		}
 		current = core->env_list;

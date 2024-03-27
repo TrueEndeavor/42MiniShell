@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/27 12:00:14 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:48:28 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,19 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 	char		*copy;
 	int			new_size;
 	t_token_T	*ret_token;
-
+	bool		quote_flag;
+	
+	quote_flag = false;
 	ret_token = NULL;
 	value = ft_calloc(1, sizeof(char));
 	value[0] = '\0';
-/* 	while (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c))
-		&& (lexer->c != '\'') && (lexer->c != '\"')) */
-	while (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c)))
+	while (ft_isprint(lexer->c) && 
+		((quote_flag && (lexer_peek(lexer, 1) != '\'' || lexer_peek(lexer, 1) != '\"')) || \
+		(!quote_flag && !ft_iswhitespace(lexer->c))))
 	{
+		printf("quote flag= %d; lexer->c=%c\n", quote_flag, lexer->c);
+		if (lexer->c == '\'' || lexer->c == '\"')
+			quote_flag = !quote_flag;
 		new_size = ft_strlen(value) + 2;
 		copy = ft_calloc(new_size, sizeof(char));
 		if (!copy)
@@ -119,6 +124,8 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 		free(copy);
 		lexer_advance(lexer);
 	}
+	
+	printf("value =%s=\n", value);
 	if (!is_nested_quotes(value))
 		return (NULL);
 	ret_token = init_token(value, T_WORD);

@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:06:36 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/27 12:05:48 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:29:03 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_state_enum	transition(t_state_enum state, t_token_type_E token_type)
 
 bool	handle_syntax_error(t_core_struct *core, t_token_T *token)
 {
-	ft_printf(" syntax error near unexpected token `%s'\n", \
+	ft_printf("minishell: syntax error near unexpected token `%s'\n", \
 		token_type_to_symbol(token->type));
 	core->exit_code = 2;
 	return (false);

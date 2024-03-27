@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/25 11:02:36 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:16:13 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				ft_slen(const char *str);
 char			*quote(char **s, t_core_struct *co, int var_c, int i);
 char			*free_quotes(char **str, char **name, char **var);
 char			*dupl(const char *src);
-char			*ft_expand(t_core_struct *core, char **file_name);
+char			*ft_expand(t_core_struct *core, char **str);
 char			*ft_here(char **value);
 void			ft_initialize_tab(char **name, char **var);
 bool			is_assignment_word(char *str);

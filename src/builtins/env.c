@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:45:19 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/21 05:32:06 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:29:34 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	builtin_env(t_execcmd_P *ecmd, t_core_struct *core)
     }		
 	if (arg_count >= 1) 
 	{
-		ft_printf("env: ʻ%s’: No such file or directory", ecmd->argv[1]);
+		ft_printf("minishell: env: ʻ%s’: No such file or directory", ecmd->argv[1]);
 		core->exit_code = 127;
 		return (core->exit_code);
 	}

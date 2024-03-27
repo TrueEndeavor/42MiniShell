@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/27 12:42:09 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:19:20 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	fill_values(char **str, char **name, char **var, t_core_struct *core)
 	return (var_count);
 }
 
-void    in_single_quote(int *var_count, char **str, char *ret, int *i)
+void    in_single_quote(int *var_count, char **str, char *ret, int *i, int *i_var)
 {
 	while ((*str)[*var_count] != '\0')
 	{
@@ -90,6 +90,8 @@ void    in_single_quote(int *var_count, char **str, char *ret, int *i)
 			//(*var_count)++;
 			break ;
 		}
+		else if ((*str)[*var_count] == '$')
+			(*i_var)++;
 		ret[*i] = (*str)[*var_count];
 		(*i)++;
 		(*var_count)++;
@@ -143,7 +145,7 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 		if ((*str)[var_count] == '\'')
 		{
             var_count++;
-			in_single_quote((&var_count), str, ret, &i);
+			in_single_quote((&var_count), str, ret, &i, &i_var);
 			if ((*str)[var_count] == '\0')
 				break ;
 		}
@@ -179,7 +181,7 @@ char	*quote(char **s, t_core_struct *co, int var_c, int i)
 	char	**name;
 	char	**var;
 	int		size;
-
+	
 	name = malloc(10 * sizeof(char *));
 	var = malloc(10 * sizeof(char *));
 	var_c = fill_values(s, name, var, co);
