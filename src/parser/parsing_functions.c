@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/21 10:28:37 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/27 09:28:20 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_cmd_P	*parse_exec(t_core_struct *core)
 	ret = parse_redirs(ret, core);
 	while ((*core->token_head)->type != T_PIPE)
 	{
-		ft_loop_assign(core);
+		//ft_loop_assign(core);
 		ft_loop_quote(core);
 		ft_loop_variable(core);
 		if ((*core->token_head)->type == T_LINEBREAK

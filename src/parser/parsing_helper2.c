@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_helper_2.c                                 :+:      :+:    :+:   */
+/*   parsing_helper2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:11:26 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/21 12:36:06 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/27 09:31:56 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,20 @@ void	ft_loop_assign(t_core_struct *core)
 
 void	ft_loop_quote(t_core_struct *c)
 {
-	if ((*c->token_head)->type == T_DOUBLE_QUOTED_STRING)
+/* 	if ((*c->token_head)->type == T_DOUBLE_QUOTED_STRING)
+	{ */
+	if (ft_strchr((*c->token_head)->value, '\'') || ft_strchr((*c->token_head)->value, '"'))
 	{
 		printf ("value of quote before: %s\n", (*c->token_head)->value);
 		(*c->token_head)->value = quote(&(*c->token_head)->value, c, 0, 0);
 		printf ("value of quote after: %s\n", (*c->token_head)->value);
-		if ((*c->token_head)->value[0] == '\0')
+	}
+	/* 	if ((*c->token_head)->value[0] == '\0')
 		{
 			free((*c->token_head)->value);
 			(*c->token_head)->value = ft_strdup("");
-		}
-	}
+		} 
+	}*/
 }
 
 void	ft_loop_variable(t_core_struct *c)

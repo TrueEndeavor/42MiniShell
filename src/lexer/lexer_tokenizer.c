@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_tokenizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/21 13:17:08 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/27 09:31:06 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,9 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 	ret_token = NULL;
 	value = ft_calloc(1, sizeof(char));
 	value[0] = '\0';
-	while (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c))
-		&& (lexer->c != '\'') && (lexer->c != '\"'))
+/* 	while (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c))
+		&& (lexer->c != '\'') && (lexer->c != '\"')) */
+	while (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c)))
 	{
 		new_size = ft_strlen(value) + 2;
 		copy = ft_calloc(new_size, sizeof(char));
@@ -118,6 +119,8 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 		free(copy);
 		lexer_advance(lexer);
 	}
+	if (!is_nested_quotes(value))
+		return (NULL);
 	ret_token = init_token(value, T_WORD);
 	return (ret_token);
 }
@@ -178,8 +181,8 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 		//	return (handle_variable_token(lexer, init_token(ft_strdup("$"), T_DOLLAR)));
 			//handle_variable_token(lexer);
 		}
-		if ((lexer->c == 34) || (lexer->c == 39))
-			return (handle_quoted_strings(lexer));
+		/*if ((lexer->c == 34) || (lexer->c == 39))
+			return (handle_quoted_strings(lexer)); */
 		if (lexer->c == '\0')
 			break ;
 		if (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c)))
