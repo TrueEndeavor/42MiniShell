@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_helper1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:20:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/21 13:10:20 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:04:50 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ t_token_T	*handle_expected_tokens(t_lexer_T *lexer)
 	}
 	if (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c)))
 		return (handle_word_token(lexer));
-	if (ft_isdigit(lexer->c))
-		return (lexer_advance_with(lexer, lexer_parse_number(lexer)));
 	return (NULL);
 }
 

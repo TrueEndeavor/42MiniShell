@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:06:36 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 16:23:34 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:05:48 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ bool	syntax_analyzer(t_core_struct *core)
 	{
 		state = transition(state, current->type);
 		if (state == STATE_ERROR)
-			handle_syntax_error(core, current);
+			return (handle_syntax_error(core, current));
 		prev = current;
 		current = current->next;
 	}
 	if (state != STATE_Q1)
-		handle_syntax_error(core, prev);
+		return (handle_syntax_error(core, prev));
 	return (true);
 }
