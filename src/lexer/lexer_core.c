@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:04:53 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/21 13:17:18 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:03:53 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	lexer_peek(t_lexer_T *lexer, int offset)
  */
 void	lexer_skip_whitespace(t_lexer_T *lexer)
 {
-	while (ft_iswhitespace(lexer->c))
+	while (ft_iswhitespace(lexer->c) && lexer->c != '\n')
 		lexer_advance(lexer);
 }
 

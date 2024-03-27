@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/27 10:20:09 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:42:25 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,13 @@ int	builtin_unset(t_execcmd_P *ecmd, t_core_struct *core)
 	int	i;
 
 	i = 1;
-	while (ecmd-> argv[i] != NULL)
+	while (ecmd->argv[i] != NULL)
 	{
+		if ((ecmd->argv[i] != NULL) && (!is_valid_variable_name(ecmd->argv[i])))
+		{
+			ft_printf("unset: `%s': not a valid identifier\n", ecmd->argv[i]);
+			core->exit_code = EXIT_FAILURE;
+		}
 		current = core->env_list;
 		previous = current;
 		if ((ecmd->argv[i] == NULL) || (ecmd->argv[i][0] == '\0'))
