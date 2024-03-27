@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/27 09:34:54 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:42:09 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,10 @@ void    in_double_quote(int *var_count, char **str, char **name, char **var, cha
 {
 	while ((*str)[*var_count] != '\0')
 	{
-		if ((*str)[*var_count] == '"')
+		if ((*str)[*var_count] == '\"')
 		{
 			//(*var_count)++;
+			printf("I break here\n");
 			break ;
 		}
 		else if ((*str)[*var_count] == '$')
@@ -138,18 +139,20 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 	i_var = 0;
 	while ((*str)[var_count] != '\0')
 	{
+		printf("next char = (*str)[var_count]=%c\n", (*str)[var_count]);
 		if ((*str)[var_count] == '\'')
 		{
             var_count++;
 			in_single_quote((&var_count), str, ret, &i);
-			if ((*str)[var_count] != '\0')
+			if ((*str)[var_count] == '\0')
 				break ;
 		}
-		else if ((*str)[var_count] == '"')
+		else if ((*str)[var_count] == '\"')
 		{
 			var_count++;
 			in_double_quote(&var_count, str, name, var, ret, &i, &i_var);
-			if ((*str)[var_count] != '\0')
+			printf("after break  = (*str)[var_count]=%c\n", (*str)[var_count]);
+			if ((*str)[var_count] == '\0')
 				break ;
 		}
 		else if ((*str)[var_count] == '$')
@@ -166,7 +169,6 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 			i++;
 		}
 		var_count++;
-		printf("next char = (*str)[var_count]=%c\n", (*str)[var_count]);
 	} 
 	ret[i] = '\0';
 }
