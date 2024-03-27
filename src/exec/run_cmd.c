@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/20 14:11:29 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:32:39 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_get_line(char **line)
 		readable = read(0, &c, 1);
 	}
 	buffer[i] = '\0';
-	ft_putstr_fd("heredoc> ", STDOUT_FILENO);
+	ft_printf("heredoc> ");
 	*line = buffer;
 	if (!readable)
 		free(buffer);
@@ -174,7 +174,7 @@ void	runcmd_here(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	hcmd = (t_herecmd_P *) cmd;
 	if (pipe(fd) == -1)
 		panic("pipe for heredoc broke, pls fix");
-	ft_putstr_fd("heredoc> ",STDOUT_FILENO);
+	ft_printf("heredoc> ");
 	pid = fork();
 	if (pid == 0)
 	{

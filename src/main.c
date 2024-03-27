@@ -3,16 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/25 10:24:43 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:01:39 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_signum;
+
+t_env_list	*create_dummy_env()
+{	
+	char	*name;
+	char	*value;
+
+	name = ft_strdup("creators");
+	if (!name)
+		return (NULL);
+	value = ft_strdup("Latha and Rico");
+	if (!value)
+	{
+		free (name);
+		return (NULL);
+	}
+	return (ft_lstnew_env(name, value));
+}
 
 t_token_T	*minishell_compile(char *src)
 {
@@ -145,6 +162,7 @@ int	display_new_prompt(t_core_struct *core)
 int	main(int ac, char *av[], char **envp)
 {
 	(void) av;
+	(void) envp;
 	t_core_struct   *core;
 	int ret_value;
 	core = NULL;
@@ -156,8 +174,13 @@ int	main(int ac, char *av[], char **envp)
 	}
 	core = malloc(1 * sizeof(t_core_struct));
 	core->exit_code = EXIT_SUCCESS;
-	core->env_list = init_env(envp);
-	ft_update_shlvl(core);
+	if (getenv("USER") == NULL)
+		core->env_list = create_dummy_env();
+	else
+	{
+		core->env_list = init_env(envp);
+		ft_update_shlvl(core);
+	}
 	ret_value = display_new_prompt(core);
 	return (ret_value);
 }
