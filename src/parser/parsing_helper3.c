@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_helper_3.c                                 :+:      :+:    :+:   */
+/*   parsing_helper3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:20:53 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/21 10:54:27 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/28 13:34:23 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,15 @@ t_cmd_P	*ft_cr_here(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 	(*cmd) = create_herecmd((*cmd), (tok)->value);
 	*core->token_head = advance_token(&tok);
 	return ((*cmd));
+}
+
+int	check_redir(t_core_struct *core)
+{
+	if (((*core->token_head)->type != T_REDIRECT_IN)
+		&& ((*core->token_head)->type != T_REDIRECT_OUT)
+		&& ((*core->token_head)->type != T_APPEND_OUT) 
+		&& ((*core->token_head)->type != T_HEREDOC))
+		return (0);
+	else 
+		return (1);
 }

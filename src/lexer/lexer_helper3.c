@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:13:30 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/25 17:09:21 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 13:25:04 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 int	ft_get_quotes(char **value, int new_size, t_lexer_T *lexer, char c)
 {
 	char	*copy;
-	int     num_dq;
-	int     num_sq;
+	int		num_dq;
+	int		num_sq;
 
 	num_sq = 0;
 	num_dq = 0;
 	while (lexer->c != '\0')
 	{
-		printf("current lexer->c: %c\n", lexer->c); 
+		printf("current lexer->c: %c\n", lexer->c);
 		if (lexer->c == c)
 			num_dq ++;
 		if (lexer->c == '\'')
@@ -42,10 +42,9 @@ int	ft_get_quotes(char **value, int new_size, t_lexer_T *lexer, char c)
 	}
 	if (!is_nested_quotes(*value))
 		return (1);
-/* 	if ((num_dq % 2 == 1) || (num_sq % 2 == 1))
-		return (1);
- */	
-    return (0);
+	/*if ((num_dq % 2 == 1) || (num_sq % 2 == 1))
+		return (1);*/
+	return (0);
 }
 
 t_token_T	*handle_quoted_strings(t_lexer_T *lexer)

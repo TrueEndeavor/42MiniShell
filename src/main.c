@@ -6,30 +6,13 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/27 14:01:39 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/28 10:45:34 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_signum;
-
-t_env_list	*create_dummy_env()
-{	
-	char	*name;
-	char	*value;
-
-	name = ft_strdup("creators");
-	if (!name)
-		return (NULL);
-	value = ft_strdup("Latha and Rico");
-	if (!value)
-	{
-		free (name);
-		return (NULL);
-	}
-	return (ft_lstnew_env(name, value));
-}
 
 t_token_T	*minishell_compile(char *src)
 {

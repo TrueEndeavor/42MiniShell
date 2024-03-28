@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoting_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 11:12:19 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/25 11:02:04 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 14:05:07 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ char	*dupl(const char *src)
 	return (new);
 }
 
-void	ft_initialize_tab(char **name, char **var)
+void	ft_initialize_tab(char **name, char **var, int size)
 {
 	int	i;
 
 	i = 0;
-	while (i < 10)
+	while (i < size)
 	{
 		name[i] = NULL;
 		var[i] = NULL;
@@ -87,9 +87,19 @@ int	ft_slen(const char *str)
 	}
 	return (i);
 }
-void	ft_ini(int *i, int *var_count, int *i_var)
+
+int	check_num_arg(char *str)
 {
-	(*i) = 0;
-	(*var_count) = 0;
-	(*i_var) = 0;
+	int	i;
+	int	num;
+	
+	i = 0;
+	num = 1;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '$')
+			num++;
+		i++;
+	}
+	return (num);
 }

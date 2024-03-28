@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoting.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/27 15:19:20 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 14:06:54 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	fill_values(char **str, char **name, char **var, t_core_struct *core)
 	int	i_var;
 	int	var_count;
 
-	ft_initialize_tab(name, var);
 	var_count = 0;
 	i_var = 0;
 	i = 0;
@@ -81,7 +80,7 @@ int	fill_values(char **str, char **name, char **var, t_core_struct *core)
 	return (var_count);
 }
 
-void    in_single_quote(int *var_count, char **str, char *ret, int *i, int *i_var)
+void	in_single_quote(int *var_count, char **str, char *ret, int *i, int *i_var)
 {
 	while ((*str)[*var_count] != '\0')
 	{
@@ -182,8 +181,10 @@ char	*quote(char **s, t_core_struct *co, int var_c, int i)
 	char	**var;
 	int		size;
 	
-	name = malloc(10 * sizeof(char *));
-	var = malloc(10 * sizeof(char *));
+	size = check_num_arg((*s));
+	name = malloc(size * sizeof(char *));
+	var = malloc(size * sizeof(char *));
+	ft_initialize_tab(name, var, size);
 	var_c = fill_values(s, name, var, co);
 	if (var_c == -1)
 		return (free_quotes(s, name, var));

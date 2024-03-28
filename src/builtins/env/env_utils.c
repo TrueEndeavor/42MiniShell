@@ -6,24 +6,24 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:38:25 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/21 05:44:33 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 10:40:14 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **convert_env_to_stringarray(t_env_list *env_list)
+char	**convert_env_to_stringarray(t_env_list *env_list)
 {
 	char	*temp_envp;
 	char	**new_envp;
-	int i;
+	int		i;
 
 	i = 0;
 	temp_envp = NULL;
 	if (!env_list)
 		return (NULL);
 	new_envp = ft_calloc(sizeof(char *), ft_lstsize_env(env_list) + 1);
-	if (!new_envp)  
+	if (!new_envp)
 		return (NULL);
 	while (env_list)
 	{
@@ -33,7 +33,7 @@ char **convert_env_to_stringarray(t_env_list *env_list)
 		}
 		else
 		{
-			temp_envp = ft_strjoin(env_list->name,"=");
+			temp_envp = ft_strjoin(env_list->name, "=");
 			if (!temp_envp)
 			{
 				//TODO:free all new_envp[i] so far
@@ -44,7 +44,7 @@ char **convert_env_to_stringarray(t_env_list *env_list)
 			free(temp_envp);
 			if (!new_envp[i])
 			{
-				//TODO:free all new_envp[i] so far 
+				//TODO:free all new_envp[i] so far
 				//and new_envp itself at the end
 				return (NULL);
 			}
@@ -53,39 +53,40 @@ char **convert_env_to_stringarray(t_env_list *env_list)
 		env_list = env_list->next;
 	}
 	new_envp[i] = NULL;
-	return (new_envp); 
+	return (new_envp);
 }
 // function to free_env_array
 
-char *getKey(char *s)
+char	*getKey(char *s)
 {
-	char *result;
-	
+	char	*result;
+
 	result = ft_strchr(s, '=');
 	//TODO:declare variable for the return, free it later
 	if (result)
-		return(ft_substr(s, 0, (ft_strlen(s) - ft_strlen(result))));
+		return (ft_substr(s, 0, (ft_strlen(s) - ft_strlen(result))));
 	else
-		return(s);
+		return (s);
 }
 
-char *getValue(char *s)
+char	*getValue(char *s)
 {
-	char *found_key_at;
-	char *result;
-	
+	char	*found_key_at;
+	char	*result;
+
 	found_key_at = ft_strchr(s, '=');
 	result = NULL;
-	if (found_key_at){
+	if (found_key_at)
+	{
 		result = ft_substr(s, (ft_strlen(s) - ft_strlen(found_key_at)) + 1, ft_strlen(s));
 	}
 	else
 	{
 		result = ft_calloc(1, sizeof(char));
 		if (!result)
-            return (NULL); 
-        *result = '\0';
-	}		
+			return (NULL);
+		*result = '\0';
+	}
 	return (result);
 }
 
@@ -105,7 +106,6 @@ t_env_list	*init_env(char **envp)
 	}
 	minishell_envp_head = NULL;
 	i = 0;
-		
 	while (envp[i])
 	{
 		if ((ft_strchr(envp[i], '=')) != NULL)
@@ -124,19 +124,19 @@ t_env_list	*init_env(char **envp)
 
 void	display_env_from_array(int count_of_env_vars, char	**envp)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
-	// TODO: print a new line or just ""..
+		// TODO: print a new line or just ""..
 	if (envp == NULL)
 	{
 		printf("\n");
 	}
 	while (i < count_of_env_vars)
 	{
-		//if (envp[i] != NULL && (ft_strchr(envp[i], '=')) != NULL)
-		if (envp[i] != NULL)
-			printf("%s\n",envp[i]);
+		if (envp[i] != NULL && (ft_strchr(envp[i], '=')) != NULL)
+			if (envp[i] != NULL)
+				printf ("%s\n", envp[i]);
 		i++;
 	}
 }

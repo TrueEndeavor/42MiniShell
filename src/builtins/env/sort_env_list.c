@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 12:12:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/02/28 18:39:57 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 12:05:10 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	swap_env_nodes(t_env_list *node1, t_env_list *node2)
 
 t_env_list	*sort_env_list(t_env_list *env_list)
 {
-	t_env_list  *head;
+	t_env_list	*head;
 	t_env_list	*current;
 	t_env_list	*following;
 

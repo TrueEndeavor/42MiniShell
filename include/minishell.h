@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:16:04 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/20 13:38:52 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/28 09:26:45 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void		ft_free_cmd(t_cmd_P *cmd);
 int			is_valid_variable_char(char c);
 bool		is_valid_variable_name(char *name);
 void		ft_update_shlvl(t_core_struct *core);
+t_env_list	*create_dummy_env(void);
 
 #endif

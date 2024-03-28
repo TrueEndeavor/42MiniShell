@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/27 12:32:39 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/28 13:01:19 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	t_execcmd_P	*ecmd;
 	char		**env_array;
+	int			i;
 
 	env_array = NULL;
 	ecmd = (t_execcmd_P *) cmd;
@@ -64,6 +65,7 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	dprintf(2, "THE COMMAND IS = %s\n", ecmd->argv[0]);
 	dprintf(2, "\033[0;36m######OUTPUT######\n\033[0m");
 	core->exit_code = ft_execute(ecmd->argv, env_array);
+	i = core->exit_code;
 	dprintf(2, "freeing cmd in child\n");
 	ft_free_cmd(fcmd);
 	dprintf(2, "freeing tok list in child\n");
@@ -75,13 +77,12 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	dprintf(2, "freeing env** in child\n");
 	ft_free(NULL, env_array);
 	dprintf(2, "done\n");
-	exit(core->exit_code);
+	exit(i);
 }
 
 void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	t_redircmd_P	*rcmd;
-	//int     fd;
 
 	rcmd = (t_redircmd_P *) cmd;
 	if (rcmd->write_into == 1 || rcmd->read_from == 1)
@@ -91,23 +92,18 @@ void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 		dprintf(2, "open %s failed\n", rcmd->file);
 		exit(0);
 	}
-/* 	if (rcmd->write_into == 1)
-		dup2(fd, rcmd->fd);
-	else
-		close(fd);
- */	
-    run_cmd(rcmd->cmd, core, fcmd);
+	run_cmd(rcmd->cmd, core, fcmd);
 }
 
 int	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	t_pipecmd_P	*pcmd;
-	int p[2];
-	int status;
-	int l_child;
-	int r_child;
-	int last_status;
-	
+	int			p[2];
+	int			status;
+	int			l_child;
+	int			r_child;
+	int			last_status;
+
 	last_status = 0;
 	pcmd = (t_pipecmd_P *)cmd;
 	if (pipe(p) < 0)
@@ -131,45 +127,40 @@ int	runcmd_pipe(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 			close(p[0]);
 			close(p[1]);
 			run_cmd(pcmd->right, core, fcmd);
-		}
-	
+		}	
 		else
 		{
 			close(p[0]);
 			close(p[1]);
-/* 			wait(0);
-			wait(0);
-		} */
-		
- 			while (waitpid(l_child, &status, 0) > 0 || \
-				waitpid(r_child, &status, 0) > 0) 
+			while (waitpid(l_child, &status, 0) > 0 || \
+				waitpid(r_child, &status, 0) > 0)
+			{
+				if (WIFEXITED(status))
 				{
-	                if (WIFEXITED(status)) {
-	                    last_status = WEXITSTATUS(status);
-	                }
+					last_status = WEXITSTATUS(status);
 				}
-	        printf("Exit status of the last child was %d\n", last_status);
-		} 
+			}
+			printf("Exit status of the last child was %d\n", last_status);
+		}
 	}
-		dprintf(2, "freeing cmd in pipe\n");
-		ft_free_cmd(fcmd);
-		dprintf(2, "freeing tok list in pipe\n");
-		ft_free_tok_list(core->token_head);
-		dprintf(2, "freeing env_list in pipe\n");
-		ft_free_env(core->env_list);
-		dprintf(2, "freeing core in pipe\n");
-		free(core);
-		dprintf(2, "done\n");
-	    exit(last_status);
+	dprintf(2, "freeing cmd in pipe\n");
+	ft_free_cmd(fcmd);
+	dprintf(2, "freeing tok list in pipe\n");
+	ft_free_tok_list(core->token_head);
+	dprintf(2, "freeing env_list in pipe\n");
+	ft_free_env(core->env_list);
+	dprintf(2, "freeing core in pipe\n");
+	free(core);
+	dprintf(2, "done\n");
+	exit(last_status);
 }
 
 void	runcmd_here(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
-	t_herecmd_P *hcmd;
+	t_herecmd_P	*hcmd;
 	pid_t		pid;
 	char		*line;
 	int			fd[2];
-	//int status;
 
 	hcmd = (t_herecmd_P *) cmd;
 	if (pipe(fd) == -1)
@@ -203,12 +194,10 @@ void	runcmd_here(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 
 void	run_cmd(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
-	//int				p[2];
-/* 	int status;
-	int child_pid;
-	int last_status; */
-
-	
+	/*int	p[2];
+	int	status;
+	int	child_pid;
+	int	last_status;*/
 	if (cmd == 0)
 		exit (1);
 	if (cmd->type == EXEC_CMD)
@@ -228,5 +217,4 @@ void	run_cmd(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	//else
 	//	panic ("runcmd panic");
 	//exit (0);
-	
 }

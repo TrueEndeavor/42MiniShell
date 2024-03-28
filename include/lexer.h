@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/25 17:07:16 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 09:23:00 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_token_T	*handle_quoted_strings(t_lexer_T *lexer);
 t_token_T	*lexer_parse_quoted_string(t_lexer_T *lexer);
 t_token_T	*lexer_parse_double_quoted_string(t_lexer_T *lexer);
 
-t_token_T *extract_quoted_string(t_lexer_T *lexer);
+t_token_T	*extract_quoted_string(t_lexer_T *lexer);
 bool		is_nested_quotes(const char *str);
 
 #endif

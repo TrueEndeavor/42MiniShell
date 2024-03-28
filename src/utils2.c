@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone_env.c                                 :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/26 17:07:20 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/28 10:48:15 by trysinsk         ###   ########.fr       */
+/*   Created: 2024/03/28 09:24:46 by trysinsk          #+#    #+#             */
+/*   Updated: 2024/03/28 13:26:24 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_lstdelone_env(t_env_list *lst, void (*del)(void *))
-{
-	if (lst != NULL && del)
+t_env_list	*create_dummy_env(void)
+{	
+	char	*name;
+	char	*value;
+
+	name = ft_strdup("creators");
+	if (!name)
+		return (NULL);
+	value = ft_strdup("Latha and Rico");
+	if (!value)
 	{
-		del(&lst->name);
-		del(&lst->value);
-		free(lst);
+		free (name);
+		return (NULL);
 	}
+	return (ft_lstnew_env(name, value));
 }

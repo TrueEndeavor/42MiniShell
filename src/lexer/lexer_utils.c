@@ -6,17 +6,17 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:06:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/27 15:44:02 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 13:03:57 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool is_nested_quotes(const char *str)
+bool	is_nested_quotes(const char *str)
 {
-	bool singleQuoteOpen;
-	bool doubleQuoteOpen;
-	
+	bool	singleQuoteOpen;
+	bool	doubleQuoteOpen;
+
 	singleQuoteOpen = false;
 	doubleQuoteOpen = false;
 	while (*str != '\0')
@@ -29,7 +29,7 @@ bool is_nested_quotes(const char *str)
 		else if ((*str) == '\"')
 		{
 			if (!singleQuoteOpen)
-                doubleQuoteOpen = !doubleQuoteOpen;
+				doubleQuoteOpen = !doubleQuoteOpen;
 		}
 			str++;
 	}
