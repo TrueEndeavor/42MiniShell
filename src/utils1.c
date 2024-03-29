@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:52:44 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/28 13:26:06 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/29 10:28:35 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	min_int(int a, int b)
 
 int	is_valid_variable_char(char c)
 {
-	return (ft_isalnum(c) || c == '_');
+	return (ft_isalpha(c) || c == '_');
 }
 
 bool	is_valid_variable_name(char *name)

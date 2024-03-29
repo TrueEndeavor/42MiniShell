@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:17:29 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/29 09:45:33 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/29 10:29:06 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	set_env5(t_core_struct *core, char *key_to_set)
 	ret = 0;
 	if (!key_to_set)
 		panic ("key to set not found");
-	printf ("............key_to_set = %s\n", key_to_set);
 	if (!is_valid_variable_name(key_to_set)
 		|| (ft_strchr(key_to_set, '=') != NULL))
 	{
@@ -86,7 +85,6 @@ void	set_env(t_core_struct *core, char *key_value_pair)
 	int			modified_flag;
 
 	head = core->env_list;
-	//printf("address of el in ----set %p\n", core->env_list);
 	modified_flag = 0;
 	new = NULL;
 	key_to_set = get_key(key_value_pair);
