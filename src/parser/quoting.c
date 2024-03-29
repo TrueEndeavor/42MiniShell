@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/29 09:56:41 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/29 10:05:55 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ int	fill_values(char **str, char **name, char **var, t_core_struct *core)
 	i = 0;
 	while ((*str)[i] != '\0')
 	{
-		if ((*str)[i] == '$' && (*str)[i + 1] != ' ')
+		if ((*str)[i] == '$' && (*str)[i + 1] != ' ' && (*str)[i + 1] != '\"')
 		{
+			printf ("next char: -%c-\n", (*str)[i + 1]);
 			name[i_var] = NULL;
 			var[i_var] = NULL;
 			name[i_var] = get_name(*str, i);
@@ -107,7 +108,7 @@ void    in_double_quote(int *var_count, char **str, char **name, char **var, cha
 			printf("I break here\n");
 			break ;
 		}
-		else if ((*str)[*var_count] == '$' && (*str)[*var_count + 1] != ' ')
+		else if ((*str)[*var_count] == '$' && (*str)[*var_count + 1] != ' ' && (*str)[*var_count + 1] != '\"')
 		{
 			copy_variable(ret, var[*i_var], *i);
 			*i += ft_slen(var[*i_var]);
@@ -156,7 +157,7 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 			if ((*str)[var_count] == '\0')
 				break ;
 		}
-		else if ((*str)[var_count] == '$' && (*str)[var_count + 1] != ' ')
+		else if ((*str)[var_count] == '$' && (*str)[var_count + 1] != ' ' && (*str)[var_count + 1] != '\"')
 		{
 			copy_variable(ret, var[i_var], i);
 			i += ft_slen(var[i_var]);
