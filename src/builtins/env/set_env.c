@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:17:29 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/29 11:00:34 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/03/29 11:47:18 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,13 @@ void	set_env3(t_core_struct *co, char *key, t_env_list *h, t_env_list *n)
 {
 	co->env_list = h;
 	n = ft_lstnew_env(key, NULL);
-	printf("adding the new variable with empty value\n");
+/* 	printf("n->name=%s\n", n->name);
+	printf("n->value=%s\n", n->value);	
+	printf("adding the new variable with empty value\n"); */
 	if (!n)
+	{
 		ft_lstclear_env(&co->env_list, free);
+	}
 	ft_lstadd_back_env(&co->env_list, n);
 }
 
@@ -62,13 +66,10 @@ void	set_env2(t_core_struct *core, char *key, char *value, int *flag)
 			}
 			else
 			{
-				printf("dsssssssssss............\n");
 				if (((core->env_list)->value != NULL))
 					free((core->env_list)->value);
 				(core->env_list)->value = "";
 			}
-			/*if (!(core->env_list)->value)
-				panic ("env list value empty");*/
 			(*flag) = 1;
 		}
 		core->env_list = (core->env_list)->next;
@@ -91,6 +92,12 @@ void	set_env(t_core_struct *core, char *key_value_pair)
 	value_to_set = get_value(key_value_pair);
 	if (set_env5(core, key_to_set) == 0)
 	{
+		if (is_valid_variable_name(key_to_set)
+			|| (ft_strchr(key_to_set, '=') == NULL))
+		{
+			printf("I am here with key=%s\n",key_to_set);
+			set_env3(core, key_to_set, head, new);
+		}
 		set_env2(core, key_to_set, value_to_set, &modified_flag);
 		if (!value_to_set && modified_flag == 0)
 			set_env3(core, key_to_set, head, new);
