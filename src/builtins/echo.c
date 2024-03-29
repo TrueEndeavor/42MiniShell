@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/28 09:50:10 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/29 09:28:57 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	print_the_output(t_execcmd_P *ecmd, int i)
 	int	last_index;
 
 	start_index = i;
-	last_index = 0;
+	last_index = i - 1;
 	while (ecmd->argv[i] != NULL)
 	{
 		last_index++;
@@ -38,7 +38,7 @@ void	print_the_output(t_execcmd_P *ecmd, int i)
 	while (ecmd->argv[start_index] != NULL)
 	{
 		printf("%s", ecmd->argv[start_index]);
-		if (start_index != last_index)
+		if (start_index < last_index)
 			printf("%c", ' ');
 		start_index++;
 	}
