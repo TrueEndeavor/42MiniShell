@@ -32,8 +32,8 @@ void		set_env(t_core_struct *core, char *key_value_pair);
 char		*get_env(t_core_struct *core, char *key_to_search);
 bool		contains_only_char(char *str, char c);
 
-char		*getKey(char *s);
-char		*getValue(char *s);
+char		*get_key(char *s);
+char		*get_value(char *s);
 
 t_env_list	*ft_lstnew_env(char *name, char *value);
 void		ft_lstadd_back_env(t_env_list **lst, t_env_list *new);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/28 10:45:34 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/29 09:32:33 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,11 @@ int	display_new_prompt(t_core_struct *core)
 			ft_free_env(core->env_list);
 			free(core);
 			printf("exit\n");
-			return (1);
+			exit(EXIT_FAILURE);
 		}
 	}
-	return (0);
+	//return (0);
+	exit(core->exit_code);
 }
 
 int	main(int ac, char *av[], char **envp)

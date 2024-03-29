@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+         #
+#    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/03/28 09:25:41 by trysinsk         ###   ########.fr        #
+#    Updated: 2024/03/29 09:49:18 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRCS =  src/main.c \
 		src/builtins/pwd.c \
 		src/builtins/unset.c \
 		src/builtins/env/env_utils.c \
+		src/builtins/env/env_utils2.c \
 		src/builtins/env/ft_lstclear_env.c \
 		src/builtins/env/ft_lstnew_env.c \
 		src/builtins/env/ft_lstadd_back_env.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:17:29 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/28 12:01:26 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/29 09:45:33 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	set_env(t_core_struct *core, char *key_value_pair)
 	//printf("address of el in ----set %p\n", core->env_list);
 	modified_flag = 0;
 	new = NULL;
-	key_to_set = getKey(key_value_pair);
-	value_to_set = getValue(key_value_pair);
+	key_to_set = get_key(key_value_pair);
+	value_to_set = get_value(key_value_pair);
 	if (set_env5(core, key_to_set) == 0)
 	{
 		set_env2(core, key_to_set, value_to_set, &modified_flag);
