@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/28 13:01:19 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/29 11:38:47 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ void	runcmd_here(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	close (fd[1]);
 	//wait(NULL);
 	core->exit_code = wait(NULL);
-	printf ("core->exit_code: %d\n", core->exit_code);
+	ft_printf ("core->exit_code: %d\n", core->exit_code);
 	run_cmd(hcmd->cmd, core, fcmd);
 }
 
