@@ -47,7 +47,7 @@ static int	substr_len(char const *s, char c)
 		s++;
 	}
 	return (len);
-}	
+}
 
 static void	*free_mem(char **new, int i)
 {
