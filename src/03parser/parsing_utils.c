@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:44:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/21 10:21:54 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/01 16:15:20 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	is_assignment_word(char *str)
 	position = ft_strrchr(str, '=');
 	if (position)
 		index = position - str;
-	len = strlen(str);
+	len = ft_strlen(str);
 	if (index == (len - 1))
 		return (true);
 	return (false);

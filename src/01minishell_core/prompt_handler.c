@@ -70,6 +70,7 @@ char	*get_prompt_interactive_mode(t_core_struct *core)
 	if (isatty(STDIN_FILENO))
 	{
 		prompt = readline("jollyshell$> ");
+		core->exit_code = EXIT_SUCCESS;
 		if (g_signum != 0)
 		{
 			core->exit_code += (g_signum + 128);

@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:06:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/01 08:50:19 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/01 16:12:09 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,13 @@ void	extend_string(char **value, char c)
 	(*value)[new_size - 2] = c;
 	(*value)[new_size - 1] = '\0';
 	free(copy);
+}
+
+bool	is_metacharacter(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\f' || \
+		c == '\n' || c == '\r' || c == '\v' || \
+		c == '<' || c == '>' || c == '|')
+		return (true);
+	return (false);
 }

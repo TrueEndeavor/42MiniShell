@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/01 08:51:34 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/01 18:56:53 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,13 @@ t_token_T	*lexer_advance_current(t_lexer_T *lexer, int type);
 void		lexer_skip_whitespace(t_lexer_T *lexer);
 t_token_T	*lexer_parse_word(t_lexer_T *lexer);
 t_token_T	*lexer_parse_variable(t_lexer_T *lexer);
-t_token_T	*lexer_parse_number(t_lexer_T *lexer);
 t_token_T	*lexer_scan_token(t_lexer_T *lexer);
-
+bool	is_metacharacter(char c);
 void		print_token_list(t_token_T *token_head);
 
-//t_token_T	*handle_word_token(t_lexer_T *lexer);
-//t_token_T	*handle_name_token(t_lexer_T *lexer);
 t_token_T	*handle_word_token(t_lexer_T *lexer);
-t_token_T	*handle_number_token(t_lexer_T *lexer);
 t_token_T	*handle_variable_token(t_lexer_T *lexer);
 t_token_T	*handle_pipe_token(t_lexer_T *lexer);
-t_token_T	*handle_redirect_out_token(t_lexer_T *lexer);
 t_token_T	*handle_redirect_out_token(t_lexer_T *lexer);
 t_token_T	*handle_append_out_token(t_lexer_T *lexer);
 t_token_T	*handle_redirect_in_token(t_lexer_T *lexer);
@@ -42,11 +37,7 @@ void		handle_unexpected_character(t_lexer_T *lexer);
 t_token_T	*handle_expected_tokens(t_lexer_T *lexer);
 t_token_T	*handle_dollar_token(t_lexer_T *lexer);
 t_token_T	*handle_redirect_tokens(t_lexer_T *lexer);
-t_token_T	*handle_quoted_strings(t_lexer_T *lexer);
-t_token_T	*lexer_parse_quoted_string(t_lexer_T *lexer);
-t_token_T	*lexer_parse_double_quoted_string(t_lexer_T *lexer);
 
-t_token_T	*extract_quoted_string(t_lexer_T *lexer);
 bool		is_nested_quotes(const char *str);
 void		extend_string(char **value, char c);
 

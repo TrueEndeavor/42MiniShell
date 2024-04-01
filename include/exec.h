@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:49:03 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/01 07:32:42 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/01 18:54:44 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ bool	is_directory(char *path);
 
 int		ft_execute(char **argv, char **envp);
 char	*ft_get_path(char *cmd, char **envp);
-void	ft_error(char *str);
 void	ft_free(char *path, char **cmd);
-void	ft_check_arg(int argc, char **argv);
 
 #endif

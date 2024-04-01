@@ -31,7 +31,7 @@ char	*read_string(t_lexer_T **lexer)
 	while (ft_isprint((*lexer)->c) \
 		&& ((quote_flag && (lexer_peek((*lexer), 1) != '\'' \
 		|| lexer_peek((*lexer), 1) != '\"')) \
-		|| (!quote_flag && !ft_iswhitespace((*lexer)->c))))
+		|| (!quote_flag && !is_metacharacter((*lexer)->c))))
 	{
 		printf("quote flag= %d; lexer->c=%c\n", quote_flag, (*lexer)->c);
 		if ((*lexer)->c == '\'' || (*lexer)->c == '\"')
