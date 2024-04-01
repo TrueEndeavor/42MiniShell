@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/28 09:23:00 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/31 20:43:51 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_token_T	*lexer_parse_variable(t_lexer_T *lexer);
 t_token_T	*lexer_parse_number(t_lexer_T *lexer);
 t_token_T	*lexer_scan_token(t_lexer_T *lexer);
 
-int			is_valid_variable_char(char c);
+void		print_token_list(t_token_T *token_head);
 
 //t_token_T	*handle_word_token(t_lexer_T *lexer);
 //t_token_T	*handle_name_token(t_lexer_T *lexer);

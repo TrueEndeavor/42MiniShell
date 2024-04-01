@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:16:04 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/28 09:26:45 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/03/31 20:44:40 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@
 # include "exec.h"
 # include "builtins.h"
 # include "utils.h"
-# include "dev.h"
 # include "signals.h"
 
+# define DEBUG_MODE 1
 /* 
  * Flag "g_signum" takes in the signum/exit code
  *       = 2 //SIGNINT
@@ -41,14 +41,15 @@
  */
 extern int	g_signum;
 
+int			display_new_prompt(t_core_struct *core);
+t_token_T	*minishell_compile(char *src);
+int			process_signals_in_child(int status);
+void		process_eof(t_core_struct *core);
+
 int			display_error(char *str);
 void		panic(char *str);
 void		ft_free_tok_list(t_token_T **token_head);
 void		ft_free_env(t_env_list *env);
 void		ft_free_cmd(t_cmd_P *cmd);
-int			is_valid_variable_char(char c);
-bool		is_valid_variable_name(char *name);
-void		ft_update_shlvl(t_core_struct *core);
-t_env_list	*create_dummy_env(void);
 
 #endif

@@ -13,7 +13,10 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-int		max_int(int a, int b);
-int		min_int(int a, int b);
+int			min_int(int a, int b);
+int			is_valid_variable_char(char c);
+bool		is_valid_variable_name(char *name);
+void		ft_update_shlvl(t_core_struct *core);
+t_env_list	*create_dummy_env(void);
 
 #endif

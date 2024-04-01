@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 14:03:48 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/31 20:52:44 by lannur-s         ###   ########.fr       */
+/*   Created: 2024/02/23 10:31:57 by lannur-s          #+#    #+#             */
+/*   Updated: 2024/03/31 22:59:17 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#include "minishell.h"
 
-# include "structs.h"
-
-t_token_T	*init_token(char *value, int type);
-char		*token_type_to_str(int type);
-char		*token_to_str(t_token_T *token);
-char		*token_type_to_symbol(int type);
-
-#endif
+bool	contains_only_char(char *str, char c)
+{
+	str++;
+	while (*str != '\0')
+	{
+		if (*str != c)
+			return (false);
+		str++;
+	}
+	return (true);
+}

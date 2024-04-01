@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:49:03 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 15:16:08 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/01 07:32:42 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 # include "structs.h"
 
 void	run_cmd(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd);
+void	runcmd_here(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd);
+int		runcmd_pipe(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd);
 int		fork1(void);
+bool	is_directory(char *path);
 
 /*----------------------------- PIPEX Functions -----------------------------*/
 
@@ -24,13 +27,6 @@ int		ft_execute(char **argv, char **envp);
 char	*ft_get_path(char *cmd, char **envp);
 void	ft_error(char *str);
 void	ft_free(char *path, char **cmd);
-char	**ft_split(const char *s, char c);
-char	*ft_strjoin(const char *s1, const char *s2);
-size_t	ft_strlen(const char *s);
-char	*ft_strnstr(const char *big, const char *little, size_t len);
-char	*ft_substr(const char *s, unsigned int start, size_t len);
-void	ft_putstr_fd(char *s, int fd);
-size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 void	ft_check_arg(int argc, char **argv);
 
 #endif
