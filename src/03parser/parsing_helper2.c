@@ -6,13 +6,13 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:11:26 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/01 07:15:50 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/01 09:15:54 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_loop_assign(t_core_struct *core)
+/*void	ft_loop_assign(t_core_struct *core)
 {
 	t_token_T	*next_token;
 	t_token_T	*current_token;
@@ -36,7 +36,7 @@ void	ft_loop_assign(t_core_struct *core)
 			free(next_token);
 		}
 	}
-}
+}*/
 
 void	ft_loop_quote(t_core_struct *c)
 {

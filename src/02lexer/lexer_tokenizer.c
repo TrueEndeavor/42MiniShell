@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:31:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/28 13:08:29 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/01 08:13:36 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,99 +39,6 @@ t_token_T	*lexer_advance_current(t_lexer_T *lexer, int type)
 	return (token);
 }
 
-t_token_T	*lexer_parse_variable(t_lexer_T *lexer)
-{
-	char		*value;
-	char		*copy;
-	int			new_size;
-	t_token_T	*ret_token;
-
-	ret_token = NULL;
-	if ((lexer->c) == '?')
-	{
-		lexer_advance(lexer);
-		return (init_token(ft_strdup("$?"), T_EXITCODE));
-	}
-	value = ft_calloc(1, sizeof(char));
-	value[0] = '\0';
-	while (is_valid_variable_char(lexer->c))
-	{
-		new_size = ft_strlen(value) + 2;
-		copy = ft_calloc(new_size, sizeof(char));
-		if (!copy)
-		{
-			free (value);
-			return (NULL);
-		}
-		ft_strlcpy(copy, value, new_size);
-		free(value);
-		value = ft_calloc(new_size, sizeof(char));
-		ft_strlcpy(value, copy, new_size);
-		value[new_size - 2] = lexer->c;
-		value[new_size - 1] = '\0';
-		free(copy);
-		lexer_advance(lexer);
-	}
-	ret_token = init_token(value, T_VARIABLE);
-	return (ret_token);
-}
-
-/**
- * Parses alphabets (word) from the shell command and creates a corresponding 
- * token
- *
- * This function is responsible for recognizing and creating a token for 
- * alphabets (word)
- * It iterates through the characters that form the identifier until
- * a non-alphabetic character is encountered
- *
- * @param lexer The lexer to parse with
- *
- * @return A token representing the parsed identifier
- */
-t_token_T	*lexer_parse_word(t_lexer_T *lexer)
-{
-	char		*value;
-	char		*copy;
-	int			new_size;
-	t_token_T	*ret_token;
-	bool		quote_flag;
-
-	quote_flag = false;
-	ret_token = NULL;
-	value = ft_calloc(1, sizeof(char));
-	value[0] = '\0';
-	while (ft_isprint(lexer->c)
-		&& ((quote_flag && (lexer_peek(lexer, 1) != '\''
-					|| lexer_peek(lexer, 1) != '\"'))
-			|| (!quote_flag && !ft_iswhitespace(lexer->c))))
-	{
-		printf("quote flag= %d; lexer->c=%c\n", quote_flag, lexer->c);
-		if (lexer->c == '\'' || lexer->c == '\"')
-			quote_flag = !quote_flag;
-		new_size = ft_strlen(value) + 2;
-		copy = ft_calloc(new_size, sizeof(char));
-		if (!copy)
-		{
-			free (value);
-			return (NULL);
-		}
-		ft_strlcpy(copy, value, new_size);
-		free(value);
-		value = ft_calloc(new_size, sizeof(char));
-		ft_strlcpy(value, copy, new_size);
-		value[new_size - 2] = lexer->c;
-		value[new_size - 1] = '\0';
-		free(copy);
-		lexer_advance(lexer);
-	}
-	printf("value =%s=\n", value);
-	if (!is_nested_quotes(value))
-		return (NULL);
-	ret_token = init_token(value, T_WORD);
-	return (ret_token);
-}
-
 /**
  * Scans to find the next token from the shell command using the lexer
  *
@@ -153,9 +60,7 @@ t_token_T	*lexer_scan_token(t_lexer_T *lexer)
 		if (lexer->c == '>' || lexer->c == '<')
 			return (handle_redirect_tokens(lexer));
 		if (lexer->c == '$')
-		{
 			return (handle_dollar_token(lexer));
-		}
 		if (lexer->c == '\0')
 			break ;
 		if (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c)))

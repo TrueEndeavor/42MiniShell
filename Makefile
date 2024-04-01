@@ -6,7 +6,7 @@
 #    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/04/01 07:31:29 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/04/01 09:09:35 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,10 @@ SRCS =  src/main.c \
 		src/01minishell_core/minishell_compiler.c \
 		src/01minishell_core/utils.c \
 		src/02lexer/lexer_core.c \
+		src/02lexer/lexer_parse_word.c \
+		src/02lexer/lexer_parse_variable.c \
 		src/02lexer/lexer_helper1.c \
 		src/02lexer/lexer_helper2.c \
-		src/02lexer/lexer_helper3.c \
 		src/02lexer/lexer_utils.c \
 		src/02lexer/lexer_tokenizer.c \
 		src/02lexer/token.c \

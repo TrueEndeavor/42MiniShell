@@ -66,7 +66,6 @@ int	execute_pipe_command(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 			close(p[0]);
 			close(p[1]);
 			wait_for_child_processes(l_child, r_child, &last_status);
-			printf("Exit status of the last child was %d\n", last_status);
 		}
 	}
 	return (last_status);

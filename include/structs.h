@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/28 09:23:28 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/01 09:14:47 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ typedef enum TOKEN_TYPE_ENUM
 	T_HEREDOC = 8,
 	T_APPEND_OUT = 9,
 	T_LINEBREAK = 10,
-	T_QUOTED_STRING = 11,
-	T_DOUBLE_QUOTED_STRING = 12,
-	T_EXITCODE = 13,
-	T_DQ_STRING = 14
+	T_EXITCODE = 11
 }	t_token_type_E;
 
 typedef struct TOKEN_STRUCT
