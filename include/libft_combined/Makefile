@@ -27,7 +27,7 @@ NAME = libft.a
 
 # Compiler options
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 # Archive options
 AR = ar

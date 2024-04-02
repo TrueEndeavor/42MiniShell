@@ -68,8 +68,8 @@ char	*get_prompt_interactive_mode(t_core_struct *core)
 
 	prompt = NULL;
 	setup_readline_signals();
-	if (isatty(STDIN_FILENO))
-	{
+	//if (isatty(STDIN_FILENO))
+	//{
 		prompt = readline("jollyshell$> ");
 		core->exit_code = EXIT_SUCCESS;
 		if (g_signum != 0)
@@ -77,7 +77,7 @@ char	*get_prompt_interactive_mode(t_core_struct *core)
 			core->exit_code += (g_signum + 128);
 			g_signum = 0;
 		}
-	}
+	//}
 	return (prompt);
 }
 
@@ -90,22 +90,16 @@ int	display_new_prompt(t_core_struct *core)
 	while (1)
 	{
 		prompt = get_prompt_interactive_mode(core);
-		if (prompt == NULL || is_all_whitespace(prompt))
-		{
-				ft_free_env(core->env_list);
-				free(core);
-				return (0);
-		}
-		if (prompt != NULL && !is_all_whitespace(prompt))
-		{
-			if (*prompt)
-				process_user_input(core, prompt);
-		}
-		else
+		if (prompt == NULL) //eof - Ctrl + D
 		{
 			process_eof(core);
 			return (1);
 		}
+		if (is_all_whitespace(prompt) || !(prompt[0]))
+		{
+			continue ;
+		}
+		process_user_input(core, prompt);
 	}
 	exit(core->exit_code);
 }

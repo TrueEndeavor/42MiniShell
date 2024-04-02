@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:04:53 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/31 20:49:24 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:52:04 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_lexer_T	*init_lexer(char *src)
 	t_lexer_T	*lexer;
 
 	lexer = ft_calloc(1, sizeof(t_lexer_T));
+	if (!lexer)
+		return (NULL);
 	lexer->src = src;
 	lexer->src_size = ft_strlen(src);
 	lexer->i = 0;
@@ -70,6 +72,7 @@ void	lexer_advance(t_lexer_T *lexer)
 	if (lexer->i < lexer->src_size && lexer->c != '\0')
 	{
 		lexer->i++;
+		printf("2segcoucou\n");
 		lexer->c = lexer->src[lexer->i];
 	}
 }

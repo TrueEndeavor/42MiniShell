@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/01 08:03:56 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/02 14:47:34 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,15 @@ int	main(int ac, char *av[], char **envp)
 {
 	t_core_struct	*core;
 
+	(void) ac;
 	(void) av;
 	core = NULL;
-	if (ac > 1)
+/* 	if (ac > 1)
 	{
 		panic("No input required. \
 			[Usage] Just launch with ./minishell");
 		exit (1);
-	}
+	} */
 	core = initialize_core(envp);
 	return (display_new_prompt(core));
 }

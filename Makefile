@@ -6,7 +6,7 @@
 #    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/04/02 10:02:17 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/04/02 14:58:11 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 LIBFTNAME = libft.a
 
 CC = cc
-CCFLAGS = -Wall -Werror -Wextra -I./include -g3 #-fsanitize=address
+CCFLAGS = -Wall -Werror -Wextra -I./include -g #-fsanitize=address
 
 AR = ar
 ARFLAGS = -rcs
@@ -87,7 +87,7 @@ SRCS =  src/main.c \
 OBJS = $(SRCS:%.c=%.o)
 
 $(NAME): $(LIBFT_DIR)/$(LIBFTNAME) $(OBJS)
-	$(CC) $(CCFLAGS) $(SRCS) $(LIBFT_DIR)/$(LIBFTNAME) $(INCLUDES) -lreadline -o ${NAME}
+	$(CC) $(CCFLAGS) $(OBJS) $(LIBFT_DIR)/$(LIBFTNAME) $(INCLUDES) -lreadline -o ${NAME}
 
 
 $(LIBFT_DIR)/$(LIBFTNAME):
