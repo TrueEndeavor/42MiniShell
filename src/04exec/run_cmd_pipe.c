@@ -50,6 +50,7 @@ int	execute_pipe_command(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	int			l_child;
 	int			r_child;
 
+	last_status = 0;
 	pcmd = (t_pipecmd_P *)cmd;
 	if (pipe(p) < 0)
 		panic("pipe");

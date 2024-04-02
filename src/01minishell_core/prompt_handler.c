@@ -66,6 +66,7 @@ char	*get_prompt_interactive_mode(t_core_struct *core)
 {
 	char	*prompt;
 
+	prompt = NULL;
 	setup_readline_signals();
 	if (isatty(STDIN_FILENO))
 	{
@@ -89,7 +90,13 @@ int	display_new_prompt(t_core_struct *core)
 	while (1)
 	{
 		prompt = get_prompt_interactive_mode(core);
-		if (prompt != NULL)
+		if (prompt == NULL || is_all_whitespace(prompt))
+		{
+				ft_free_env(core->env_list);
+				free(core);
+				return (0);
+		}
+		if (prompt != NULL && !is_all_whitespace(prompt))
 		{
 			if (*prompt)
 				process_user_input(core, prompt);
