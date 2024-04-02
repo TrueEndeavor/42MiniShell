@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:44:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/01 16:15:20 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/02 13:54:27 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,45 @@ bool	is_assignment_word(char *str)
 	if (index == (len - 1))
 		return (true);
 	return (false);
+}
+
+char	*ft_ex_here(char **str)
+{
+	char	*ret;
+	int		i;
+	int		j;
+	char	c;
+	
+	i = 0;
+	j = 1;
+	ret = NULL;
+	c = (*str)[0];
+	ret = malloc (ft_slen((*str)) * sizeof (char));
+	if (!ret)
+		return ((*str));
+	while ((*str)[j] != c)
+	{
+		ret[i] = (*str)[j];
+		i++;
+		j++;
+	}
+	ret[i] = '\0';
+	free((*str));
+	return (ret);
+}
+
+int	ft_check_here(t_token_T *head)
+{
+	t_token_T	*current;
+
+	current = head;
+	while (current != NULL)
+	{
+		if (current->type == T_HEREDOC)
+			return (1);
+		current = current->next;
+	}
+	return (0);
 }
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/01 19:17:15 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/02 13:54:59 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,19 @@ t_cmd_P			*create_herecmd(t_cmd_P *subcmd, char *limiter);
 void			set_write_into(t_redircmd_P *cmd, int writable);
 void			set_read_from(t_redircmd_P *cmd, int readable);
 void			print_cmd(t_cmd_P *cmd);
+void	        copy_variable(char *ret, char *var, int i);
+
 
 int				check_num_arg(char *str);
+int				ft_check_here(t_token_T *head);
 int				ft_slen(const char *str);
 char			*quote(char **s, t_core_struct *co, int var_c, int i);
+char	        *get_name(char *str, int i);
 char			*free_quotes(char **str, char **name, char **var);
 char			*dupl(const char *src);
 char			*ft_expand(t_core_struct *core, char **str);
 char			*ft_here(char **value);
+char			*ft_ex_here(char **str);
 void			ft_initialize_tab(char **name, char **var, int size);
 bool			is_assignment_word(char *str);
 void	expand_variables(char **token_string, t_core_struct *core);
