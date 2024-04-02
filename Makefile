@@ -6,7 +6,7 @@
 #    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/04/01 18:51:32 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/04/01 19:17:42 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS =  src/main.c \
 		src/02lexer/lexer_utils.c \
 		src/02lexer/lexer_tokenizer.c \
 		src/02lexer/token.c \
+		src/03parser/expand.c \
 		src/03parser/node_constructors.c \
 		src/03parser/node_constructors2.c \
 		src/03parser/node_printers.c \

@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:20:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/31 20:50:24 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/01 19:14:56 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,26 @@ t_token_T	*handle_word_token(t_lexer_T *lexer)
 	return (lexer_parse_word(lexer));
 }
 
-t_token_T	*handle_variable_token(t_lexer_T *lexer)
+/*t_token_T	*handle_variable_token(t_lexer_T *lexer)
 {
 	lexer_advance(lexer);
 	return (lexer_parse_variable(lexer));
-}
+}*/
 
 t_token_T	*handle_expected_tokens(t_lexer_T *lexer)
 {
-	if (lexer->c == '$')
+	/*if (lexer->c == '$')
 	{
 		if (is_valid_variable_char(lexer_peek(lexer, 1)))
 			return (handle_variable_token(lexer));
 		return (NULL);
-	}
+	}*/
 	if (ft_isprint(lexer->c) && (!ft_iswhitespace(lexer->c)))
 		return (handle_word_token(lexer));
 	return (NULL);
 }
 
-t_token_T	*handle_dollar_token(t_lexer_T *lexer)
+/*t_token_T	*handle_dollar_token(t_lexer_T *lexer)
 {
 	if (lexer->c == '$')
 	{
@@ -50,7 +50,7 @@ t_token_T	*handle_dollar_token(t_lexer_T *lexer)
 			return (handle_variable_token(lexer));
 	}
 	return (NULL);
-}
+}*/
 
 void	handle_unexpected_character(t_lexer_T *lexer)
 {

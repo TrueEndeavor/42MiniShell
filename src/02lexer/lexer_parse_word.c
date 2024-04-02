@@ -61,6 +61,11 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 	char		*value;
 
 	ret_token = NULL;
+	if ((lexer->c) == '$' && (lexer_peek(lexer, 1) == '?'))
+	{
+		lexer_advance(lexer);
+		return (init_token(ft_strdup("$?"), T_EXITCODE));
+	}
 	value = read_string(&lexer);
 	printf("value =%s=\n", value);
 	if (!is_nested_quotes(value))
