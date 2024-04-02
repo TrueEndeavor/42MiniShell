@@ -6,13 +6,13 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:17:29 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/31 23:15:03 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:25:53 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	set_env5(t_core_struct *core, char *key_to_set)
+int	set_env5(t_core_struct *core, char *key_to_set, char *key_value_pair)
 {
 	int	ret;
 
@@ -22,7 +22,7 @@ int	set_env5(t_core_struct *core, char *key_to_set)
 	if (!is_valid_variable_name(key_to_set)
 		|| (ft_strchr(key_to_set, '=') != NULL))
 	{
-		ft_printf("export: `%s': not a valid identifier\n", key_to_set);
+		ft_printf("export: `%s': not a valid identifier\n", key_value_pair);
 		core->exit_code = EXIT_FAILURE;
 		ret = 1;
 	}
@@ -87,7 +87,7 @@ void	set_env(t_core_struct *core, char *key_value_pair)
 	new = NULL;
 	key_to_set = get_key(key_value_pair);
 	value_to_set = get_value(key_value_pair);
-	if (set_env5(core, key_to_set) == 0)
+	if (set_env5(core, key_to_set, key_value_pair) == 0)
 	{
 		if (is_valid_variable_name(key_to_set)
 			|| (ft_strchr(key_to_set, '=') == NULL))
