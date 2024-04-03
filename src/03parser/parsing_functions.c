@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/02 15:37:49 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 13:07:22 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_cmd_P	*parse_cmd(t_core_struct *core)
 	}
 	token_list_copy = (*core->token_head);
 	cmd = parse_pipe(core);
+	printf ("-------printing cmd-------\n");
 	print_cmd(cmd);
 	(*core->token_head) = token_list_copy;
 	return (cmd);

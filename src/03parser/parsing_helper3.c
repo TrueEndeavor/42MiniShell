@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:20:53 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/03 10:06:01 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/03 13:46:12 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,58 @@
 
 t_cmd_P	*ft_r_in(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 {
-	(*cmd) = create_redircmd((*cmd), (tok)->value, O_RDONLY, 0);
+	t_cmd_P			*checker;
+	t_redircmd_P	*saver;
+	t_cmd_P			*ret;
+	int				i;
+	
+	i = 0;
+	checker = (*cmd);
+	if (checker->type == REDIR_CMD)
+	{
+		while (checker->type == REDIR_CMD)
+		{
+			saver = (t_redircmd_P *) checker;
+			checker = saver->cmd;
+			i++;
+		}
+	}
+	ret = create_redircmd((checker), (tok)->value, O_RDONLY, 0);
 	*core->token_head = advance_token(&tok);
 	if (((*core->token_head)->type != T_REDIRECT_IN) && \
 		((*core->token_head)->type != T_REDIRECT_OUT) && \
 		((*core->token_head)->type != T_APPEND_OUT) && \
 		(ft_double_redir((*core->token_head), T_HEREDOC) == 0) && \
 		(ft_double_redir((*core->token_head), T_REDIRECT_IN) == 0))
-		set_read_from((t_redircmd_P *)(*cmd), 1);
-	return ((*cmd));
+		set_read_from((t_redircmd_P *)ret, 1);
+	if (i > 0)
+	{
+		saver->cmd = ret;
+		return ((*cmd));
+	}
+	else
+		return (ret);
 }
 
 t_cmd_P	*ft_r_out(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 {
-	(*cmd) = create_redircmd((*cmd), (tok)->value, \
+	t_cmd_P			*checker;
+	t_redircmd_P	*saver;
+	t_cmd_P			*ret;
+	int				i;
+	
+	i = 0;
+	checker = (*cmd);
+	if (checker->type == REDIR_CMD)
+	{
+		while (checker->type == REDIR_CMD)
+		{
+			saver = (t_redircmd_P *) checker;
+			checker = saver->cmd;
+			i++;
+		}
+	}
+	ret = create_redircmd((checker), (tok)->value, \
 			O_WRONLY | O_CREAT | O_TRUNC, 1);
 	*core->token_head = advance_token(&tok);
 	if (((*core->token_head)->type != T_REDIRECT_IN) && \
@@ -35,13 +73,35 @@ t_cmd_P	*ft_r_out(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 		((*core->token_head)->type != T_APPEND_OUT) && \
 		(ft_double_redir((*core->token_head), T_REDIRECT_OUT) == 0) && \
 		(ft_double_redir((*core->token_head), T_APPEND_OUT) == 0))
-		set_write_into((t_redircmd_P *)(*cmd), 1);
-	return ((*cmd));
+		set_write_into((t_redircmd_P *)ret, 1);
+	if (i > 0)
+	{
+		saver->cmd = ret;
+		return ((*cmd));
+	}
+	else
+		return (ret);
 }
 
 t_cmd_P	*ft_app_out(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 {
-	(*cmd) = create_redircmd((*cmd), (tok)->value, \
+	t_cmd_P			*checker;
+	t_redircmd_P	*saver;
+	t_cmd_P			*ret;
+	int				i;
+	
+	i = 0;
+	checker = (*cmd);
+	if (checker->type == REDIR_CMD)
+	{
+		while (checker->type == REDIR_CMD)
+		{
+			saver = (t_redircmd_P *) checker;
+			checker = saver->cmd;
+			i++;
+		}
+	}
+	ret = create_redircmd(checker, (tok)->value, \
 			O_WRONLY | O_CREAT | O_APPEND, 1);
 	*core->token_head = advance_token(&tok);
 	if (((*core->token_head)->type != T_REDIRECT_IN) && \
@@ -49,8 +109,14 @@ t_cmd_P	*ft_app_out(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 		((*core->token_head)->type != T_APPEND_OUT) && \
 		(ft_double_redir((*core->token_head), T_REDIRECT_OUT) == 0) && \
 		(ft_double_redir((*core->token_head), T_APPEND_OUT) == 0))
-		set_write_into((t_redircmd_P *)(*cmd), 1);
-	return ((*cmd));
+		set_write_into((t_redircmd_P *)ret, 1);
+	if (i > 0)
+	{
+		saver->cmd = ret;
+		return ((*cmd));
+	}
+	else
+		return (ret);
 }
 
 t_cmd_P	*ft_cr_here(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
