@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:44:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/02 13:54:27 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/03 09:38:43 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ char	*ft_ex_here(char **str)
 	return (ret);
 }
 
-int	ft_check_here(t_token_T *head)
+int	ft_double_redir(t_token_T *head, int type)
 {
 	t_token_T	*current;
 
 	current = head;
 	while (current != NULL)
 	{
-		if (current->type == T_HEREDOC)
+		if (current->type == type)
 			return (1);
 		current = current->next;
 	}

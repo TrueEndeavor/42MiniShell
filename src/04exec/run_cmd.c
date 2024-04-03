@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/02 16:05:35 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:28:04 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	if ((open (rcmd->file, rcmd->mode, rcmd->permission)) < 0)
 	{
 		dprintf(2, "open %s failed\n", rcmd->file);
-		exit(0);
+		exit(1);
 	}
 	run_cmd(rcmd->cmd, core, fcmd);
 }

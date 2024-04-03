@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/02 13:54:59 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/03 09:38:52 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	        copy_variable(char *ret, char *var, int i);
 
 
 int				check_num_arg(char *str);
-int				ft_check_here(t_token_T *head);
+int				ft_double_redir(t_token_T *head, int type);
 int				ft_slen(const char *str);
 char			*quote(char **s, t_core_struct *co, int var_c, int i);
 char	        *get_name(char *str, int i);
