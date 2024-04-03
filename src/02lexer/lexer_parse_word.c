@@ -33,7 +33,9 @@ char	*read_string(t_lexer_T **lexer)
 		|| lexer_peek((*lexer), 1) != '\"')) \
 		|| (!quote_flag && !is_metacharacter((*lexer)->c))))
 	{
+		#if DEBUG
 		printf("quote flag= %d; lexer->c=%c\n", quote_flag, (*lexer)->c);
+		#endif
 		if ((*lexer)->c == '\'' || (*lexer)->c == '\"')
 			quote_flag = !quote_flag;
 		extend_string(&value, (*lexer)->c);
@@ -64,10 +66,13 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 	if ((lexer->c) == '$' && (lexer_peek(lexer, 1) == '?'))
 	{
 		lexer_advance(lexer);
+		lexer_advance(lexer);
 		return (init_token(ft_strdup("$?"), T_EXITCODE));
 	}
 	value = read_string(&lexer);
+	#if DEBUG
 	printf("value =%s=\n", value);
+	#endif
 	if (!is_nested_quotes(value))
 		return (NULL);
 	ret_token = init_token(value, T_WORD);

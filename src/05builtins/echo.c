@@ -6,22 +6,11 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/02 06:32:29 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:38:47 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_null(t_core_struct *core, t_execcmd_P *ecmd)
-{
-	if ((ecmd->argv[1] == NULL) || (ecmd->argv[1][0] == '\0'))
-	{
-		core->exit_code = EXIT_SUCCESS;
-		ft_printf ("\n");
-		return (0);
-	}
-	return (1);
-}
 
 void	print_the_output(t_execcmd_P *ecmd, int i)
 {
@@ -66,7 +55,7 @@ int	builtin_echo(t_execcmd_P *ecmd, t_core_struct *core)
 	int	i;
 	int	count_n;
 
-	core->exit_code = EXIT_SUCCESS;
+	//core->exit_code = EXIT_SUCCESS;
 	i = 1;
 	count_n = 0;
 	while (ecmd->argv[i] && contains_n(ecmd->argv[i]))

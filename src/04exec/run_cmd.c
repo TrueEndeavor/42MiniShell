@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/02 16:05:35 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:49:01 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	if (ecmd->argv[0] == 0)
 		exit (1);
 	env_array = convert_env_to_stringarray(core->env_list);
+	#if DEBUG
 	dprintf(2, "######RUNCMD_EXEC######\n");
 	dprintf(2, "THE COMMAND IS = %s\n", ecmd->argv[0]);
 	dprintf(2, "\033[0;36m######OUTPUT######\n\033[0m");
+	#endif
 	core->exit_code = ft_execute(ecmd->argv, env_array);
 	i = core->exit_code;
 	ft_free_cmd(fcmd);
@@ -45,7 +47,9 @@ void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 		close(rcmd->fd);
 	if ((open (rcmd->file, rcmd->mode, rcmd->permission)) < 0)
 	{
+		#if DEBUG
 		dprintf(2, "open %s failed\n", rcmd->file);
+		#endif
 		exit(0);
 	}
 	run_cmd(rcmd->cmd, core, fcmd);

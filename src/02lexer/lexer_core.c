@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:04:53 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/02 16:52:04 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:41:59 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	lexer_advance(t_lexer_T *lexer)
 	if (lexer->i < lexer->src_size && lexer->c != '\0')
 	{
 		lexer->i++;
-		printf("2segcoucou\n");
 		lexer->c = lexer->src[lexer->i];
 	}
 }

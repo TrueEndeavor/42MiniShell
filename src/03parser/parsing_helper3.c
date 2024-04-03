@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_helper3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:20:53 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/02 13:55:45 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:56:53 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,17 @@ t_cmd_P	*ft_cr_here(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 		(tok)->value = ft_here(&(tok)->value);
 	else if (ft_strcmp ((tok)->value, "\"\"") == 0)
 	{
+		#if DEBUG
 		printf ("got here...doc heh\n");
+		#endif
 		free((tok)->value);
 		(tok)->value = ft_strdup("");
 	}
 	else if (ft_slen((tok)->value) != 0 && (tok)->value[0] == '\"')
 		(tok)->value = ft_ex_here(&(tok)->value);
+	#if DEBUG
 	printf ("regular here...doc heh\n");
+	#endif
 	(*cmd) = create_herecmd((*cmd), (tok)->value);
 	*core->token_head = advance_token(&tok);
 	return ((*cmd));

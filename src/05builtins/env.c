@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:45:19 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/31 22:58:29 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:48:17 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	env_null(t_core_struct *core)
 {
 	if (core->env_list == NULL)
 	{
+		#if DEBUG
 		printf("no env...\n");
+		#endif
 		core->exit_code = EXIT_FAILURE;
 		return (0);
 	}
@@ -30,7 +32,7 @@ int	builtin_env(t_execcmd_P *ecmd, t_core_struct *core)
 
 	i = 1;
 	arg_count = 0;
-	core->exit_code = EXIT_SUCCESS;
+	//core->exit_code = EXIT_SUCCESS;
 	if (env_null(core) == 0)
 		return (core->exit_code);
 	while (ecmd->argv[i] != NULL)

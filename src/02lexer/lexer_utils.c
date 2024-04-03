@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:06:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/01 16:12:09 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:52:13 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,17 @@ void	print_token_list(t_token_T *token_head)
 {
 	if (token_head)
 	{
+		#if DEBUG
 		printf("Token type = %d & the value is = %s\n", token_head->type, \
 			token_head->value);
+		#endif
 		while (token_head->next)
 		{
 			token_head = token_head->next;
+			#if DEBUG
 			printf("Token type = %d & the value is = %s\n", token_head->type, \
 				token_head->value);
+			#endif
 		}
 	}
 }

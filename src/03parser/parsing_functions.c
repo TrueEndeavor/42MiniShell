@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/02 15:37:49 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:51:44 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_cmd_P	*parse_cmd(t_core_struct *core)
 	}
 	token_list_copy = (*core->token_head);
 	cmd = parse_pipe(core);
-	print_cmd(cmd);
+	//print_cmd(cmd);
 	(*core->token_head) = token_list_copy;
 	return (cmd);
 }
@@ -68,7 +68,9 @@ t_cmd_P	*parse_exec(t_core_struct *core)
 	ret = parse_redirs(ret, core);
 	while ((*core->token_head)->type != T_PIPE)
 	{
+		#if DEBUG
 		printf("(*core->token_head)->type = %d\n", (*core->token_head)->type);
+		#endif
 		//expand_variables(&(*core->token_head)->value, core);
 		//printf("<In parsing_functions > after expansion = %s\n",(*core->token_head)->value);
 		if ((*core->token_head)->type == T_EXITCODE)

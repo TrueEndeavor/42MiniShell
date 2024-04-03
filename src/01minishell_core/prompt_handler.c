@@ -52,14 +52,18 @@ void	process_user_input(t_core_struct *core, char *prompt)
 	}
 	else
 	{
+		#if DEBUG
 		printf ("error during check of arguments, freeing...\n");
+		#endif
 		ft_free_tok_list(core->token_head);
 	}
 	if (root)
 		ft_free_cmd(root);
 	ft_free_tok_list(core->token_head);
 	free(prompt);
+	#if DEBUG
 	printf ("core->exit_code: %d\n", core->exit_code);
+	#endif
 }
 
 char	*get_prompt_interactive_mode(t_core_struct *core)
@@ -71,7 +75,7 @@ char	*get_prompt_interactive_mode(t_core_struct *core)
 	//if (isatty(STDIN_FILENO))
 	//{
 		prompt = readline("jollyshell$> ");
-		core->exit_code = EXIT_SUCCESS;
+		//core->exit_code = EXIT_SUCCESS;
 		if (g_signum != 0)
 		{
 			core->exit_code += (g_signum + 128);

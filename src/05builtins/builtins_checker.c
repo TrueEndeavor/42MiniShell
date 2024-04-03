@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_checker.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:53:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/28 09:43:27 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:48:41 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int	match_builtin(t_cmd_P *root, t_core_struct *core, char *prompt)
 
 	ecmd = (t_execcmd_P *) root;
 	verif = ft_return_builtin(ecmd);
+	#if DEBUG
 	dprintf(2, "\033[0;36m######OUTPUT######\n\033[0m");
+	#endif
 	if (ft_strcmp(ecmd->argv[0], "env") == 0)
 		builtin_env(ecmd, core);
 	else if (ft_strcmp(ecmd->argv[0], "export") == 0)
