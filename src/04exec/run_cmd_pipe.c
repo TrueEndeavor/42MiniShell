@@ -47,8 +47,8 @@ int	execute_pipe_command(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	t_pipecmd_P	*pcmd;
 	int			p[2];
 	int			last_status;
-	int			l_child;
-	int			r_child;
+	pid_t			l_child;
+	pid_t			r_child;
 
 	last_status = 0;
 	pcmd = (t_pipecmd_P *)cmd;

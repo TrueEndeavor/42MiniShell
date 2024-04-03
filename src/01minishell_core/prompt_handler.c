@@ -15,7 +15,7 @@
 void	execute_command(t_cmd_P *root, t_core_struct *core)
 {
 	int	status;
-	int	child_pid;
+	pid_t	child_pid;
 
 	setup_mother_signals();
 	child_pid = fork1();
