@@ -34,7 +34,7 @@ bool	is_directory(char *path)
 	return (true);
 }
 
-int	fork1(void)
+pid_t	fork1(void)
 {
 	int		pid;
 

@@ -15,7 +15,7 @@
 void	execute_command(t_cmd_P *root, t_core_struct *core)
 {
 	int	status;
-	int	child_pid;
+	pid_t	child_pid;
 
 	setup_mother_signals();
 	child_pid = fork1();
@@ -44,6 +44,9 @@ void	process_user_input(t_core_struct *core, char *prompt)
 	token_head = minishell_compile(prompt);
 	if (token_head != NULL)
 		core->token_head = &token_head;
+	#if DEBUG
+	print_token_list(token_head);
+	#endif
 	if (syntax_analyzer(core))
 	{
 		root = parse_cmd(core);

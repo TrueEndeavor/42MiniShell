@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/03 16:51:44 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:40:01 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ t_cmd_P	*parse_cmd(t_core_struct *core)
 	}
 	token_list_copy = (*core->token_head);
 	cmd = parse_pipe(core);
-	//print_cmd(cmd);
+	#if DEBUG
+	print_cmd(cmd);
+	#endif
 	(*core->token_head) = token_list_copy;
 	return (cmd);
 }

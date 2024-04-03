@@ -158,6 +158,7 @@ void	runcmd_here(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 			free(line);
 		}
 	}
+	waitpid(pid, NULL, 0);
 	dup2(fd[0], STDIN_FILENO);
 	close (fd[0]);
 	close (fd[1]);

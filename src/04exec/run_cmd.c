@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/03 16:49:01 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:38:02 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 		#if DEBUG
 		dprintf(2, "open %s failed\n", rcmd->file);
 		#endif
-		exit(0);
+		exit(1);
 	}
 	run_cmd(rcmd->cmd, core, fcmd);
 }
