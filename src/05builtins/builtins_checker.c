@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:53:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/03 16:48:41 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/04 21:30:06 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ int	ft_return_builtin(t_execcmd_P *ecmd)
 int	match_builtin(t_cmd_P *root, t_core_struct *core, char *prompt)
 {
 	t_execcmd_P	*ecmd;
-	int			verif;
+	int			ret;
 
+	ret = 0;
 	ecmd = (t_execcmd_P *) root;
-	verif = ft_return_builtin(ecmd);
+	ret = ft_return_builtin(ecmd);
 	#if DEBUG
 	dprintf(2, "\033[0;36m######OUTPUT######\n\033[0m");
 	#endif
@@ -58,5 +59,5 @@ int	match_builtin(t_cmd_P *root, t_core_struct *core, char *prompt)
 		builtin_pwd(ecmd, core);
 	else if (ft_strcmp(ecmd->argv[0], "exit") == 0)
 		builtin_exit(ecmd, core, prompt);
-	return (verif);
+	return (ret);
 }

@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/20 13:55:02 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/04 23:27:48 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_cd(t_execcmd_P *ecmd)
+int	check_cd(t_execcmd_P *ecmd, t_core_struct *core)
 {
 	if (ecmd->argv[2] != NULL)
 	{
-		printf ("cd: too many arg\n");
-		return (1);
+		ft_printf(" too many arguments\n");
+		core->exit_code = 1;
+		return (core->exit_code);
 	}
 	return (0);
 }
@@ -27,7 +28,7 @@ int	builtin_cd(t_execcmd_P *ecmd, t_core_struct *core)
 	t_env_list	*old_pwd;
 	t_env_list	*pwd;
 
-	if (check_cd(ecmd) == 1)
+	if (check_cd(ecmd, core) == 1)
 		return (1);
 	old_pwd = get_node(core, "OLDPWD");
 	pwd = get_node(core, "PWD");
@@ -36,16 +37,20 @@ int	builtin_cd(t_execcmd_P *ecmd, t_core_struct *core)
 	else if (ft_strcmp(ecmd->argv[1], "-") == 0)
 	{
 		if (chdir (old_pwd->value) == -1)
-			return (1);
+		{
+			core->exit_code = 1;
+			return (core->exit_code);
+		}
 	}
 	else if (chdir (ecmd->argv[1]) == -1)
 	{
-		printf ("cd: directory change to %s failed\n", ecmd->argv[1]);
-		return (1);
+		perror("cd");
+		core->exit_code = 1;
+		return (core->exit_code);
 	}
 	free(old_pwd->value);
 	old_pwd->value = ft_strdup(pwd->value);
 	free(pwd->value);
 	pwd->value = getcwd(NULL, 0);
-	return (0);
+	return (core->exit_code);
 }

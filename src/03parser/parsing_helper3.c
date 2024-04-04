@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:20:53 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/03 18:39:13 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:49:11 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_cmd_P	*ft_r_in(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 		((*core->token_head)->type != T_APPEND_OUT) && \
 		(ft_double_redir((*core->token_head), T_HEREDOC) == 0) && \
 		(ft_double_redir((*core->token_head), T_REDIRECT_IN) == 0))
-		set_read_from((t_redircmd_P *)ret, 1);
+		set_read_from((t_redircmd_P *)ret, 0);
 	if (i > 0)
 	{
 		saver->cmd = ret;

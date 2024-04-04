@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/03 18:38:02 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/04 22:35:10 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	dprintf(2, "THE COMMAND IS = %s\n", ecmd->argv[0]);
 	dprintf(2, "\033[0;36m######OUTPUT######\n\033[0m");
 	#endif
-	core->exit_code = ft_execute(ecmd->argv, env_array);
+	if (!match_builtin(cmd, core, NULL))
+	{
+		core->exit_code = ft_execute(ecmd->argv, env_array);
+	}
 	i = core->exit_code;
 	ft_free_cmd(fcmd);
 	ft_free_tok_list(core->token_head);
@@ -38,20 +41,30 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	exit(i);
 }
 
+// if "<"
+// 	open(file, O_RDONLY);
+// if ">"
+// 	open(file, O_CREAT | O_RDWR | O_TRUNC, 0666);
+// if ">>"
+// 	open(file, O_CREAT | O_RDWR | O_APPEND, 0666);
+
 void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	t_redircmd_P	*rcmd;
-
+	//int fd ;
+	
 	rcmd = (t_redircmd_P *) cmd;
 	if (rcmd->write_into == 1 || rcmd->read_from == 1)
 		close(rcmd->fd);
-	if ((open (rcmd->file, rcmd->mode, rcmd->permission)) < 0)
+	//dprintf(2, ">>[%s] [%i] [%i]\n", rcmd->file, rcmd->mode, 0777);
+	// int fd = open (rcmd->file, rcmd->mode, rcmd->permission);
+	//fd = open(rcmd->file, rcmd->mode, rcmd->permission);
+	if (open(rcmd->file, rcmd->mode, rcmd->permission) < 0)
 	{
-		#if DEBUG
-		dprintf(2, "open %s failed\n", rcmd->file);
-		#endif
+		perror(rcmd->file);
 		exit(1);
 	}
+	//close(fd);
 	run_cmd(rcmd->cmd, core, fcmd);
 }
 

@@ -6,12 +6,12 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 19:11:57 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/01 07:14:00 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:31:37 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+#include "colors.h"
 #include "minishell.h"
 #include <stdio.h>
 
@@ -35,10 +35,10 @@ void	print_redircmd(t_cmd_P *cmd)
 	t_redircmd_P	*redirectcmd;
 
 	redirectcmd = (t_redircmd_P *)cmd;
-	printf("Type: REDIR_CMD\n");
-	printf("File: %s\n", redirectcmd->file);
-	printf("Mode: %d\n", redirectcmd->mode);
-	printf("File Descriptor: %d\n", redirectcmd->fd);
+	printf("%sType: REDIR_CMD\n", CRED);
+	printf("%sFile: %s%s\n", IGREEN, redirectcmd->file, RESET);
+	printf("%sMode: %d%s\n", YELLOW, redirectcmd->mode, RESET);
+	printf("%sFile Descriptor: %d%s\n", BRED, redirectcmd->fd, RESET);
 	if (redirectcmd->cmd != NULL)
 	{
 		printf("Sub-command:\n");

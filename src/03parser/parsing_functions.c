@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/03 18:40:01 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:58:03 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ t_cmd_P	*parse_pipe(t_core_struct *core)
 	if (search_for(*core->token_head, T_PIPE))
 	{
 		*core->token_head = advance_token(core->token_head);
-		if (((*core->token_head)->type != T_WORD))
-			panic("syntax error\n");
 		cmd = create_pipecmd(cmd, parse_pipe(core));
 	}
 	return (cmd);
