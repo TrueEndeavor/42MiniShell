@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:06:36 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/27 17:29:03 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:57:04 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,27 @@ bool	syntax_analyzer(t_core_struct *core)
 	state = STATE_Q0;
 	while (current != NULL)
 	{
+		#if DEBUG
+		printf("State changed from %d", state);
+		#endif		
 		state = transition(state, current->type);
+		#if DEBUG
+		printf(" to %d\n", state);
+		#endif
 		if (state == STATE_ERROR)
+		{
+			#if DEBUG
+			printf("error happened here %d\n", state);
+			#endif
 			return (handle_syntax_error(core, current));
+		}
 		prev = current;
 		current = current->next;
 	}
+	#if DEBUG
+	printf("or may be here %d\n", state);
+	printf(" final state %d\n", state != STATE_Q1);
+	#endif
 	if (state != STATE_Q1)
 		return (handle_syntax_error(core, prev));
 	return (true);

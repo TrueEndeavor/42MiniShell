@@ -10,9 +10,6 @@
 # Ignore Vim session files (*.swo)
 *.swo
 
-# Ignore files starting with 'test' (test*)
-test*
-
 # Ignore the compiled executable file (minishell)
 minishell
 

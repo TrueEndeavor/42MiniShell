@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_checker.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:53:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/04 10:00:23 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/05 00:59:15 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ int	ft_return_builtin(t_execcmd_P *ecmd)
 int	match_builtin(t_cmd_P *root, t_core_struct *core, char *prompt)
 {
 	t_execcmd_P	*ecmd;
-	int			verif;
+	int			ret;
 
+	ret = 0;
 	ecmd = (t_execcmd_P *) root;
-	verif = ft_return_builtin(ecmd);
+	ret = ft_return_builtin(ecmd);
 	#if DEBUG
 	dprintf(2, "\033[0;36m######OUTPUT######\n\033[0m");
 	#endif
@@ -57,6 +58,6 @@ int	match_builtin(t_cmd_P *root, t_core_struct *core, char *prompt)
 	else if (ft_strcmp(ecmd->argv[0], "pwd") == 0)
 		core->exit_code = builtin_pwd(ecmd, core);
 	else if (ft_strcmp(ecmd->argv[0], "exit") == 0)
-		core->exit_code = builtin_exit(ecmd, core, prompt);
-	return (verif);
+		builtin_exit(ecmd, core, prompt);
+	return (ret);
 }

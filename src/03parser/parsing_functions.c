@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/04 09:37:10 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/05 01:02:04 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ t_cmd_P	*parse_pipe(t_core_struct *core)
 	if (search_for(*core->token_head, T_PIPE))
 	{
 		*core->token_head = advance_token(core->token_head);
-		if (((*core->token_head)->type != T_WORD))
-			panic("syntax error\n");
 		cmd = create_pipecmd(cmd, parse_pipe(core));
 	}
 	return (cmd);

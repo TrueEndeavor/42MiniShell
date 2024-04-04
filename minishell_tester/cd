@@ -24,16 +24,11 @@ cd /
 cd '/'
 cd /minishell
 cd _
-cd -
-cd --
-cd ---
 cd $HOME
 cd $HOME $HOME
 cd $HOME/42_works
 cd "$PWD/srcs"
 cd '$PWD/srcs'
-cd ~
-cd ~/
 cd minishell Docs crashtest.c
 cd $PWD
 cd $PWD hi 

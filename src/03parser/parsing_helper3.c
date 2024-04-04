@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_helper3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:20:53 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/04 14:30:43 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/05 00:59:59 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_cmd_P	*ft_r_in(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 		((*core->token_head)->type != T_APPEND_OUT) && \
 		(ft_double_redir((*core->token_head), T_HEREDOC) == 0) && \
 		(ft_double_redir((*core->token_head), T_REDIRECT_IN) == 0))
-		set_read_from((t_redircmd_P *)ret, 1);
+		set_read_from((t_redircmd_P *)ret, 0);
 	if (i > 0)
 	{
 		saver->cmd = ret;

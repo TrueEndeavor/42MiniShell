@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/03 16:38:47 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:03:15 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ void	print_the_output(t_execcmd_P *ecmd, int i)
 	{
 		//if ((ecmd->argv)[start_index][0] != '\0')
 		//{
-			printf("%s", ecmd->argv[start_index]);
+			//printf("%s", ecmd->argv[start_index]);
+			ft_putstr_fd(ecmd->argv[start_index], 1);
 			if (start_index < last_index)
-				printf("%c", ' ');
+				ft_putstr_fd(" ", 1);
+				//printf("%c", ' ');
 		//}
 		start_index++;
 	}

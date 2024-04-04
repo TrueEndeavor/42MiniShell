@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/28 10:09:35 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/04 23:52:47 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,20 @@ int	builtin_unset(t_execcmd_P *ecmd, t_core_struct *core)
 	int			i;
 
 	i = 1;
+	if (ecmd->argv[1][0] == '-')
+	{
+		ft_printf(" invalid option\n");
+		core->exit_code = 2;
+		return (core->exit_code);
+	}	
 	while (ecmd->argv[i] != NULL)
 	{
 		if ((ecmd->argv[i] != NULL) && (!is_valid_variable_name(ecmd->argv[i])))
 		{
-			ft_printf("unset: `%s': not a valid identifier\n", ecmd->argv[i]);
-			core->exit_code = EXIT_FAILURE;
+			//ft_printf("unset: `%s': not a valid identifier\n", ecmd->argv[i]);
+			core->exit_code = EXIT_SUCCESS;
+			i++;
+			continue ;
 		}
 		current = core->env_list;
 		previous = current;
@@ -56,5 +64,5 @@ int	builtin_unset(t_execcmd_P *ecmd, t_core_struct *core)
 		unset_one(core, current, previous);
 		i++;
 	}
-	return (0);
+	return (core->exit_code);
 }
