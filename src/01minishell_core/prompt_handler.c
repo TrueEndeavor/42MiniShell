@@ -69,7 +69,7 @@ void	process_user_input(t_core_struct *core, char *prompt)
 	#endif
 }
 
-char	*get_prompt_interactive_mode(t_core_struct *core)
+	char	*get_prompt_interactive_mode(t_core_struct *core)
 {
 	char	*prompt;
 
