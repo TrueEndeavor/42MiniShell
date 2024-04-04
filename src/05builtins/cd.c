@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/20 13:55:02 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/04 10:02:10 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	check_cd(t_execcmd_P *ecmd)
 {
 	if (ecmd->argv[2] != NULL)
 	{
-		printf ("cd: too many arg\n");
+		ft_printf ("cd: too many arguments\n");
 		return (1);
 	}
 	return (0);
@@ -40,7 +40,7 @@ int	builtin_cd(t_execcmd_P *ecmd, t_core_struct *core)
 	}
 	else if (chdir (ecmd->argv[1]) == -1)
 	{
-		printf ("cd: directory change to %s failed\n", ecmd->argv[1]);
+		ft_printf (" No such file or directory\n", ecmd->argv[1]);
 		return (1);
 	}
 	free(old_pwd->value);

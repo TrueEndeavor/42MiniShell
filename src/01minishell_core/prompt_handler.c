@@ -22,6 +22,7 @@ void	execute_command(t_cmd_P *root, t_core_struct *core)
 	if (child_pid == 0)
 	{
 		setup_child_signals();
+		//handle_heredoc(core, root);
 		run_cmd(root, core, root);
 	}
 	else

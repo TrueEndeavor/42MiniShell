@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/01 09:14:47 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:28:46 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef struct HERECMD
 	int					type;
 	struct CMD			*cmd;
 	char				*delimiter;
+	int					fd;
 }	t_herecmd_P;
 
 /*---------------------- Structures for Minishell  ----------------------*/
@@ -139,6 +140,9 @@ typedef struct CORESTRUCT
 	t_env_list				*env_list;
 	t_token_T				**token_head;
 	int						exit_code;
+	int						ih;
+	int						fd[20];
+	t_cmd_P					**hcmd[20];
 }	t_core_struct;
 
 #endif

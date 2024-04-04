@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_checker.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:53:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/03 16:48:41 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/04 10:00:23 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,18 @@ int	match_builtin(t_cmd_P *root, t_core_struct *core, char *prompt)
 	dprintf(2, "\033[0;36m######OUTPUT######\n\033[0m");
 	#endif
 	if (ft_strcmp(ecmd->argv[0], "env") == 0)
-		builtin_env(ecmd, core);
+		core->exit_code = builtin_env(ecmd, core);
 	else if (ft_strcmp(ecmd->argv[0], "export") == 0)
-		builtin_export(ecmd, core);
+		core->exit_code = builtin_export(ecmd, core);
 	else if (ft_strcmp(ecmd->argv[0], "unset") == 0)
-		builtin_unset(ecmd, core);
+		core->exit_code = builtin_unset(ecmd, core);
 	else if (ft_strcmp(ecmd->argv[0], "echo") == 0)
-		builtin_echo(ecmd, core);
+		core->exit_code = builtin_echo(ecmd, core);
 	else if (ft_strcmp(ecmd->argv[0], "cd") == 0)
-		builtin_cd(ecmd, core);
+		core->exit_code = builtin_cd(ecmd, core);
 	else if (ft_strcmp(ecmd->argv[0], "pwd") == 0)
-		builtin_pwd(ecmd, core);
+		core->exit_code = builtin_pwd(ecmd, core);
 	else if (ft_strcmp(ecmd->argv[0], "exit") == 0)
-		builtin_exit(ecmd, core, prompt);
+		core->exit_code = builtin_exit(ecmd, core, prompt);
 	return (verif);
 }

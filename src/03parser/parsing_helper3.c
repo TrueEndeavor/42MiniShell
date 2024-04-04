@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_helper3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:20:53 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/03 18:39:13 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:26:07 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_cmd_P	*ft_r_in(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 			i++;
 		}
 	}
+	//tok->value = quote (&tok->value, core, 0, 0);
 	ret = create_redircmd((checker), (tok)->value, O_RDONLY, 0);
 	*core->token_head = advance_token(&tok);
 	if (((*core->token_head)->type != T_REDIRECT_IN) && \
@@ -65,6 +66,7 @@ t_cmd_P	*ft_r_out(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 			i++;
 		}
 	}
+	//tok->value = quote (&tok->value, core, 0, 0);
 	ret = create_redircmd((checker), (tok)->value, \
 			O_WRONLY | O_CREAT | O_TRUNC, 1);
 	*core->token_head = advance_token(&tok);
@@ -101,6 +103,7 @@ t_cmd_P	*ft_app_out(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 			i++;
 		}
 	}
+	//tok->value = quote (&tok->value, core, 0, 0);
 	ret = create_redircmd(checker, (tok)->value, \
 			O_WRONLY | O_CREAT | O_APPEND, 1);
 	*core->token_head = advance_token(&tok);
@@ -138,6 +141,8 @@ t_cmd_P	*ft_cr_here(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 	#endif
 	(*cmd) = create_herecmd((*cmd), (tok)->value);
 	*core->token_head = advance_token(&tok);
+	core->hcmd[core->ih] = (*cmd);
+	core->ih += 1;
 	return ((*cmd));
 }
 
