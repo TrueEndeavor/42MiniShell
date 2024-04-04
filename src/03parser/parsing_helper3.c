@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:20:53 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/04 13:37:31 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:30:43 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ t_cmd_P	*ft_cr_here(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 	#endif
 	(*cmd) = create_herecmd((*cmd), (tok)->value);
 	*core->token_head = advance_token(&tok);
-	*core->hcmd[core->ih] = (*cmd);
+	core->hcmd[core->ih] = cmd;
 	core->ih += 1;
 	return ((*cmd));
 }

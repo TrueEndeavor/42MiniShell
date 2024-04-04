@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/04 13:28:46 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:06:07 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef struct HERECMD
 	int					type;
 	struct CMD			*cmd;
 	char				*delimiter;
+	char				*filename;
 	int					fd;
 }	t_herecmd_P;
 
@@ -141,7 +142,6 @@ typedef struct CORESTRUCT
 	t_token_T				**token_head;
 	int						exit_code;
 	int						ih;
-	int						fd[20];
 	t_cmd_P					**hcmd[20];
 }	t_core_struct;
 

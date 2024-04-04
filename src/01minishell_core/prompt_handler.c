@@ -18,11 +18,11 @@ void	execute_command(t_cmd_P *root, t_core_struct *core)
 	pid_t	child_pid;
 
 	setup_mother_signals();
+	handle_heredoc(core, root);
 	child_pid = fork1();
 	if (child_pid == 0)
 	{
 		setup_child_signals();
-		//handle_heredoc(core, root);
 		run_cmd(root, core, root);
 	}
 	else

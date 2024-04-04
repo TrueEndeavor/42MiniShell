@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/03 18:38:02 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:20:56 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void runcmd_here(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
+{
+	t_herecmd_P		*hcmd;
+	int				fd;
+
+	hcmd = (t_herecmd_P *)cmd;
+	fd = open (hcmd->filename, O_RDONLY, 0777);
+	if (fd == -1)
+		ft_printf ("oof\n");
+	dup2 (fd, STDIN_FILENO);
+	close (fd);
+	unlink (hcmd->filename);
+	run_cmd(hcmd->cmd, core, fcmd);
+}
 
 int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {

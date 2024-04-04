@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
+#    By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/04/02 14:58:11 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/04/04 14:23:12 by trysinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ LIBFT_DIR = ./include/libft_combined
 INCLUDES = -I./include -I$(LIBFT_DIR)/include
 
 SRCS =  src/main.c \
+		src/01minishell_core/create_heredocs.c \
 		src/01minishell_core/prompt_handler.c \
 		src/01minishell_core/minishell_compiler.c \
 		src/01minishell_core/utils.c \
@@ -53,7 +54,6 @@ SRCS =  src/main.c \
 		src/04exec/exec_utils.c \
 		src/04exec/run_cmd.c \
 		src/04exec/run_cmd_pipe.c \
-		src/04exec/run_cmd_heredoc.c \
 		src/05builtins/builtins_checker.c \
 		src/05builtins/builtins_utils.c \
 		src/05builtins/cd.c \
