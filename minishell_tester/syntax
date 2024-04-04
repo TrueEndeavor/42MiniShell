@@ -1,0 +1,61 @@
+|
+| echo oi
+| |
+| $
+| >
+>
+>>
+>>>
+<
+<<
+echo hi <
+cat    <| ls
+echo hi | >
+echo hi | > >>
+echo hi | < |
+echo hi |   |
+echo hi |  "|"
+>
+<
+>>
+<<
+<>
+>>>>>
+>>>>>>>>>>>>>>>
+<<<<<
+<<<<<<<<<<<<<<<<
+> > > >
+>> >> >> >>
+>>>> >> >> >>
+|
+| hola
+| | |
+>>|><
+||
+|||||
+|||||||||||||
+&&
+&&&&&
+;;
+;;;;;
+;;;;;;;;;;;;;;;
+()
+( ( ) )
+( ( ( ( ) ) ) )
+echo > <
+echo | |
+>echo>
+<echo<
+>>echo>>
+|echo|
+|echo -n hola
+echo hola > > bonjour
+echo hola < < bonjour
+echo hola >>> bonjour
+cat >>
+cat >>>
+cat >> <<
+cat >> > >> << >>
+cat <<
+echo hola <<<< bonjour
+echo hola <<<<< bonjour
