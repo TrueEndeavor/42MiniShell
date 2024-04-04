@@ -1,0 +1,15 @@
+echo $'SHELL'
+echo $=SHELL
+$?
+$?$?
+?$HOME
+$
+$HOME
+$DONTEXIST
+$HOMEdskjhfkdshfsd
+$LESS$VAR
+"$HOMEdskjhfkdshfsd"
+$HOMEdskjhfkdshfsd'
+$PWD
+$EMPTY
+$EMPTY echo hi

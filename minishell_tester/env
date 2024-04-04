@@ -1,0 +1,7 @@
+env
+env hola
+env hola que tal
+env env
+env env env env env
+env ls
+env ./Makefile

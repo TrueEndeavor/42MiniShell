@@ -1,0 +1,42 @@
+/
+//
+/.
+/./../../../../..
+///////
+-
+"hola"
+hola'
+'
+.
+..
+~
+ABC=hola
+4ABC=hola
+hola
+hola que tal
+Makefile
+EechoE
+.echo.
+/bin/echo
+/bin/echo Hola Que Tal
+/bin/env
+/bin/cd Desktop
+history
+ls hola
+./Makefile
+./minishell
+"touch hola
+./hola"
+env|"wc" -l
+env|"wc "-l
+expr 1 + 1
+expr $? + $?
+./test_files/invalid_permission
+./missing.out
+missing.out
+"aaa"
+test_files
+./test_files
+/test_files
+minishell.h
+README.md
