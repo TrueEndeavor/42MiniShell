@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
+#    By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/04/05 01:41:25 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/04/05 10:08:26 by trysinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ INCLUDES = -I./include -I$(LIBFT_DIR)/include
 #src/01minishell_core/create_heredocs.c 
 
 SRCS =  src/main.c \
+		src/01minishell_core/handle_heredoc.c \
 		src/01minishell_core/prompt_handler.c \
 		src/01minishell_core/minishell_compiler.c \
 		src/01minishell_core/utils.c \

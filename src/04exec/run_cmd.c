@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/05 00:59:39 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/05 11:20:47 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void runcmd_here(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	dup2 (fd, STDIN_FILENO);
 	close (fd);
 	unlink (hcmd->filename);
+	free(hcmd->filename);
 	run_cmd(hcmd->cmd, core, fcmd);
 }
 
