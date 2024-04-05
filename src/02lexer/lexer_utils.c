@@ -6,33 +6,73 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:06:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/03 16:52:13 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/05 04:30:49 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	is_nested_quotes(const char *str)
+void    l_within_single_quote(int *i, char **str, bool *single_quote_open)
 {
+	while ((*str)[*i] != '\0')
+	{
+		if ((*str)[*i] == '\'')
+		{
+			*single_quote_open = !(*single_quote_open);
+			break ;
+		}
+		(*i)++;
+	}
+}
+void    l_within_double_quote(int *i, char **str, bool *double_quote_open)
+{
+	while ((*str)[*i] != '\0')
+	{
+		if ((*str)[*i] == '\"')
+		{
+			*double_quote_open = !(*double_quote_open);
+			break ;
+		}
+		(*i)++;
+	}
+}
+
+bool	is_nested_quotes(char *str)
+{
+	int		i;
 	bool	single_quote_open;
 	bool	double_quote_open;
 
+	i = 0;
 	single_quote_open = false;
 	double_quote_open = false;
-	while (*str != '\0')
+	while (str[i] != '\0')
 	{
-		if ((*str) == '\'')
+		if ((str[i]) == '\'')
 		{
-			if (!double_quote_open)
-				single_quote_open = !single_quote_open;
+			l_within_single_quote(&i, &str, &single_quote_open);
+			//single_quote_open = !(single_quote_open);
+			if (str[i] == '\0')
+				break ;
 		}
-		else if ((*str) == '\"')
+		else if (str[i] == '\"')
 		{
-			if (!single_quote_open)
-				double_quote_open = !double_quote_open;
+			l_within_double_quote(&i, &str, &double_quote_open);
+			//double_quote_open = !(double_quote_open);
+			if (str[i] == '\0')
+				break ;
 		}
-		str++;
+		i++;
 	}
+	#if DEBUG
+	printf("single_quote_open =%d\n", single_quote_open);
+	printf("double_quote_open =%d\n", double_quote_open);
+	ft_printf(" unexpected EOF while looking for matching quotes\n");
+	#endif
+	if (single_quote_open)
+		ft_printf(" unexpected EOF while looking for matching '\''\n");
+	if (double_quote_open)
+		ft_printf(" unexpected EOF while looking for matching '\''\n");
 	return (!single_quote_open && !double_quote_open);
 }
 

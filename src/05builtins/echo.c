@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/04 20:03:15 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/05 03:55:55 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	print_the_output(t_execcmd_P *ecmd, int i)
 		//{
 			//printf("%s", ecmd->argv[start_index]);
 			ft_putstr_fd(ecmd->argv[start_index], 1);
-			if (start_index < last_index)
+			if (start_index < last_index && ft_strcmp(ecmd->argv[start_index + 1], "$") != 0)
 				ft_putstr_fd(" ", 1);
 				//printf("%c", ' ');
 		//}

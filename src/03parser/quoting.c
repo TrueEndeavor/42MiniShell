@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/03 17:04:42 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/05 03:42:35 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,11 +163,12 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 		}
 		else if ((*str)[var_count] == '$' && (*str)[var_count + 1] != ' ' && (*str)[var_count + 1] != '\"')
 		{
+			ret[var_count] = '$';
 			copy_variable(ret, var[i_var], i);
 			i += ft_slen(var[i_var]);
 			var_count += (ft_slen(name[i_var]));
 			#if DEBUG
-			dprintf(1, "after replacing, var_count is set on this char........=%c\n", (*str)[var_count]);
+			dprintf(1, "after replacing, var_count is set on this char........=%c, %s\n", (*str)[var_count], ret);
 			#endif
 			i_var++;
 		}
@@ -179,6 +180,7 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 		var_count++;
 	} 
 	ret[i] = '\0';
+	dprintf(1, "after replacing,the string is........, %s\n", ret);
 }
 
 char	*quote(char **s, t_core_struct *co, int var_c, int i)

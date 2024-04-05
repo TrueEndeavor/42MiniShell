@@ -34,14 +34,6 @@ echo hi |  "|"
 ||
 |||||
 |||||||||||||
-&&
-&&&&&
-;;
-;;;;;
-;;;;;;;;;;;;;;;
-()
-( ( ) )
-( ( ( ( ) ) ) )
 echo > <
 echo | |
 >echo>
@@ -59,3 +51,4 @@ cat >> > >> << >>
 cat <<
 echo hola <<<< bonjour
 echo hola <<<<< bonjour
+hola'

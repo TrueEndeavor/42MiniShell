@@ -71,10 +71,14 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 	}
 	value = read_string(&lexer);
 	#if DEBUG
-	printf("value =%s=\n", value);
+	printf("value =%s$\n", value);
 	#endif
 	if (!is_nested_quotes(value))
+	{
+		
+		//core->exit_code = 2;
 		return (NULL);
+	}
 	ret_token = init_token(value, T_WORD);
 	return (ret_token);
 }

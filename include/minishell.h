@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:16:04 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/04 22:35:58 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/05 04:32:14 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # include "utils.h"
 # include "signals.h"
 
-# define DEBUG 0
+# define DEBUG 1
 
 /* 
  * Flag "g_signum" takes in the signum/exit code

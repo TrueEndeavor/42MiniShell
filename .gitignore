@@ -20,8 +20,6 @@ a.out
 .vscode/
 /.vscode/
 
-
-
 # Ignore NFS temporary files
 .nfs*
 

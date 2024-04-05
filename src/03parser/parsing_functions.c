@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/05 01:02:04 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/05 03:44:13 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ t_cmd_P	*parse_exec(t_core_struct *core)
 		#if DEBUG
 		printf("(*core->token_head)->type = %d\n", (*core->token_head)->type);
 		#endif
-		//expand_variables(&(*core->token_head)->value, core);
+		expand_variables(&(*core->token_head)->value, core);
 		//printf("<In parsing_functions > after expansion = %s\n",(*core->token_head)->value);
 		if ((*core->token_head)->type == T_EXITCODE)
 			(*core->token_head)->value = ft_strdup(ft_itoa(core->exit_code));
 		//ft_loop_assign(core);
-		ft_loop_quote(core);
+		//ft_loop_quote(core);
 		ft_loop_variable(core);
 		if ((*core->token_head)->type == T_LINEBREAK
 			|| ((*core->token_head)->type == T_PIPE))

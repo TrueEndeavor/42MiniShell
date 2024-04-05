@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/04 23:52:47 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/05 01:50:50 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ int	builtin_unset(t_execcmd_P *ecmd, t_core_struct *core)
 	int			i;
 
 	i = 1;
+	if (ecmd->argv[1] == NULL)
+	{
+		core->exit_code = EXIT_SUCCESS;
+		return (core->exit_code);
+	}
 	if (ecmd->argv[1][0] == '-')
 	{
 		ft_printf(" invalid option\n");
