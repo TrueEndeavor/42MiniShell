@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 09:32:11 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/05 11:18:24 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/05 11:42:35 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	fill_line(char **str, char **name, char **var, char *ret)
 	int	i;
 	int	j;
 	int	i_var;
+
 	i = 0;
 	j = 0;
 	i_var = 0;
@@ -44,6 +45,7 @@ int	fill_tab(char **str, char **name, char **var, t_core_struct *core)
 	int	i;
 	int	i_var;
 	int	var_count;
+
 	var_count = 0;
 	i_var = 0;
 	i = 0;
@@ -70,7 +72,7 @@ char	*ft_exh(t_core_struct *core, char **s, int var_c, int i)
 	char	**name;
 	char	**var;
 	int		size;
-	
+
 	size = check_num_arg((*s));
 	name = malloc(size * sizeof(char *));
 	var = malloc(size * sizeof(char *));
@@ -108,13 +110,7 @@ void	run_here(t_herecmd_P *hcmd, t_core_struct *core, t_cmd_P *fcmd)
 			line = readline("> ");
 			if (ft_strcmp(line, hcmd->delimiter) == 0)
 			{
-				free (line);
-				close (hcmd->fd);
-				free (hcmd->filename);
-				ft_free_cmd(fcmd);
-				ft_free_tok_list(core->token_head);
-				ft_free_env(core->env_list);
-				free(core);
+				frhere(hcmd, core, line, fcmd);
 				exit(EXIT_SUCCESS);
 			}
 			line = ft_exh(core, &line, 0, 0);
@@ -128,29 +124,29 @@ void	run_here(t_herecmd_P *hcmd, t_core_struct *core, t_cmd_P *fcmd)
 	ft_printf ("in heredocs core->exit_code: %d\n", core->exit_code);
 }
 
-void    handle_heredoc(t_core_struct *core, t_cmd_P *root)
+void	handle_heredoc(t_core_struct *core, t_cmd_P *root)
 {
-    int             i;
-	int				j;
-    t_herecmd_P     *current;
-    char            *temp;
+	int			i;
+	int			j;
+	t_herecmd_P	*curr;
+	char		*temp;
 
-    i = (core->ih);
+	i = (core->ih);
 	j = 0;
-    core->ih = 0;
-    while (j < i)
-    {
-        current = (t_herecmd_P *)core->hcmd[j];
-        temp = ft_itoa(j);
-        current->filename = ft_strjoin ("tmp/heredoc_", temp);
-        free(temp);
-        current->fd = open(current->filename, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-        if (current->fd < 0)
-            printf ("heck\n");
+	core->ih = 0;
+	while (j < i)
+	{
+		curr = (t_herecmd_P *)core->hcmd[j];
+		temp = ft_itoa(j);
+		curr->filename = ft_strjoin ("tmp/heredoc_", temp);
+		free(temp);
+		curr->fd = open(curr->filename, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		if (curr->fd < 0)
+			printf ("heck\n");
 		else
 		{
-        	run_here(current, core, root);
-			close (current->fd);
+			run_here(curr, core, root);
+			close (curr->fd);
 		}
 		j++;
 	}
