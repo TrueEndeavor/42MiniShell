@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 09:32:11 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/05 11:42:35 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/05 11:46:17 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ void	run_here(t_herecmd_P *hcmd, t_core_struct *core, t_cmd_P *fcmd)
 	}
 	waitpid(pid, NULL, 0);
 	core->exit_code = wait(NULL);
-	ft_printf ("in heredocs core->exit_code: %d\n", core->exit_code);
 }
 
 void	handle_heredoc(t_core_struct *core, t_cmd_P *root)

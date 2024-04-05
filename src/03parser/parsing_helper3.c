@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:20:53 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/05 10:58:43 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/05 12:07:52 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_cmd_P	*ft_r_in(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 			i++;
 		}
 	}
-	//tok->value = quote (&tok->value, core, 0, 0);
 	ret = create_redircmd((checker), (tok)->value, O_RDONLY, 0);
 	*core->token_head = advance_token(&tok);
 	if (((*core->token_head)->type != T_REDIRECT_IN) && \
@@ -66,7 +65,6 @@ t_cmd_P	*ft_r_out(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 			i++;
 		}
 	}
-	//tok->value = quote (&tok->value, core, 0, 0);
 	ret = create_redircmd((checker), (tok)->value, \
 			O_WRONLY | O_CREAT | O_TRUNC, 1);
 	*core->token_head = advance_token(&tok);
@@ -103,7 +101,6 @@ t_cmd_P	*ft_app_out(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok)
 			i++;
 		}
 	}
-	//tok->value = quote (&tok->value, core, 0, 0);
 	ret = create_redircmd(checker, (tok)->value, \
 			O_WRONLY | O_CREAT | O_APPEND, 1);
 	*core->token_head = advance_token(&tok);

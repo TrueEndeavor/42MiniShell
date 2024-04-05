@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quoting.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/05 03:42:35 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/05 12:16:40 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,9 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 		var_count++;
 	} 
 	ret[i] = '\0';
+	#if DEBUG
 	dprintf(1, "after replacing,the string is........, %s\n", ret);
+	#endif
 }
 
 char	*quote(char **s, t_core_struct *co, int var_c, int i)

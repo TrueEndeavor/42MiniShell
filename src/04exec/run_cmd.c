@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/05 11:20:47 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/05 12:13:34 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,23 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	exit(i);
 }
 
-// if "<"
-// 	open(file, O_RDONLY);
-// if ">"
-// 	open(file, O_CREAT | O_RDWR | O_TRUNC, 0666);
-// if ">>"
-// 	open(file, O_CREAT | O_RDWR | O_APPEND, 0666);
-
 void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	t_redircmd_P	*rcmd;
-	//int fd ;
+	int fd;
 	
 	rcmd = (t_redircmd_P *) cmd;
-	if (rcmd->write_into == 1 || rcmd->read_from == 1)
-		close(rcmd->fd);
 	//dprintf(2, ">>[%s] [%i] [%i]\n", rcmd->file, rcmd->mode, 0777);
 	// int fd = open (rcmd->file, rcmd->mode, rcmd->permission);
 	//fd = open(rcmd->file, rcmd->mode, rcmd->permission);
-	if (open(rcmd->file, rcmd->mode, rcmd->permission) < 0)
+	fd = open(rcmd->file, rcmd->mode, rcmd->permission);
+	if (fd < 0)
 	{
 		perror(rcmd->file);
 		exit(1);
 	}
-	//close(fd);
+	dup2(fd, rcmd->fd);
+	close (fd);
 	run_cmd(rcmd->cmd, core, fcmd);
 }
 
