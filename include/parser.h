@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/03 09:38:52 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/07 17:36:07 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char			*ft_here(char **value);
 char			*ft_ex_here(char **str);
 void			ft_initialize_tab(char **name, char **var, int size);
 bool			is_assignment_word(char *str);
-void	expand_variables(char **token_string, t_core_struct *core);
+//void	expand_variables(char **token_string, t_core_struct *core);
 
 t_token_T		*search_for(t_token_T *current, int target_token_type);
 t_token_T		*peek_next_token(t_token_T *current_token);

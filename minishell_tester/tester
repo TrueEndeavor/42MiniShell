@@ -20,6 +20,7 @@ else
 		"pwd"
 		"redirects"
 		"syntax"
+		"syntax_1"
 		"unset"
 	)
 fi

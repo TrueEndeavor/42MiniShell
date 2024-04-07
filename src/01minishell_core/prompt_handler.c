@@ -43,6 +43,11 @@ void	process_user_input(t_core_struct *core, char *prompt)
 	root = NULL;
 	add_history(prompt);
 	token_head = minishell_compile(prompt);
+	if (!token_head)
+	{
+		core->exit_code = 2;
+		return ;
+	}
 	if (token_head != NULL)
 		core->token_head = &token_head;
 	#if DEBUG

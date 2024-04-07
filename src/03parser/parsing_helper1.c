@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:16:10 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/27 15:16:03 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/07 18:27:10 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ t_token_T	*search_for(t_token_T *current, int target_token_type)
 	t_token_T	*tok;
 
 	tok = current;
-	if (tok->type == target_token_type)
+	if (tok)
 	{
-		return (tok);
+		if (tok->type == target_token_type)
+		{
+			return (tok);
+		}
 	}
 	return (NULL);
 }

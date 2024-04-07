@@ -51,4 +51,72 @@ cat >> > >> << >>
 cat <<
 echo hola <<<< bonjour
 echo hola <<<<< bonjour
-hola'
+minishell_tester/echo
+echo
+echo -n
+echo Hola
+echoHola
+echo-nHola
+echo -nHola
+echo Hola -n
+echo Hola Que Tal
+echo         Hola
+echo    Hola     Que    Tal
+echo      \n hola
+echo "         " | cat -e
+echo           | cat -e
+echo -n -n
+echo -p
+echo -nnnnn
+echo -n -nnn -nnnn
+echo -n-nnn -nnnn
+echo --------n
+echo $?
+echo $?$
+echo $? | echo $? | echo $?
+echo " $ " | cat -e
+echo ' $ ' | cat -e
+echo $HOME
+echo " $ " | cat -e
+echo Le path de mon HOME est $HOME
+echo -nnnn $hola
+echo '*'
+echo "$"""
+echo '$'''
+echo "hola"
+echo 'hola'
+echo ''hola''
+echo ''h'o'la''
+echo "''h'o'la''"
+echo "'"h'o'la"'"
+echo"'hola'"
+echo "'hola'"
+echo '"hola"'
+echo hola'""""""""""'
+e"cho hola"
+e'cho hola'
+echo "hola     " | cat -e
+echo ""hola
+echo "" hola
+echo ""             hola
+echo hola""bonjour
+""e"'c'ho 'b'"o"nj"o"'u'r"
+echo hello world
+echo "hello world"
+echo 'hello world'
+echo hello'world'
+echo hello""world
+echo ''
+echo "$PWD"
+echo '$PWD'
+echo "aspas ->'"
+echo 'aspas ->"'
+echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"
+echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<'
+echo "exit_code ->$? user ->$USER home -> $HOME"
+echo 'exit_code ->$? user ->$USER home -> $HOME'
+echo "$"
+echo '$'
+echo $
+echo $?
+echo $?HELLO

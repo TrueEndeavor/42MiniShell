@@ -76,6 +76,7 @@ SRCS = src/conversion/ft_atoi.c \
 		src/memory/ft_memcpy.c \
 		src/memory/ft_memmove.c \
 		src/memory/ft_memset.c \
+		src/memory/ft_realloc.c \
 		src/string/ft_split.c \
 		src/string/ft_strchr.c \
 		src/string/ft_strcmp.c \

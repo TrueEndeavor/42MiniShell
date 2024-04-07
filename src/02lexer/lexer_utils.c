@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:06:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/05 04:30:49 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/07 15:25:31 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void    l_within_single_quote(int *i, char **str, bool *single_quote_open)
 		if ((*str)[*i] == '\'')
 		{
 			*single_quote_open = !(*single_quote_open);
-			break ;
+			if (!(*single_quote_open)) 
+				break ;
 		}
 		(*i)++;
 	}
@@ -31,7 +32,8 @@ void    l_within_double_quote(int *i, char **str, bool *double_quote_open)
 		if ((*str)[*i] == '\"')
 		{
 			*double_quote_open = !(*double_quote_open);
-			break ;
+			if (!(*double_quote_open))
+				break ;
 		}
 		(*i)++;
 	}
@@ -64,11 +66,6 @@ bool	is_nested_quotes(char *str)
 		}
 		i++;
 	}
-	#if DEBUG
-	printf("single_quote_open =%d\n", single_quote_open);
-	printf("double_quote_open =%d\n", double_quote_open);
-	ft_printf(" unexpected EOF while looking for matching quotes\n");
-	#endif
 	if (single_quote_open)
 		ft_printf(" unexpected EOF while looking for matching '\''\n");
 	if (double_quote_open)
