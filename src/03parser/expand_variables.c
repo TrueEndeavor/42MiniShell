@@ -80,19 +80,6 @@ void	handle_dollar(t_expand_str *expand, t_core_struct *core)
 			expand->result = ft_realloc(expand->result, ++expand->result_size);
 			expand->result[expand->i++] = '$';
 		}
-		else if (ft_strlen(var->name) == 0 && *expand->input != '\"')
-        {
-            // Special case: print $ when followed by empty double quotes
-            expand->result = ft_realloc(expand->result, ++expand->result_size);
-            expand->result[expand->i++] = '$';
-            //expand->input++;
-        }
-		/*else if (ft_strlen(var->name) == 0 && (expand->state & EX_SINGLE_QUOTE || \
-		expand->state & EX_NONE))
-		{
-			expand->result = ft_realloc(expand->result, ++expand->result_size);
-			expand->result[expand->i++] = '$';
-		}*/
 		else
 			expand->input = var->end;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/02 13:27:03 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/08 10:56:55 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,6 @@ void	heredoc_sighandler(int signum)
 	if (signum == SIGINT)
 		g_signum = signum;
 	write(2, "\n", 1);
+	rl_redisplay();
+	exit(g_signum);
 }
