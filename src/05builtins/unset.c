@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/05 01:50:50 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:57:35 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	unset_one(t_core_struct *core, t_env_list *cur, t_env_list *prev)
 		free(cur->name);
 		free(cur->value);
 		cur->next = NULL;
+		free(cur);
 	}
 	else if (cur != NULL)
 	{
@@ -27,6 +28,7 @@ void	unset_one(t_core_struct *core, t_env_list *cur, t_env_list *prev)
 		free(cur->name);
 		free(cur->value);
 		cur->next = NULL;
+		free(cur);
 	}
 }
 
