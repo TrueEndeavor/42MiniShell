@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 13:16:37 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:28:55 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,14 @@ void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	int fd;
 	
 	rcmd = (t_redircmd_P *) cmd;
-	//dprintf(2, ">>[%s] [%i] [%i]\n", rcmd->file, rcmd->mode, 0777);
-	// int fd = open (rcmd->file, rcmd->mode, rcmd->permission);
-	//fd = open(rcmd->file, rcmd->mode, rcmd->permission);
 	fd = open(rcmd->file, rcmd->mode, rcmd->permission);
 	if (fd < 0)
 	{
 		perror(rcmd->file);
+		ft_free_cmd(fcmd);
+		ft_free_tok_list(core->token_head);
+		ft_free_env(core->env_list);
+		free(core);
 		exit(1);
 	}
 	dup2(fd, rcmd->fd);
