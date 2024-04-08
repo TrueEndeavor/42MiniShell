@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:17:29 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/03 16:47:42 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:07:42 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,17 @@ void	set_env(t_core_struct *core, char *key_value_pair)
 {
 	t_env_list	*head;
 	t_env_list	*new;
-	//int	len;
 	char    *key_to_set;
 	char    *value_to_set;
-	int modified_flag;
-	//char    *existing_value;
+	int		modified_flag;
+	
 	head = core->env_list;
-	//printf("address of el in ----set %p\n", core->env_list);	
 	modified_flag = 0;
 	new = NULL;
     key_to_set = get_key(key_value_pair);
     value_to_set = get_value(key_value_pair);
 	if (!key_to_set)
 		panic ("key to set not found");
-	#if DEBUG
-	printf("............key_to_set = %s\n",key_to_set);
- 	#endif
 	if (!is_valid_variable_name(key_to_set) || (ft_strchr(key_to_set, '=') != NULL))
 	{
 		ft_printf("minishell: export: `%s': not a valid identifier\n", key_value_pair);
@@ -56,22 +51,14 @@ void	set_env(t_core_struct *core, char *key_value_pair)
 		                free((core->env_list)->value);
 	                (core->env_list)->value = "";
 				}
-/* 	            if (!(core->env_list)->value)
-	                panic ("env list value empty"); */
 			    modified_flag = 1;
 			}
 		    core->env_list = (core->env_list)->next;
 	    }
-	    #if DEBUG
-	    printf("............value_to_set = %s & modified_flag = %d \n",value_to_set, modified_flag);
-	    #endif
 		if (!value_to_set && modified_flag == 0)
 	    {
 			core->env_list = head;
 		    new = ft_lstnew_env(key_to_set, NULL);
-		    #if DEBUG
-		    printf("adding the new variable with empty value\n");
-		    #endif
 			if (!new)
 				ft_lstclear_env(&core->env_list, free);
 	        ft_lstadd_back_env(&core->env_list, new);			

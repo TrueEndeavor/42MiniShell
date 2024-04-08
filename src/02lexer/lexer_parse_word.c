@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 08:12:02 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/01 08:12:02 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:26:07 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,10 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 {
 	t_token_T	*ret_token;
 	char		*value;
-	size_t	start;
-	ssize_t	len;
+	size_t		start;
+	ssize_t		len;
 
 	ret_token = NULL;
-	/*if ((lexer->c) == '$' && (lexer_peek(lexer, 1) == '?'))
-	{
-		lexer_advance(lexer);
-		lexer_advance(lexer);
-		return (init_token(ft_strdup("$?"), T_EXITCODE));
-	}*/
 	start = lexer->i;
 	escape_quotes(lexer);
 	len = lexer->i - start;
@@ -74,10 +68,6 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 	if (!value)
 		return (NULL);
 	ft_strlcpy(value, lexer->src + start, len + 1);
-	//value = read_string(&lexer);
-	#if DEBUG
-	printf("............value =%s$\n", value);
-	#endif
 	if (!is_nested_quotes(value))
 	{
 		return (NULL);

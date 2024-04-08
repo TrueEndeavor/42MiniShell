@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/07 17:36:07 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:12:55 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,13 @@ t_cmd_P			*create_herecmd(t_cmd_P *subcmd, char *limiter);
 void			set_write_into(t_redircmd_P *cmd, int writable);
 void			set_read_from(t_redircmd_P *cmd, int readable);
 void			print_cmd(t_cmd_P *cmd);
-void	        copy_variable(char *ret, char *var, int i);
-
+void			copy_variable(char *ret, char *var, int i);
 
 int				check_num_arg(char *str);
 int				ft_double_redir(t_token_T *head, int type);
 int				ft_slen(const char *str);
 char			*quote(char **s, t_core_struct *co, int var_c, int i);
-char	        *get_name(char *str, int i);
+char			*get_name(char *str, int i);
 char			*free_quotes(char **str, char **name, char **var);
 char			*dupl(const char *src);
 char			*ft_expand(t_core_struct *core, char **str);

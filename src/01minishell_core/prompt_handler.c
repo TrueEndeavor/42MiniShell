@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_handling.c                                  :+:      :+:    :+:   */
+/*   prompt_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:33:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/31 16:33:31 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:19:19 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	execute_command(t_cmd_P *root, t_core_struct *core)
 {
-	int	status;
+	int		status;
 	pid_t	child_pid;
 
 	setup_mother_signals();
@@ -62,37 +62,25 @@ void	process_user_input(t_core_struct *core, char *prompt)
 			execute_command(root, core);
 	}
 	else
-	{
-		#if DEBUG
-		printf ("error during check of arguments, freeing...\n");
-		#endif
 		ft_free_tok_list(core->token_head);
-	}
 	if (root)
 		ft_free_cmd(root);
 	ft_free_tok_list(core->token_head);
 	free(prompt);
-	#if DEBUG
-	printf ("core->exit_code: %d\n", core->exit_code);
-	#endif
 }
 
-	char	*get_prompt_interactive_mode(t_core_struct *core)
+char	*get_prompt_interactive_mode(t_core_struct *core)
 {
 	char	*prompt;
 
 	prompt = NULL;
 	setup_readline_signals();
-	//if (isatty(STDIN_FILENO))
-	//{
-		prompt = readline("jollyshell$> ");
-		//core->exit_code = EXIT_SUCCESS;
-		if (g_signum != 0)
-		{
-			core->exit_code += (g_signum + 128);
-			g_signum = 0;
-		}
-	//}
+	prompt = readline("jollyshell$> ");
+	if (g_signum != 0)
+	{
+		core->exit_code += (g_signum + 128);
+		g_signum = 0;
+	}
 	return (prompt);
 }
 
@@ -105,7 +93,7 @@ int	display_new_prompt(t_core_struct *core)
 	while (1)
 	{
 		prompt = get_prompt_interactive_mode(core);
-		if (prompt == NULL) //eof - Ctrl + D
+		if (prompt == NULL)
 		{
 			process_eof(core);
 			return (1);

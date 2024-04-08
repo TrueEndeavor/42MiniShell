@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 09:32:11 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/08 14:32:08 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:47:53 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	run_here(t_herecmd_P *hcmd, t_core_struct *core, t_cmd_P *fcmd)
 	char		*line;
 	int status;
 
-	//setup_mother_signals();
 	pid = fork();
 	if (pid == 0)
 	{
@@ -137,7 +136,6 @@ void	handle_heredoc(t_core_struct *core, t_cmd_P *root, int j)
 	int			i;
 	t_herecmd_P	*curr;
 	char		*temp;
-	struct st;
 
 	i = (core->ih);
 	core->ih = 0;
@@ -149,7 +147,7 @@ void	handle_heredoc(t_core_struct *core, t_cmd_P *root, int j)
 		free(temp);
 		curr->fd = open(curr->filename, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (curr->fd < 0)
-			printf ("heck\n");
+			printf ("heredoc fd opening failed\n");
 		else
 		{
 			run_here(curr, core, root);

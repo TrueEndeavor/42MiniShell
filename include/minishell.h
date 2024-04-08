@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:16:04 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 13:08:10 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:12:03 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,5 @@ void		ft_free_tok_list(t_token_T **token_head);
 void		ft_free_env(t_env_list *env);
 void		ft_free_cmd(t_cmd_P *cmd);
 void		ft_free_heredoc(t_cmd_P *cmd);
-
 
 #endif
