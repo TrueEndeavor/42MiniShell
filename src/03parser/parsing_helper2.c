@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_helper2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:11:26 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/07 18:18:56 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:05:32 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,7 @@
 
 void	ft_loop_quote(t_core_struct *c)
 {
-	#if DEBUG
-	printf ("value of quote before: %s\n", (*c->token_head)->value);
-	#endif
 	(*c->token_head)->value = quote(&(*c->token_head)->value, c, 0, 0);
-	#if DEBUG
-	printf ("value of quote after: %s\n", (*c->token_head)->value);
-	#endif
 }
 
 void	ft_loop_variable(t_core_struct *c)

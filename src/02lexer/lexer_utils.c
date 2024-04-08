@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:06:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 13:08:03 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:46:33 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    l_within_single_quote(int *i, char **str, bool *single_quote_open)
+void	l_within_single_quote(int *i, char **str, bool *single_quote_open)
 {
 	while ((*str)[*i] != '\0')
 	{
 		if ((*str)[*i] == '\'')
 		{
 			*single_quote_open = !(*single_quote_open);
-			if (!(*single_quote_open)) 
+			if (!(*single_quote_open))
 				break ;
 		}
 		(*i)++;
 	}
 }
-void    l_within_double_quote(int *i, char **str, bool *double_quote_open)
+void	l_within_double_quote(int *i, char **str, bool *double_quote_open)
 {
 	while ((*str)[*i] != '\0')
 	{
@@ -75,17 +75,9 @@ void	print_token_list(t_token_T *token_head)
 {
 	if (token_head)
 	{
-		#if DEBUG
-		printf("Token type = %d & the value is = %s\n", token_head->type, \
-			token_head->value);
-		#endif
 		while (token_head->next)
 		{
 			token_head = token_head->next;
-			#if DEBUG
-			printf("Token type = %d & the value is = %s\n", token_head->type, \
-				token_head->value);
-			#endif
 		}
 	}
 }

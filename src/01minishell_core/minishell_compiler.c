@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_compile.c                                :+:      :+:    :+:   */
+/*   minishell_compiler.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 18:09:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/31 18:09:13 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:14:51 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ t_token_T	*minishell_compile(char *prompt)
 	prev_tok = NULL;
 	tok = initialize_lexer_and_first_token(prompt, &lexer);
 	if (tok == NULL)
-	{
 		return (NULL);
-	}		
 	token_head = tok;
 	while (tok->type != T_LINEBREAK)
 	{

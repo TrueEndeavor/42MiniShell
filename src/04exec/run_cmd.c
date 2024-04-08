@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 13:28:55 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:09:32 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void runcmd_here(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	hcmd = (t_herecmd_P *)cmd;
 	fd = open (hcmd->filename, O_RDONLY, 0777);
 	if (fd == -1)
-		ft_printf ("oof\n");
+		ft_printf ("file opening failed\n");
 	dup2 (fd, STDIN_FILENO);
 	close (fd);
 	unlink (hcmd->filename);

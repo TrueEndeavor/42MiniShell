@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/05 12:16:40 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:06:37 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,6 @@ void    in_double_quote(int *var_count, char **str, char **name, char **var, cha
 	{
 		if ((*str)[*var_count] == '\"')
 		{
-			//(*var_count)++;
-			#if DEBUG
-			printf("I break here\n");
-			#endif
 			break ;
 		}
 		else if ((*str)[*var_count] == '$' && (*str)[*var_count + 1] != ' ' && (*str)[*var_count + 1] != '\"')
@@ -117,9 +113,6 @@ void    in_double_quote(int *var_count, char **str, char **name, char **var, cha
 			copy_variable(ret, var[*i_var], *i);
 			*i += ft_slen(var[*i_var]);
 			*var_count += (ft_slen(name[*i_var]));
-			#if DEBUG
-			dprintf(1, "after replacing, var_count is set on this char........=%c\n", (*str)[*var_count]);
-			#endif
 			(*i_var)++;
 		}
 		else
@@ -141,9 +134,6 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 	i_var = 0;
 	while ((*str)[var_count] != '\0')
 	{
-		#if DEBUG
-		printf("next char = (*str)[var_count]=%c\n", (*str)[var_count]);
-		#endif
 		if ((*str)[var_count] == '\'')
 		{
             var_count++;
@@ -155,9 +145,6 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 		{
 			var_count++;
 			in_double_quote(&var_count, str, name, var, ret, &i, &i_var);
-			#if DEBUG
-			printf("after break  = (*str)[var_count]=%c\n", (*str)[var_count]);
-			#endif
 			if ((*str)[var_count] == '\0')
 				break ;
 		}
@@ -167,9 +154,6 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 			copy_variable(ret, var[i_var], i);
 			i += ft_slen(var[i_var]);
 			var_count += (ft_slen(name[i_var]));
-			#if DEBUG
-			dprintf(1, "after replacing, var_count is set on this char........=%c, %s\n", (*str)[var_count], ret);
-			#endif
 			i_var++;
 		}
 		else
@@ -180,9 +164,6 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 		var_count++;
 	} 
 	ret[i] = '\0';
-	#if DEBUG
-	dprintf(1, "after replacing,the string is........, %s\n", ret);
-	#endif
 }
 
 char	*quote(char **s, t_core_struct *co, int var_c, int i)

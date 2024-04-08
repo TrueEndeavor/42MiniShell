@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 08:12:02 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/01 08:12:02 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:26:07 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,26 @@ char	*initialize_string(char **value)
 	(*value)[0] = '\0';
 	return (*value);
 }
-char *read_string(t_lexer_T **lexer)
-{
-    char *value;
-    bool quote_flag;
 
-    quote_flag = false;
-    initialize_string(&value);
-    while (ft_isprint((*lexer)->c) &&
-           (!quote_flag || ((*lexer)->c == '\'' || (*lexer)->c == '\"')))
-    {
-		#if DEBUG
-		printf("quote flag =%d, lexer->c = %c$\n", quote_flag, (*lexer)->c);
-		#endif
-        if ((*lexer)->c == '\'' || (*lexer)->c == '\"')
-            quote_flag = !quote_flag;
+char	*read_string(t_lexer_T **lexer)
+{
+	char	*value;
+	bool	quote_flag;
+
+	quote_flag = false;
+	initialize_string(&value);
+	while (ft_isprint((*lexer)->c)
+		&& (!quote_flag || ((*lexer)->c == '\''
+				|| (*lexer)->c == '\"')))
+	{
+		if ((*lexer)->c == '\'' || (*lexer)->c == '\"')
+			quote_flag = !quote_flag;
 		else if (!quote_flag && (*lexer)->c == '\0')
-            break;
-        extend_string(&value, (*lexer)->c);
-        lexer_advance(*lexer);
-    }
-    return (value);
+			break ;
+		extend_string(&value, (*lexer)->c);
+		lexer_advance(*lexer);
+	}
+	return (value);
 }
 
 bool	is_special_char(t_lexer_T *lexer)
@@ -88,16 +87,10 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 {
 	t_token_T	*ret_token;
 	char		*value;
-	size_t	start;
-	ssize_t	len;
+	size_t		start;
+	ssize_t		len;
 
 	ret_token = NULL;
-	/*if ((lexer->c) == '$' && (lexer_peek(lexer, 1) == '?'))
-	{
-		lexer_advance(lexer);
-		lexer_advance(lexer);
-		return (init_token(ft_strdup("$?"), T_EXITCODE));
-	}*/
 	start = lexer->i;
 	escape_quotes(lexer);
 	len = lexer->i - start;
@@ -105,10 +98,6 @@ t_token_T	*lexer_parse_word(t_lexer_T *lexer)
 	if (!value)
 		return (NULL);
 	ft_strlcpy(value, lexer->src + start, len + 1);
-	//value = read_string(&lexer);
-	#if DEBUG
-	printf("............value =%s$\n", value);
-	#endif
 	if (!is_nested_quotes(value))
 	{
 		return (NULL);
