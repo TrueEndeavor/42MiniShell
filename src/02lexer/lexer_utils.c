@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:06:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 11:44:54 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:08:03 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ bool	is_nested_quotes(char *str)
 		i++;
 	}
 	if (single_quote_open)
-		ft_printf(" unexpected EOF while looking for matching '\''\n");
+		ft_printf(" unexpected EOF while looking for matching `\''\n");
 	if (double_quote_open)
-		ft_printf(" unexpected EOF while looking for matching '\"'\n");
+		ft_printf(" unexpected EOF while looking for matching `\"'\n");
 	return (!single_quote_open && !double_quote_open);
 }
 
