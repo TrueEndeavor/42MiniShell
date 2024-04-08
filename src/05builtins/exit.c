@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/05 10:44:03 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 11:33:22 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 int	builtin_exit(t_execcmd_P *ecmd, t_core_struct *core, char *prompt)
 {
-	//unsigned char	ret;
+	unsigned char	ret;
 
-	//ret = 0;
 	if (((ecmd->argv[1]) && (!ft_isnumber(ecmd->argv[1])))
 		|| ((ecmd->argv[1]) && (ecmd->argv[1][1] == '+'
 			|| ecmd->argv[1][1] == '-')))
@@ -36,10 +35,9 @@ int	builtin_exit(t_execcmd_P *ecmd, t_core_struct *core, char *prompt)
 	free(ecmd);
 	ft_free_tok_list(core->token_head);
 	ft_free_env(core->env_list);
+	ret = core->exit_code;
 	free(core);
 	free(prompt);
 	rl_clear_history();
-	//printf ("exit has a value of %d\n", ret);
-	//exit (ret);
-	exit (core->exit_code);
+	exit (ret);
 }

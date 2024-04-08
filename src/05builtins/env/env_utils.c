@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:38:25 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/01 09:26:49 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 11:07:07 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_key(char *s)
 	if (result)
 		return (ft_substr(s, 0, (ft_strlen(s) - ft_strlen(result))));
 	else
-		return (s);
+		return (ft_strdup(s));
 }
 
 char	*get_value(char *s)

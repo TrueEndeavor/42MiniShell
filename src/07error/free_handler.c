@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 09:27:03 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/03/27 13:58:49 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/08 11:57:49 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,14 @@ void	ft_free_env(t_env_list *env)
 		while (env != NULL)
 		{
 			next = env->next;
-			free(env->name);
-			free(env->value);
+			if (env->name)
+			{
+				free(env->name);
+			}
+			if (env->value)
+			{
+				free(env->value);
+			}
 			free(env);
 			env = next;
 		}
@@ -54,11 +60,20 @@ void	ft_free_ecmd(t_cmd_P *cmd)
 	free(ecmd);
 }
 
+void	ft_free_heredoc(t_cmd_P *cmd)
+{
+	t_herecmd_P	*hcmd;
+
+	hcmd = (t_herecmd_P *) cmd;
+	free(hcmd->filename);
+	ft_free_cmd(hcmd->cmd);
+	free(hcmd);
+}
+
 void	ft_free_cmd(t_cmd_P *cmd)
 {
 	t_redircmd_P	*rcmd;
 	t_pipecmd_P		*pcmd;
-	t_herecmd_P		*hcmd;
 
 	if (cmd->type == PIPE_CMD)
 	{
@@ -74,11 +89,7 @@ void	ft_free_cmd(t_cmd_P *cmd)
 		free(rcmd);
 	}
 	else if (cmd->type == HERE_CMD)
-	{
-		hcmd = (t_herecmd_P *) cmd;
-		ft_free_cmd(hcmd->cmd);
-		free(hcmd);
-	}
+		ft_free_heredoc(cmd);
 	else if (cmd->type == EXEC_CMD)
 		ft_free_ecmd(cmd);
 }

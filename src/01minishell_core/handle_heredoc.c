@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 09:32:11 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/05 11:46:17 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:18:10 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,15 +123,15 @@ void	run_here(t_herecmd_P *hcmd, t_core_struct *core, t_cmd_P *fcmd)
 	core->exit_code = wait(NULL);
 }
 
-void	handle_heredoc(t_core_struct *core, t_cmd_P *root)
+void	handle_heredoc(t_core_struct *core, t_cmd_P *root, int j)
 {
 	int			i;
-	int			j;
 	t_herecmd_P	*curr;
 	char		*temp;
+	struct st;
 
+	mkdir("tmp", 0777);
 	i = (core->ih);
-	j = 0;
 	core->ih = 0;
 	while (j < i)
 	{
