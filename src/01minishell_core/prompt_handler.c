@@ -19,6 +19,8 @@ void	execute_command(t_cmd_P *root, t_core_struct *core)
 
 	setup_mother_signals();
 	handle_heredoc(core, root, 0);
+	if (core->exit_code == 130)
+		return ;
 	child_pid = fork1();
 	if (child_pid == 0)
 	{
