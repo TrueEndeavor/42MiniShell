@@ -15,11 +15,16 @@
 char	*env_var_to_string(const char *name, const char *value)
 {
 	char	*env_str;
+	char	*env_val;
 
 	if (value == NULL)
 		env_str = ft_strdup(name);
 	else
-		env_str = ft_strjoin(name, ft_strjoin("=", value));
+	{
+		env_val = ft_strjoin("=", value);
+		env_str = ft_strjoin(name, env_val);
+		free(env_val);
+	}
 	return (env_str);
 }
 
