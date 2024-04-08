@@ -22,6 +22,11 @@ t_token_T	*initialize_lexer_and_first_token(char *prompt, t_lexer_T **lxr_ptr)
 		return (NULL);
 	*lxr_ptr = lexer;
 	tok = lexer_scan_token(lexer);
+	if (tok == NULL)
+	{
+		free(*lxr_ptr);
+		return (NULL);
+	}	
 	if (!tok || tok->type == T_LINEBREAK)
 	{
 		free(lexer);
@@ -61,6 +66,10 @@ t_token_T	*minishell_compile(char *prompt)
 
 	prev_tok = NULL;
 	tok = initialize_lexer_and_first_token(prompt, &lexer);
+	if (tok == NULL)
+	{
+		return (NULL);
+	}		
 	token_head = tok;
 	while (tok->type != T_LINEBREAK)
 	{
@@ -68,7 +77,9 @@ t_token_T	*minishell_compile(char *prompt)
 			prev_tok->next = tok;
 		tok = add_token_to_list(&prev_tok, &tok, &lexer, &token_head);
 		if (!tok)
+		{
 			return (NULL);
+		}
 	}
 	prev_tok->next = tok;
 	tok->next = NULL;
