@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 09:32:11 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/08 12:18:10 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:03:22 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ void	handle_heredoc(t_core_struct *core, t_cmd_P *root, int j)
 	char		*temp;
 	struct st;
 
-	mkdir("tmp", 0777);
 	i = (core->ih);
 	core->ih = 0;
 	while (j < i)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 12:11:48 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:08:57 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_the_output(t_execcmd_P *ecmd, int i)
 		last_index++;
 		i++;
 	}
-	while (ecmd->argv[start_index] != NULL)
+	while (ecmd->argv[start_index] != NULL || ecmd->argv[start_index + 1] != NULL)
 	{
 		//if ((ecmd->argv)[start_index][0] != '\0')
 		//{
