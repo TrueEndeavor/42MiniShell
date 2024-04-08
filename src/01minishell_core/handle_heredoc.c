@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 09:32:11 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/08 14:16:36 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:47:53 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,12 @@ void	run_here(t_herecmd_P *hcmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	pid_t		pid;
 	char		*line;
+	int status;
 
 	pid = fork();
 	if (pid == 0)
 	{
+		setup_heredoc_signals();
 		while (1)
 		{
 			line = readline("> ");
@@ -117,8 +119,16 @@ void	run_here(t_herecmd_P *hcmd, t_core_struct *core, t_cmd_P *fcmd)
 			free(line);
 		}
 	}
-	waitpid(pid, NULL, 0);
-	core->exit_code = wait(NULL);
+	/* waitpid(pid, NULL, 0);
+	core->exit_code = wait(NULL); */
+	else
+	{
+		core->exit_code = waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			core->exit_code = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			core->exit_code = process_signals_in_heredocs(status);
+	}
 }
 
 void	handle_heredoc(t_core_struct *core, t_cmd_P *root, int j)

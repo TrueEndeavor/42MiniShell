@@ -30,3 +30,13 @@ void	process_eof(t_core_struct *core)
 	free(core);
 	printf("exit\n");
 }
+
+int	process_signals_in_heredocs(int status)
+{
+	int	last_status;
+
+	last_status = WTERMSIG(status);
+	if (last_status == SIGTERM)
+		write(STDOUT_FILENO, "\n", 1);
+	return (last_status + 128);
+}

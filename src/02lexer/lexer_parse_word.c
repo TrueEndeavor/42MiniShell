@@ -12,36 +12,6 @@
 
 #include "minishell.h"
 
-char	*initialize_string(char **value)
-{
-	*value = ft_calloc(1, sizeof(char));
-	if (!*value)
-		return (NULL);
-	(*value)[0] = '\0';
-	return (*value);
-}
-
-char	*read_string(t_lexer_T **lexer)
-{
-	char	*value;
-	bool	quote_flag;
-
-	quote_flag = false;
-	initialize_string(&value);
-	while (ft_isprint((*lexer)->c)
-		&& (!quote_flag || ((*lexer)->c == '\''
-				|| (*lexer)->c == '\"')))
-	{
-		if ((*lexer)->c == '\'' || (*lexer)->c == '\"')
-			quote_flag = !quote_flag;
-		else if (!quote_flag && (*lexer)->c == '\0')
-			break ;
-		extend_string(&value, (*lexer)->c);
-		lexer_advance(*lexer);
-	}
-	return (value);
-}
-
 bool	is_special_char(t_lexer_T *lexer)
 {
 	if (lexer->c == '|' || lexer->c == '<'

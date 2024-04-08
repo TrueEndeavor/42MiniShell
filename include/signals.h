@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:17:00 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/19 15:20:15 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:29:26 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void	setup_mother_signals(void);
 void	readline_sighandler(int signum);
 void	child_sighandler(int signum);
 void	heredoc_sighandler(int signum);
+int		process_signals_in_heredocs(int status);
 
 #endif
