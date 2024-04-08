@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 13:08:57 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:43:27 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_the_output(t_execcmd_P *ecmd, int i)
 
 	start_index = i;
 	last_index = i - 1;
-	while (ecmd->argv[i] != NULL)
+	while (ecmd->argv[i] != NULL || ecmd->argv[i + 1] != NULL)
 	{
 		last_index++;
 		i++;
@@ -30,7 +30,7 @@ void	print_the_output(t_execcmd_P *ecmd, int i)
 		//{
 			//printf("%s", ecmd->argv[start_index]);
 			ft_putstr_fd(ecmd->argv[start_index], 1);
-			if (start_index < last_index && ft_strcmp(ecmd->argv[start_index + 1], "$") != 0)
+			if (ecmd->argv[start_index] != NULL && start_index < last_index && ft_strcmp(ecmd->argv[start_index + 1], "$") != 0)
 				ft_putstr_fd(" ", 1);
 				//printf("%c", ' ');
 		//}
