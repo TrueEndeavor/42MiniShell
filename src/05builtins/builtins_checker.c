@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_checker.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:53:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/09 10:18:02 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/09 18:00:04 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_return_builtin(t_execcmd_P *ecmd)
 	int	i;
 
 	i = 0;
+	if (ecmd->argv[0] == NULL)
+		i = 0;
 	if (ft_strcmp(ecmd->argv[0], "env") == 0)
 		i = 1;
 	else if (ft_strcmp(ecmd->argv[0], "export") == 0)

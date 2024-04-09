@@ -20,7 +20,7 @@ int	process_signals_in_child(int status)
 	if (last_status == SIGTERM)
 		write(STDOUT_FILENO, "\n", 1);
 	else if (last_status == SIGQUIT)
-		write(STDERR_FILENO, "Quit (core dumped)\n", 18);
+		write(STDERR_FILENO, "Quit (core dumped)\n", 19);
 	return (last_status + 128);
 }
 

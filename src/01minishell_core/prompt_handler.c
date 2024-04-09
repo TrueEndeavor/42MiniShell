@@ -18,23 +18,25 @@ void	execute_command(t_cmd_P *root, t_core_struct *core)
 	pid_t	child_pid;
 
 	setup_mother_signals();
-	handle_heredoc(core, root, 0);
-	/* if (core->exit_code == 130)
-		return ; */
-	child_pid = fork1();
-	if (child_pid == 0)
+	if (handle_heredoc(core, root, 0))
 	{
-		setup_child_signals();
-		run_cmd(root, core, root);
+		child_pid = fork1();
+		if (child_pid == 0)
+		{
+			setup_child_signals();
+			run_cmd(root, core, root);
+		}
+		else
+		{
+			core->exit_code = waitpid(child_pid, &status, 0);
+			if (WIFEXITED(status))
+				core->exit_code = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				core->exit_code = process_signals_in_child(status);
+		}
 	}
 	else
-	{
-		core->exit_code = waitpid(child_pid, &status, 0);
-		if (WIFEXITED(status))
-			core->exit_code = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			core->exit_code = process_signals_in_child(status);
-	}
+		return ;
 }
 
 void	process_user_input(t_core_struct *core, char *prompt)
@@ -58,8 +60,15 @@ void	process_user_input(t_core_struct *core, char *prompt)
 	if (syntax_analyzer(core))
 	{
 		root = parse_cmd(core);
+		#if DEBUG
+		print_cmd(root);
+		#endif
+		if ((root->type == EXEC_CMD) && !(((t_execcmd_P *) root)->argv[0]))
+			return ;
 		if (!match_builtin(root, core, prompt))
+		{
 			execute_command(root, core);
+		}
 	}
 	else
 		ft_free_tok_list(core->token_head);
@@ -96,7 +105,7 @@ int	display_new_prompt(t_core_struct *core)
 		if (prompt == NULL)
 		{
 			process_eof(core);
-			return (1);
+			return (core->exit_code);
 		}
 		if (is_all_whitespace(prompt) || !(prompt[0]))
 		{

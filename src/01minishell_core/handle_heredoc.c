@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 09:32:11 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/09 08:32:07 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/09 20:20:28 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	run_here(t_herecmd_P *hcmd, t_core_struct *core, t_cmd_P *fcmd)
 		core->exit_code = process_signals_in_heredocs(status);
 }
 
-void	handle_heredoc(t_core_struct *core, t_cmd_P *root, int j)
+bool	handle_heredoc(t_core_struct *core, t_cmd_P *root, int j)
 {
 	int			i;
 	t_herecmd_P	*curr;
@@ -140,7 +140,9 @@ void	handle_heredoc(t_core_struct *core, t_cmd_P *root, int j)
 		free(temp);
 		curr->fd = open(curr->filename, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (curr->fd < 0)
+		{
 			printf ("heredoc fd opening failed\n");
+		}
 		else
 		{
 			run_here(curr, core, root);
@@ -148,4 +150,7 @@ void	handle_heredoc(t_core_struct *core, t_cmd_P *root, int j)
 		}
 		j++;
 	}
+	if (core->exit_code == 130)
+		return (false);
+	return (true);
 }

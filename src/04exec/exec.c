@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 08:25:40 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/04 21:20:23 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:57:30 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int	ft_execute(char **cmd, char **envp)
 	char	*path;
 
 	path = NULL;
+	if (cmd[0] == NULL && cmd[0][0] == '\0')
+		return (0);
 	if (is_directory(cmd[0]))
 		return (126);
 	if (cmd[0][0] == '/' || ft_strncmp(cmd[0], "./", 2) == 0)
 		exec_absolute_path(cmd[0], cmd, envp);
-	if (cmd[0][0] == '\0')
-		return (0);
 	path = ft_get_path(cmd[0], envp);
 	if (path == NULL)
 	{
