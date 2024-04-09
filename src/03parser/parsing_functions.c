@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/09 07:57:22 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/09 09:04:21 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ t_cmd_P	*parse_redirs(t_cmd_P *cmd, t_core_struct *core)
 		if (current_token->type != T_HEREDOC)
 				next_tolkien->value = quote(&(next_tolkien)->value, core, 0, 0);
 		if ((current_token)->type == T_REDIRECT_IN)
-			return (ft_r_in(core, &cmd, next_tolkien));
+			return (ft_r_in(core, &cmd, next_tolkien, 0));
 		else if ((current_token)->type == T_REDIRECT_OUT)
-			return (ft_r_out(core, &cmd, next_tolkien));
+			return (ft_r_out(core, &cmd, next_tolkien, 0));
 		else if ((current_token)->type == T_APPEND_OUT)
-			return (ft_app_out(core, &cmd, next_tolkien));
+			return (ft_app_out(core, &cmd, next_tolkien, 0));
 		else if ((current_token)->type == T_HEREDOC)
 			return (ft_cr_here(core, &cmd, next_tolkien));
 	}
@@ -71,7 +71,6 @@ t_cmd_P	*parse_exec(t_core_struct *core)
 	{
 		if ((*core->token_head)->type == T_EXITCODE)
 			(*core->token_head)->value = ft_strdup(ft_itoa(core->exit_code));
-		//ft_loop_variable(core);
 		expand_variables(&(*core->token_head), core);
 		if ((*core->token_head)->type == T_LINEBREAK
 			|| ((*core->token_head)->type == T_PIPE))

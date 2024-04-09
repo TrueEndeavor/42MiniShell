@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:44:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/03 09:38:43 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/09 08:52:46 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_ex_here(char **str)
 	int		i;
 	int		j;
 	char	c;
-	
+
 	i = 0;
 	j = 1;
 	ret = NULL;

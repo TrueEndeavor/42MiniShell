@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:16:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/07 16:16:39 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/09 08:51:26 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	expand_last_status(t_expand_str *expand, t_core_struct *core)
 void	handle_dollar(t_expand_str *expand, t_core_struct *core)
 {
 	t_expand_var	*var;
+
 	var = get_variable(core, ++expand->input);
 	if (var->value)
 	{

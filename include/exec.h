@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:49:03 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 14:11:31 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/09 09:38:49 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ bool	is_directory(char *path);
 int		ft_execute(char **argv, char **envp);
 char	*ft_get_path(char *cmd, char **envp);
 void	ft_free(char *path, char **cmd);
+void	close_pipe(int p[2]);
 
 #endif

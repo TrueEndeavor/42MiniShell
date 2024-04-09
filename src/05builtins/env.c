@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:45:19 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 14:07:04 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:18:29 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	builtin_env(t_execcmd_P *ecmd, t_core_struct *core)
 
 	i = 1;
 	arg_count = 0;
-	//core->exit_code = EXIT_SUCCESS;
 	if (env_null(core) == 0)
 		return (core->exit_code);
 	while (ecmd->argv[i] != NULL)

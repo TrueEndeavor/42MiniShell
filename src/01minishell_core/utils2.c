@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:01:06 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 11:52:11 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/09 08:31:25 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,11 @@ void	frhere(t_herecmd_P *hcmd, t_core_struct *c, char *s, t_cmd_P *fcmd)
 	ft_free_tok_list(c->token_head);
 	ft_free_env(c->env_list);
 	free(c);
+}
+
+void	here_ext(char *line, t_herecmd_P *hcmd)
+{
+	ft_putstr_fd(line, hcmd->fd);
+	ft_putstr_fd("\n", hcmd->fd);
+	free(line);
 }

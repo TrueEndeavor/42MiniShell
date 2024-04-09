@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:31:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/01 07:31:38 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/09 09:33:41 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	wait_for_child_processes(int l_child, int r_child, int *last_status)
 
 int	execute_pipe_command(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
-	t_pipecmd_P	*pcmd;
-	int			p[2];
-	int			last_status;
+	t_pipecmd_P		*pcmd;
+	int				p[2];
+	int				last_status;
 	pid_t			l_child;
 	pid_t			r_child;
 
@@ -64,8 +64,7 @@ int	execute_pipe_command(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 			runright(pcmd, p, core, fcmd);
 		else
 		{
-			close(p[0]);
-			close(p[1]);
+			close_pipe(p);
 			wait_for_child_processes(l_child, r_child, &last_status);
 		}
 	}

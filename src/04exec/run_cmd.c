@@ -6,13 +6,13 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 14:09:32 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/09 09:45:10 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void runcmd_here(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
+void	runcmd_here(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	t_herecmd_P		*hcmd;
 	int				fd;
@@ -60,8 +60,8 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	t_redircmd_P	*rcmd;
-	int fd;
-	
+	int				fd;
+
 	rcmd = (t_redircmd_P *) cmd;
 	fd = open(rcmd->file, rcmd->mode, rcmd->permission);
 	if (fd < 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/05 00:58:57 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:16:34 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ int	builtin_cd(t_execcmd_P *ecmd, t_core_struct *core)
 	else if (ft_strcmp(ecmd->argv[1], "-") == 0)
 	{
 		if (chdir (old_pwd->value) == -1)
-		{
-			core->exit_code = 1;
-			return (core->exit_code);
-		}
+			return (1);
 	}
 	else if (chdir (ecmd->argv[1]) == -1)
 	{

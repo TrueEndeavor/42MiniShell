@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:13:38 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 14:06:37 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/09 08:59:59 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	fill_values(char **str, char **name, char **var, t_core_struct *core)
 		{
 			if (DEBUG)
 				printf ("next char: -%c-\n", (*str)[i + 1]);
-			
 			name[i_var] = NULL;
 			var[i_var] = NULL;
 			name[i_var] = get_name(*str, i);
@@ -100,7 +99,7 @@ void	in_single_quote(int *var_count, char **str, char *ret, int *i, int *i_var)
 	}
 }
 
-void    in_double_quote(int *var_count, char **str, char **name, char **var, char *ret, int *i, int *i_var)
+void	in_double_quote(int *var_count, char **str, char **name, char **var, char *ret, int *i, int *i_var)
 {
 	while ((*str)[*var_count] != '\0')
 	{
@@ -108,7 +107,8 @@ void    in_double_quote(int *var_count, char **str, char **name, char **var, cha
 		{
 			break ;
 		}
-		else if ((*str)[*var_count] == '$' && (*str)[*var_count + 1] != ' ' && (*str)[*var_count + 1] != '\"')
+		else if ((*str)[*var_count] == '$' && (*str)[*var_count + 1] != ' '
+					&& (*str)[*var_count + 1] != '\"')
 		{
 			copy_variable(ret, var[*i_var], *i);
 			*i += ft_slen(var[*i_var]);
@@ -121,8 +121,9 @@ void    in_double_quote(int *var_count, char **str, char **name, char **var, cha
 			(*i)++;
 		}
 		(*var_count)++;
-	}   
+	}
 }
+
 void	fill_string(char **str, char **name, char **var, char *ret)
 {
 	int	i;
@@ -136,7 +137,7 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 	{
 		if ((*str)[var_count] == '\'')
 		{
-            var_count++;
+			var_count++;
 			in_single_quote((&var_count), str, ret, &i, &i_var);
 			if ((*str)[var_count] == '\0')
 				break ;
@@ -162,7 +163,7 @@ void	fill_string(char **str, char **name, char **var, char *ret)
 			i++;
 		}
 		var_count++;
-	} 
+	}
 	ret[i] = '\0';
 }
 
@@ -172,7 +173,7 @@ char	*quote(char **s, t_core_struct *co, int var_c, int i)
 	char	**name;
 	char	**var;
 	int		size;
-	
+
 	size = check_num_arg((*s));
 	name = malloc(size * sizeof(char *));
 	var = malloc(size * sizeof(char *));

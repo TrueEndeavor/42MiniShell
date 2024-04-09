@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 16:17:23 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/07 16:17:23 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/09 08:50:35 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_token_T	*delete_expand_node(t_token_T **lst, t_token_T *to_delete)
 
 	curr = *lst;
 	prev = NULL;
-
 	while (curr && curr != to_delete)
 	{
 		prev = curr;

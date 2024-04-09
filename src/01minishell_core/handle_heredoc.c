@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 09:32:11 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/08 14:47:53 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/09 08:32:07 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	run_here(t_herecmd_P *hcmd, t_core_struct *core, t_cmd_P *fcmd)
 {
 	pid_t		pid;
 	char		*line;
-	int status;
+	int			status;
 
 	pid = fork();
 	if (pid == 0)
@@ -114,21 +114,14 @@ void	run_here(t_herecmd_P *hcmd, t_core_struct *core, t_cmd_P *fcmd)
 				exit(EXIT_SUCCESS);
 			}
 			line = ft_exh(core, &line, 0, 0);
-			ft_putstr_fd(line, hcmd->fd);
-			ft_putstr_fd("\n", hcmd->fd);
-			free(line);
+			here_ext(line, hcmd);
 		}
 	}
-	/* waitpid(pid, NULL, 0);
-	core->exit_code = wait(NULL); */
-	else
-	{
-		core->exit_code = waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			core->exit_code = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			core->exit_code = process_signals_in_heredocs(status);
-	}
+	core->exit_code = waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		core->exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		core->exit_code = process_signals_in_heredocs(status);
 }
 
 void	handle_heredoc(t_core_struct *core, t_cmd_P *root, int j)

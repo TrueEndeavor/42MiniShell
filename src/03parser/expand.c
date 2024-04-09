@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 08:58:05 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/28 08:58:05 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/09 08:47:14 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,14 @@ void	handle_expand(t_expand_str *expand, t_core_struct *core)
 	if (*expand->input == '\'')
 	{
 		if (expand->state & EX_DOUBLE_QUOTE)
-		{
 			copy_and_increment(expand);
-		}
 		else
 			change_state(EX_SINGLE_QUOTE, expand);
 	}
 	else if (*expand->input == '\"')
 	{
 		if (expand->state & EX_SINGLE_QUOTE)
-		{
 			copy_and_increment(expand);
-		}
 		else
 			change_state(EX_DOUBLE_QUOTE, expand);
 	}
@@ -77,7 +73,7 @@ void	expand_variables(t_token_T **token_string, t_core_struct *core)
 {
 	char			*tmp;
 	t_expand_str	exp_struct;
-	t_token_T			*current;
+	t_token_T		*current;
 
 	current = *token_string;
 	if (!current || !current->value)

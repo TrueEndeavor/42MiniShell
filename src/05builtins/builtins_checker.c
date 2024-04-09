@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 13:53:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 11:28:21 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:18:02 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@ int	match_builtin(t_cmd_P *root, t_core_struct *core, char *prompt)
 	ret = 0;
 	ecmd = (t_execcmd_P *) root;
 	ret = ft_return_builtin(ecmd);
-	#if DEBUG
-	dprintf(2, "\033[0;36m######OUTPUT######\n\033[0m");
-	#endif
 	if (ft_strcmp(ecmd->argv[0], "env") == 0)
 		core->exit_code = builtin_env(ecmd, core);
 	else if (ft_strcmp(ecmd->argv[0], "export") == 0)

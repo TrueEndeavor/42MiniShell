@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:06:18 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 14:51:08 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/09 08:38:02 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	l_within_single_quote(int *i, char **str, bool *single_quote_open)
 		(*i)++;
 	}
 }
+
 void	l_within_double_quote(int *i, char **str, bool *double_quote_open)
 {
 	while ((*str)[*i] != '\0')
@@ -39,7 +40,7 @@ void	l_within_double_quote(int *i, char **str, bool *double_quote_open)
 	}
 }
 
-void    quote_syntax_error(bool single_quote_open, bool double_quote_open)
+void	quote_syntax_error(bool single_quote_open, bool double_quote_open)
 {
 	if (single_quote_open)
 		ft_printf(" unexpected EOF while looking for matching `\''\n");
