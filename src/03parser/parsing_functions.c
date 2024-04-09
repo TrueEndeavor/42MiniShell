@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/08 14:05:14 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/09 07:57:22 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ t_cmd_P	*parse_exec(t_core_struct *core)
 	cmd = (t_execcmd_P *) ret;
 	argc = 0;
 	ret = parse_redirs(ret, core);
-	expand_variables(&(*core->token_head), core);
 	while ((*core->token_head)->type != T_PIPE)
 	{
 		if ((*core->token_head)->type == T_EXITCODE)
 			(*core->token_head)->value = ft_strdup(ft_itoa(core->exit_code));
-		ft_loop_variable(core);
+		//ft_loop_variable(core);
+		expand_variables(&(*core->token_head), core);
 		if ((*core->token_head)->type == T_LINEBREAK
 			|| ((*core->token_head)->type == T_PIPE))
 			break ;

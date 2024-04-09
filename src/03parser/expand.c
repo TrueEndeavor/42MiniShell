@@ -82,17 +82,11 @@ void	expand_variables(t_token_T **token_string, t_core_struct *core)
 	current = *token_string;
 	if (!current || !current->value)
 		return ;
-	while (current && current->value != NULL)
+	if (current && current->value != NULL)
 	{
 		init_expand(&exp_struct, current->value);
 		tmp = current->value;
 		current->value = expand(core, &exp_struct);
 		free(tmp);
-		//if (!current->value)
-		//{
-		//	current = delete_expand_node(token_string, current);
-		//}
-		//else
-			current = current->next;
 	}
 }
