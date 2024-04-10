@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:38:25 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/05 01:43:59 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/10 08:01:08 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	display_env_from_list(t_env_list *env_list, int is_export)
 		else if (is_export == 1)
 		{
 			if ((env_list)->value != NULL)
-				printf("declare -x %s=\"%s\"\n", env_list->name, env_list->value);
+				printf("export %s=\"%s\"\n", env_list->name, env_list->value);
 			else
-				printf("declare -x %s\n", (env_list)->name);
+				printf("export %s\n", (env_list)->name);
 		}
 		env_list = (env_list)->next;
 	}

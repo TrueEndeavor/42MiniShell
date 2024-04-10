@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:01:06 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/09 08:31:25 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/10 07:51:10 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,11 @@ void	here_ext(char *line, t_herecmd_P *hcmd)
 	ft_putstr_fd(line, hcmd->fd);
 	ft_putstr_fd("\n", hcmd->fd);
 	free(line);
+}
+
+bool	check_for_exit_code(int exit_code, int signum)
+{
+	if (exit_code == signum)
+		return (false);
+	return (true);
 }

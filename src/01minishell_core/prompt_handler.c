@@ -54,21 +54,13 @@ void	process_user_input(t_core_struct *core, char *prompt)
 	}
 	if (token_head != NULL)
 		core->token_head = &token_head;
-	#if DEBUG
-	print_token_list(token_head);
-	#endif
 	if (syntax_analyzer(core))
 	{
 		root = parse_cmd(core);
-		#if DEBUG
-		print_cmd(root);
-		#endif
 		if ((root->type == EXEC_CMD) && !(((t_execcmd_P *) root)->argv[0]))
 			return ;
 		if (!match_builtin(root, core, prompt))
-		{
 			execute_command(root, core);
-		}
 	}
 	else
 		ft_free_tok_list(core->token_head);
@@ -84,11 +76,14 @@ char	*get_prompt_interactive_mode(t_core_struct *core)
 
 	prompt = NULL;
 	setup_readline_signals();
-	prompt = readline("jollyshell$> ");
-	if (g_signum != 0)
+	if (isatty(STDIN_FILENO))
 	{
-		core->exit_code += (g_signum + 128);
-		g_signum = 0;
+		prompt = readline("jollyshell$> ");
+		if (g_signum != 0)
+		{
+			core->exit_code += (g_signum + 128);
+			g_signum = 0;
+		}
 	}
 	return (prompt);
 }

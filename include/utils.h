@@ -19,5 +19,6 @@ bool		is_valid_variable_name(char *name);
 void		ft_update_shlvl(t_core_struct *core);
 t_env_list	*create_dummy_env(void);
 int			is_all_whitespace(char *str);
+bool		check_for_exit_code(int	exit_code, int signum);
 
 #endif

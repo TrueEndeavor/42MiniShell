@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/09 21:41:30 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/10 07:59:31 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,10 @@ void	export_with_no_name(t_env_list *env_list)
 int	builtin_export(t_execcmd_P *ecmd, t_core_struct *core)
 {
 	int			i;
-	t_env_list	*env_list_copy;
 
 	i = 1;
-	env_list_copy = NULL;
 	if (core->env_list == NULL)
 		return (1);
-/* 	if (ecmd->argv[1] == NULL)
-	{
-		env_list_copy = deep_copy_env(core->env_list);
-		export_with_no_name(env_list_copy);
-		ft_free_env (env_list_copy);
-		return (0);
-	} */
-	//while (ecmd->argv[i] && i < MAXARGS)
 	while (i < MAXARGS)
 	{
 		if (ecmd->argv[i])

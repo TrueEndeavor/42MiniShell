@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:48:12 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/05 10:44:25 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/10 07:43:59 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,6 @@ int	main(int ac, char *av[], char **envp)
 	(void) ac;
 	(void) av;
 	core = NULL;
-/* 	if (ac > 1)
-	{
-		panic("No input required. \
-			[Usage] Just launch with ./minishell");
-		exit (1);
-	} */
 	core = initialize_core(envp);
 	return (display_new_prompt(core));
 }

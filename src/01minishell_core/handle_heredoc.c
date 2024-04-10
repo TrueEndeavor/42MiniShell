@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 09:32:11 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/09 20:20:28 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/10 07:49:42 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,5 @@ bool	handle_heredoc(t_core_struct *core, t_cmd_P *root, int j)
 		}
 		j++;
 	}
-	if (core->exit_code == 130)
-		return (false);
-	return (true);
+	return (check_for_exit_code(core->exit_code, SIGINT));
 }

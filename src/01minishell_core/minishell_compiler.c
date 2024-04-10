@@ -26,7 +26,7 @@ t_token_T	*initialize_lexer_and_first_token(char *prompt, t_lexer_T **lxr_ptr)
 	{
 		free(*lxr_ptr);
 		return (NULL);
-	}	
+	}
 	if (!tok || tok->type == T_LINEBREAK)
 	{
 		free(lexer);
