@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/09 09:04:21 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/11 08:44:19 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_cmd_P	*parse_redirs(t_cmd_P *cmd, t_core_struct *core)
 		else if ((current_token)->type == T_APPEND_OUT)
 			return (ft_app_out(core, &cmd, next_tolkien, 0));
 		else if ((current_token)->type == T_HEREDOC)
-			return (ft_cr_here(core, &cmd, next_tolkien));
+			return (ft_cr_here(core, &cmd, next_tolkien, 0));
 	}
 	return (cmd);
 }

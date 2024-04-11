@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/09 09:08:47 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:36:28 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ t_cmd_P			*create_execcmd(void);
 t_cmd_P			*create_redircmd(t_cmd_P *subcmd, char *file, int mode, int fd);
 t_cmd_P			*create_pipecmd(t_cmd_P *left, t_cmd_P *right);
 t_cmd_P			*create_herecmd(t_cmd_P *subcmd, char *limiter);
+t_cmd_P			*mul_redir(t_cmd_P **checker, t_herecmd_P **h, t_redircmd_P **r, int *i);
 
+
+void			ft_here_helper(t_core_struct *c, t_cmd_P **m, t_token_T *t);
 void			set_write_into(t_redircmd_P *cmd, int writable);
 void			set_read_from(t_redircmd_P *cmd, int readable);
 void			print_cmd(t_cmd_P *cmd);
@@ -58,7 +61,7 @@ void			ft_fill_exec(t_core_struct *core, int *argc, t_execcmd_P *cmd);
 t_cmd_P			*ft_r_in(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i);
 t_cmd_P			*ft_r_out(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i);
 t_cmd_P			*ft_app_out(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i);
-t_cmd_P			*ft_cr_here(t_core_struct *core, t_cmd_P **cmd, t_token_T *tok);
+t_cmd_P			*ft_cr_here(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i);
 int				check_redir(t_core_struct *core);
 
 #endif

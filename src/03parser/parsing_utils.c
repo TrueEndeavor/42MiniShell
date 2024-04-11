@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:44:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/09 08:52:46 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:36:12 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,45 @@ int	ft_double_redir(t_token_T *head, int type)
 		current = current->next;
 	}
 	return (0);
+}
+
+void	ft_here_helper(t_core_struct *c, t_cmd_P **m, t_token_T *t)
+{
+	(void)c;
+	(void)m;
+	if ((t)->type == T_VARIABLE)
+		(t)->value = ft_here(&(t)->value);
+	else if (ft_strcmp ((t)->value, "\"\"") == 0)
+	{
+		free((t)->value);
+		(t)->value = ft_strdup("");
+	}
+	else if (ft_slen((t)->value) != 0 && (t)->value[0] == '\"')
+		(t)->value = ft_ex_here(&(t)->value);
+}
+
+t_cmd_P	*mul_redir(t_cmd_P **checker, t_herecmd_P **h, t_redircmd_P **r, int *i)
+{
+	t_cmd_P *ret;
+	
+	while ((*checker)->type == REDIR_CMD || (*checker)->type == HERE_CMD)
+	{
+		if ((*checker)->type == REDIR_CMD)
+		{
+			(*r) = (t_redircmd_P *) (*checker);
+			(*checker) = (*r)->cmd;
+			ret = (t_cmd_P *)(*r);
+			i+=1;
+		}
+		if ((*checker)->type == HERE_CMD)
+		{
+			(*h) = (t_herecmd_P *) (*checker);
+			(*checker) = (*h)->cmd;
+			ret = (t_cmd_P *)(*h);
+			i+=1;
+		}
+	}
+	return (ret);
 }
 
 /*
