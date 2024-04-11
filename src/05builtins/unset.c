@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/10 07:59:06 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:22:33 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,35 +39,23 @@ int	builtin_unset(t_execcmd_P *ecmd, t_core_struct *core)
 	int			i;
 
 	i = 1;
-	if (ecmd->argv[1] == NULL)
+	if (ecmd->argv[i] == NULL && ecmd->argv[i + 1] == NULL)
 	{
 		core->exit_code = EXIT_SUCCESS;
 		return (core->exit_code);
 	}
-	if (ecmd->argv[1][0] == '-')
+	if (ecmd->argv[i] != NULL && ecmd->argv[1][0] == '-')
 	{
 		ft_printf(" invalid option\n");
 		core->exit_code = 2;
 		return (core->exit_code);
-	}	
-	while (ecmd->argv[i] != NULL)
+	}
+	while (ecmd->argv[i] != NULL || ecmd->argv[i + 1] != NULL)
 	{
-		if ((ecmd->argv[i] != NULL) && (!is_valid_variable_name(ecmd->argv[i])))
-		{
-			//ft_printf("unset: `%s': not a valid identifier\n", ecmd->argv[i]);
+		current = get_node(core, ecmd->argv[i]);
+		previous = get_previous_node(core, ecmd->argv[i]);
+		if (current != NULL)
 			core->exit_code = EXIT_SUCCESS;
-			i++;
-			continue ;
-		}
-		current = core->env_list;
-		previous = current;
-		if ((ecmd->argv[i] == NULL) || (ecmd->argv[i][0] == '\0'))
-			return (1);
-		while (current != NULL && ft_strcmp(current->name, ecmd->argv[i]) != 0)
-		{
-			previous = current;
-			current = current->next;
-		}
 		unset_one(core, current, previous);
 		i++;
 	}
