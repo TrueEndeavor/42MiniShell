@@ -6,11 +6,22 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/09 10:16:34 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:44:40 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	update_pwd(t_env_list *pwd, t_env_list *old_pwd)
+{
+	if (pwd != NULL)
+	{
+		free(old_pwd->value);
+		old_pwd->value = ft_strdup(pwd->value);
+		free(pwd->value);
+		pwd->value = getcwd(NULL, 0);
+	}
+}
 
 int	check_cd(t_execcmd_P *ecmd, t_core_struct *core)
 {
@@ -45,9 +56,6 @@ int	builtin_cd(t_execcmd_P *ecmd, t_core_struct *core)
 		core->exit_code = 1;
 		return (core->exit_code);
 	}
-	free(old_pwd->value);
-	old_pwd->value = ft_strdup(pwd->value);
-	free(pwd->value);
-	pwd->value = getcwd(NULL, 0);
+	update_pwd(pwd, old_pwd);
 	return (core->exit_code);
 }
