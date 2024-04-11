@@ -76,15 +76,15 @@ char	*get_prompt_interactive_mode(t_core_struct *core)
 
 	prompt = NULL;
 	setup_readline_signals();
-	if (isatty(STDIN_FILENO))
-	{
+	//if (isatty(STDIN_FILENO))
+	//{
 		prompt = readline("jollyshell$> ");
 		if (g_signum != 0)
 		{
 			core->exit_code += (g_signum + 128);
 			g_signum = 0;
 		}
-	}
+	//}
 	return (prompt);
 }
 

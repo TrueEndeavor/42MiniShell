@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/11 08:44:19 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:01:36 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ t_cmd_P	*parse_redirs(t_cmd_P *cmd, t_core_struct *core)
 	{
 		next_tolkien = peek_next_token(current_token);
 		if (current_token->type != T_HEREDOC)
-				next_tolkien->value = quote(&(next_tolkien)->value, core, 0, 0);
+				//next_tolkien->value = quote(&(next_tolkien)->value, core, 0, 0);
+			expand_variables(&(next_tolkien), core);
 		if ((current_token)->type == T_REDIRECT_IN)
 			return (ft_r_in(core, &cmd, next_tolkien, 0));
 		else if ((current_token)->type == T_REDIRECT_OUT)
