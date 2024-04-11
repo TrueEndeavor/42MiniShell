@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
+#    By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/04/09 18:02:36 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/04/11 08:19:31 by trysinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRCS =  src/main.c \
 		src/04exec/run_cmd.c \
 		src/04exec/run_cmd_pipe.c \
 		src/05builtins/builtins_checker.c \
+		src/05builtins/builtins_checker_child.c \
 		src/05builtins/builtins_utils.c \
 		src/05builtins/cd.c \
 		src/05builtins/echo.c \

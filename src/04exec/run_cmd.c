@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/11 07:57:52 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/11 08:28:07 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	dprintf(2, "THE COMMAND IS = %s\n", ecmd->argv[0]);
 	dprintf(2, "\033[0;36m######OUTPUT######\n\033[0m");
 	#endif
-	if (!match_builtin(cmd, core, NULL))
+	if (!builtin_ch(cmd, core, fcmd, env_array))
 		core->exit_code = ft_execute(ecmd->argv, env_array);
 	i = core->exit_code;
 	ft_free_cmd(fcmd);

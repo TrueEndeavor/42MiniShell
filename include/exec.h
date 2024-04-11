@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:49:03 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/09 20:20:46 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/11 08:27:38 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,8 @@ int		ft_execute(char **argv, char **envp);
 char	*ft_get_path(char *cmd, char **envp);
 void	ft_free(char *path, char **cmd);
 void	close_pipe(int p[2]);
+int		builtin_ch(t_cmd_P *root, t_core_struct *core, t_cmd_P *fcmd, char **env);
+int		exit_ch(t_execcmd_P *ecmd, t_core_struct *core, t_cmd_P *fcmd, char **env);
+
 
 #endif
