@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 08:11:30 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/11 08:28:20 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:00:58 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_return_builtin_child(t_execcmd_P *ecmd)
 	return (i);
 }
 
-int	builtin_ch(t_cmd_P *root, t_core_struct *core, t_cmd_P *fcmd, char **env)
+int	builtin_ch(t_cmd_P *root, t_core_struct *core, t_cmd_P *f, char **en)
 {
 	t_execcmd_P	*ecmd;
 	int			ret;
@@ -57,6 +57,6 @@ int	builtin_ch(t_cmd_P *root, t_core_struct *core, t_cmd_P *fcmd, char **env)
 	else if (ft_strcmp(ecmd->argv[0], "pwd") == 0)
 		core->exit_code = builtin_pwd(ecmd, core);
 	else if (ft_strcmp(ecmd->argv[0], "exit") == 0)
-		exit_ch(ecmd, core, fcmd, env);
+		exit_ch(ecmd, core, f, en);
 	return (ret);
 }

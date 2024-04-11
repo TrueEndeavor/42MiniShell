@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:20:53 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/11 09:40:16 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:34:59 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_cmd_P	*ft_r_in(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i)
 	rsaver = NULL;
 	hsaver = NULL;
 	checker = (*m);
-	saver = mul_redir(&checker, &hsaver, &rsaver, &i);
+	saver = mul(&checker, &hsaver, &rsaver, &i);
 	ret = create_redircmd((checker), (t)->value, O_RDONLY, 0);
 	*c->token_head = advance_token(&t);
 	if (i > 0)
@@ -34,8 +34,7 @@ t_cmd_P	*ft_r_in(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i)
 			hsaver->cmd = ret;
 		return ((*m));
 	}
-	else
-		return (ret);
+	return (ret);
 }
 
 t_cmd_P	*ft_r_out(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i)
@@ -49,7 +48,7 @@ t_cmd_P	*ft_r_out(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i)
 	rsaver = NULL;
 	hsaver = NULL;
 	checker = (*m);
-	saver = mul_redir(&checker, &hsaver, &rsaver, &i);
+	saver = mul(&checker, &hsaver, &rsaver, &i);
 	ret = create_redircmd((checker), (t)->value, \
 			O_WRONLY | O_CREAT | O_TRUNC, 1);
 	*c->token_head = advance_token(&t);
@@ -61,8 +60,7 @@ t_cmd_P	*ft_r_out(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i)
 			hsaver->cmd = ret;
 		return ((*m));
 	}
-	else
-		return (ret);
+	return (ret);
 }
 
 t_cmd_P	*ft_app_out(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i)
@@ -76,7 +74,7 @@ t_cmd_P	*ft_app_out(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i)
 	rsaver = NULL;
 	hsaver = NULL;
 	checker = (*m);
-	saver = mul_redir(&checker, &hsaver, &rsaver, &i);
+	saver = mul(&checker, &hsaver, &rsaver, &i);
 	ret = create_redircmd(checker, (t)->value, \
 			O_WRONLY | O_CREAT | O_APPEND, 1);
 	*c->token_head = advance_token(&t);
@@ -88,8 +86,7 @@ t_cmd_P	*ft_app_out(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i)
 			hsaver->cmd = ret;
 		return ((*m));
 	}
-	else
-		return (ret);
+	return (ret);
 }
 
 t_cmd_P	*ft_cr_here(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i)
@@ -103,7 +100,7 @@ t_cmd_P	*ft_cr_here(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i)
 	rsaver = NULL;
 	hsaver = NULL;
 	checker = (*m);
-	saver = mul_redir(&checker, &hsaver, &rsaver, &i);
+	saver = mul(&checker, &hsaver, &rsaver, &i);
 	ft_here_helper(c, m, t);
 	ret = create_herecmd(checker, (t)->value);
 	*c->token_head = advance_token(&t);
@@ -117,8 +114,7 @@ t_cmd_P	*ft_cr_here(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i)
 			hsaver->cmd = ret;
 		return ((*m));
 	}
-	else
-		return (ret);
+	return (ret);
 }
 
 int	check_redir(t_core_struct *core)

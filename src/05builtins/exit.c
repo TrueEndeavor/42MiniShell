@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:37:31 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/11 08:28:33 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:01:36 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_exit_child(t_core_struct *core, t_cmd_P *fcmd, char **env)
 	ft_free(NULL, env);
 }
 
-int	exit_ch(t_execcmd_P *ecmd, t_core_struct *core, t_cmd_P *fcmd, char ** env)
+int	exit_ch(t_execcmd_P *ecmd, t_core_struct *core, t_cmd_P *f, char ** e)
 {
 	unsigned char	ret;
 
@@ -42,7 +42,7 @@ int	exit_ch(t_execcmd_P *ecmd, t_core_struct *core, t_cmd_P *fcmd, char ** env)
 	if (ecmd->argv[1] != NULL)
 		core->exit_code = ft_atoi(ecmd->argv[1]);
 	ret = core->exit_code;
-	free_exit_child(core, fcmd, env);
+	free_exit_child(core, f, e);
 	exit (ret);
 }
 
