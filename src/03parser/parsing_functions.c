@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:43:08 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/11 08:44:19 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:49:39 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ t_cmd_P	*parse_cmd(t_core_struct *core)
 	}
 	token_list_copy = (*core->token_head);
 	cmd = parse_pipe(core);
-	#if DEBUG
-	print_cmd(cmd);
-	#endif
 	(*core->token_head) = token_list_copy;
 	return (cmd);
 }
