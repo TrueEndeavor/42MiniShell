@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/11 10:03:23 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:15:06 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ t_token_T		*peek_next_token(t_token_T *current_token);
 t_token_T		*advance_token(t_token_T **current_token);
 
 void			ft_loop_assign(t_core_struct *core);
-void			ft_loop_quote(t_core_struct *c);
-void			ft_loop_variable(t_core_struct *core);
 void			ft_fill_exec(t_core_struct *core, int *argc, t_execcmd_P *cmd);
 
 t_cmd_P			*ft_r_in(t_core_struct *c, t_cmd_P **m, t_token_T *t, int i);

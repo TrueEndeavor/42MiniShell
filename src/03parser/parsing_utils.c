@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:44:39 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/11 10:48:59 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:14:17 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,48 +105,3 @@ t_cmd_P	*mul(t_cmd_P **ch, t_herecmd_P **h, t_redircmd_P **r, int *i)
 	}
 	return (ret);
 }
-
-/*
-In ft_fill_exec
-
-cmd->argv[(*argc)] = (*core->token_head)->value;
-to be changed to
-add_to_argv(ecmd, (*core->token_head)->value);
-*/
-
-/*
-void	add_to_argv(t_execcmd_P *ecmd, char *arg)
-{
-	char	**new_argv;
-	int	i;
-
-	i = 0;
-	ecmd->argc++;
-	new_argv = malloc(cmd->argc * sizeof(char *));
-	if (new_argv == NULL)
-			return (NULL);
-	while (i < ecmd->argc - 1)
-	{
-			new_argv[i] = cmd->argv[i];
-			i++;
-	}
-	new_argv[argc - 1] = ft_strdup(arg);
-	free(ecmd->argv);
-	ecmd->argv = new_argv;
-}
-*/
-
-/*
-void free_argv(t_execcmd_P *ecmd)
-{
-		int	i;
-
-		i = 0;
-		while (i < ecmd->argc)
-		{
-				free(ecmd->argv[i]);
-		}
-		free(ecmd->argv);
-		free(ecmd);
-}
-*/

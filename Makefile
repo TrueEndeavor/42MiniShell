@@ -6,7 +6,7 @@
 #    By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/22 10:17:33 by lannur-s          #+#    #+#              #
-#    Updated: 2024/04/11 09:09:36 by lannur-s         ###   ########.fr        #
+#    Updated: 2024/04/11 11:07:43 by lannur-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,6 @@ SRCS =  src/main.c \
 		src/03parser/parsing_helper3.c \
 		src/03parser/syntax_analyzer.c \
 		src/03parser/transition_functions.c \
-		src/03parser/quoting.c \
 		src/03parser/quoting_helper.c \
 		src/03parser/parsing_utils.c \
 		src/04exec/exec.c \
