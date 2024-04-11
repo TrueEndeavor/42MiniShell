@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:49:22 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/09 20:51:03 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:22:36 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,11 @@ typedef struct CORESTRUCT
 	int						ih;
 	t_cmd_P					*hcmd[20];
 }	t_core_struct;
+
+typedef struct DATA
+{
+	t_core_struct   *core;
+	t_cmd_P         *fcmd;
+} t_data;
 
 #endif

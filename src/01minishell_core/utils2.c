@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:01:06 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/11 11:18:56 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:23:00 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,14 @@ void	here_ext(char *line, t_herecmd_P *hcmd)
 
 bool	check_for_exit_code(int exit_code, int signum)
 {
-	if (exit_code == signum)
+	if (exit_code == (signum + 128))
 		return (false);
 	return (true);
+}
+
+t_data  *simpleton(void)
+{
+	static t_data data;
+	
+	return (&data);
 }

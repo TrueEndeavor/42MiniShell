@@ -33,12 +33,25 @@ void	process_eof(t_core_struct *core)
 	printf("exit\n");
 }
 
+void	free_at_signal(t_data *data)
+{
+	if (data->fcmd)
+		ft_free_cmd(data->fcmd);
+	ft_free_tok_list(data->core->token_head);
+	ft_free_env(data->core->env_list);
+	free(data->core);
+	//free(data.line);
+}
+
 int	process_signals_in_heredocs(int status)
 {
 	int	last_status;
+	t_data      *data;
 
 	last_status = WTERMSIG(status);
 	if (last_status == SIGTERM)
 		write(STDOUT_FILENO, "\n", 1);
+	data = simpleton();
+	free_at_signal(data);
 	return (last_status + 128);
 }

@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:06:15 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/08 11:42:25 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:05:56 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		handle_unexpected_character(t_lexer_T *lexer);
 t_token_T	*handle_expected_tokens(t_lexer_T *lexer);
 t_token_T	*handle_dollar_token(t_lexer_T *lexer);
 t_token_T	*handle_redirect_tokens(t_lexer_T *lexer);
-
+t_data      *simpleton(void);
 bool		is_nested_quotes(char *str);
 void		extend_string(char **value, char c);
 

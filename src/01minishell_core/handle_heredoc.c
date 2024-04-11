@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 09:32:11 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/04/10 07:49:42 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:22:46 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,24 @@ void	run_here(t_herecmd_P *hcmd, t_core_struct *core, t_cmd_P *fcmd)
 	pid_t		pid;
 	char		*line;
 	int			status;
+	t_data      *data;
 
 	pid = fork();
 	if (pid == 0)
 	{
 		setup_heredoc_signals();
+		data = simpleton();
+		data->core = core;
+		data->fcmd = fcmd;
 		while (1)
 		{
 			line = readline("> ");
+			if (!line)
+			{
+				ft_printf("warning: here-document at line 1 delimited by end-of-file (wanted `%s')\n", hcmd->delimiter);
+				frhere(hcmd, core, line, fcmd);
+				exit(EXIT_SUCCESS);
+			}
 			if (ft_strcmp(line, hcmd->delimiter) == 0)
 			{
 				frhere(hcmd, core, line, fcmd);
