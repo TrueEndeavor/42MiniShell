@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:17:29 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/10 09:26:03 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/11 07:08:48 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,14 @@ void	replace_val(char **val, char *value_to_set)
 {
 	if (*val != NULL)
 		free(*val);
+	*val = NULL;
 	*val = ft_strdup(value_to_set);
+	if (*val == NULL)
+	{
+		perror("Memory allocation failed");
+		exit(EXIT_FAILURE);
+	}
+	free(value_to_set);
 }
 
 void	add_enventry(char *key, char *value, int mod_flag, t_env_list *head)
@@ -57,13 +64,13 @@ void	add_enventry(char *key, char *value, int mod_flag, t_env_list *head)
 	}
 }
 
-void	replace_enventry(t_env_list **node, char *key, char *value, int *mod_flag)
+void	replace_enventry(t_env_list **node, char *key, char *val, int *mod_flag)
 {
 	if ((ft_strlen((*node)->name) == ft_strlen(key)) && \
 		(ft_strcmp((*node)->name, key) == 0))
 	{
 		if (*value != '\0')
-			replace_val(&(*node)->value, value);
+			replace_val(&(*node)->value, val);
 		else
 			replace_val(&(*node)->value, "");
 		*mod_flag = 1;
@@ -79,16 +86,21 @@ void	set_env(t_core_struct *core, char *key_value_pair)
 
 	head = core->env_list;
 	modified_flag = 0;
+	key_to_set = NULL;
+	value_to_set = NULL;
 	key_to_set = get_key(key_value_pair);
-	value_to_set = ft_strtrim(get_value(key_value_pair), " ");
 	if (validate_key(core, key_to_set, key_value_pair) == 1)
 		return ;
+	get_trimmed_val(&value_to_set, key_value_pair);
 	while (core->env_list)
 	{
 		replace_enventry((&(core->env_list)), \
 				key_to_set, value_to_set, &modified_flag);
+		if (modified_flag)
+			free(key_to_set);
 		core->env_list = (core->env_list)->next;
 	}
-	add_enventry(key_to_set, value_to_set, modified_flag, head);
+	if (!modified_flag)
+		add_enventry(key_to_set, value_to_set, modified_flag, head);
 	core->env_list = head;
 }

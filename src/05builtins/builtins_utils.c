@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 10:31:57 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/03/31 22:59:17 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/11 07:05:51 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,13 @@ bool	contains_only_char(char *str, char c)
 		str++;
 	}
 	return (true);
+}
+
+void	get_trimmed_val(char **value_to_set, char *key_value_pair)
+{
+	char		*val;
+
+	val = get_value(key_value_pair);
+	*value_to_set = ft_strtrim(val, " ");
+	free(val);
 }

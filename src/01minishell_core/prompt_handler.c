@@ -91,16 +91,19 @@ char	*get_prompt_interactive_mode(t_core_struct *core)
 int	display_new_prompt(t_core_struct *core)
 {
 	char		*prompt;
+	int			exit_code;
 
 	prompt = NULL;
+	exit_code = 0;
 	g_signum = 0;
 	while (1)
 	{
 		prompt = get_prompt_interactive_mode(core);
 		if (prompt == NULL)
 		{
+			exit_code = core->exit_code;
 			process_eof(core);
-			return (core->exit_code);
+			return (exit_code);
 		}
 		if (is_all_whitespace(prompt) || !(prompt[0]))
 		{
