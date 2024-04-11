@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:17:29 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/11 07:08:48 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/11 07:29:24 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	replace_enventry(t_env_list **node, char *key, char *val, int *mod_flag)
 	if ((ft_strlen((*node)->name) == ft_strlen(key)) && \
 		(ft_strcmp((*node)->name, key) == 0))
 	{
-		if (*value != '\0')
+		if (*val != '\0')
 			replace_val(&(*node)->value, val);
 		else
 			replace_val(&(*node)->value, "");

@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:44:13 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/09 09:45:10 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/04/11 07:57:52 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,17 @@ void	runcmd_here(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	hcmd = (t_herecmd_P *)cmd;
 	fd = open (hcmd->filename, O_RDONLY, 0777);
 	if (fd == -1)
-		ft_printf ("file opening failed\n");
+	{
+		ft_printf ("heredoc failed\n");
+		ft_free_cmd(fcmd);
+		ft_free_tok_list(core->token_head);
+		ft_free_env(core->env_list);
+		free(core);
+		exit (1);
+	}
 	dup2 (fd, STDIN_FILENO);
 	close (fd);
 	unlink (hcmd->filename);
-	free(hcmd->filename);
 	run_cmd(hcmd->cmd, core, fcmd);
 }
 
@@ -37,7 +43,13 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	env_array = NULL;
 	ecmd = (t_execcmd_P *) cmd;
 	if (ecmd->argv[0] == 0)
+	{
+		ft_free_cmd(fcmd);
+		ft_free_tok_list(core->token_head);
+		ft_free_env(core->env_list);
+		free(core);
 		exit (1);
+	}
 	env_array = convert_env_to_stringarray(core->env_list);
 	#if DEBUG
 	dprintf(2, "######RUNCMD_EXEC######\n");
@@ -45,9 +57,7 @@ int	runcmd_exec(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 	dprintf(2, "\033[0;36m######OUTPUT######\n\033[0m");
 	#endif
 	if (!match_builtin(cmd, core, NULL))
-	{
 		core->exit_code = ft_execute(ecmd->argv, env_array);
-	}
 	i = core->exit_code;
 	ft_free_cmd(fcmd);
 	ft_free_tok_list(core->token_head);
@@ -80,7 +90,7 @@ void	runcmd_redir(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 
 void	run_cmd(t_cmd_P *cmd, t_core_struct *core, t_cmd_P *fcmd)
 {
-	if (cmd == 0)
+	if (cmd == 0 || cmd == NULL)
 		exit (1);
 	if (cmd->type == EXEC_CMD)
 	{
