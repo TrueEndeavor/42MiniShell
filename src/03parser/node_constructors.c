@@ -6,7 +6,7 @@
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:00:33 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/04/04 18:47:33 by lannur-s         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:01:46 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_cmd_P	*create_execcmd(void)
 	cmd = malloc(sizeof(*cmd));
 	if (cmd == NULL)
 		return (NULL);
-	memset(cmd, 0, sizeof(*cmd));
+	ft_memset(cmd, 0, sizeof(*cmd));
 	cmd->type = EXEC_CMD;
 	return ((t_cmd_P *)cmd);
 }
@@ -31,7 +31,7 @@ t_cmd_P	*create_redircmd(t_cmd_P *subcmd, char *file, int mode, int fd)
 	cmd = malloc(sizeof(*cmd));
 	if (cmd == NULL)
 		return (NULL);
-	memset(cmd, 0, sizeof(*cmd));
+	ft_memset(cmd, 0, sizeof(*cmd));
 	cmd->type = REDIR_CMD;
 	cmd->cmd = subcmd;
 	cmd->file = file;
@@ -60,7 +60,7 @@ t_cmd_P	*create_pipecmd(t_cmd_P *left, t_cmd_P *right)
 	cmd = malloc(sizeof(*cmd));
 	if (cmd == NULL)
 		return (NULL);
-	memset(cmd, 0, sizeof(*cmd));
+	ft_memset(cmd, 0, sizeof(*cmd));
 	cmd->type = PIPE_CMD;
 	cmd->left = left;
 	cmd->right = right;

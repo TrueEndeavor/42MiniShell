@@ -19,6 +19,8 @@ int	process_signals_in_child(int status)
 	last_status = WTERMSIG(status);
 	if (last_status == SIGTERM)
 		write(STDOUT_FILENO, "\n", 1);
+	if (last_status == SIGINT)
+		write(STDOUT_FILENO, "\n", 1);
 	else if (last_status == SIGQUIT)
 		write(STDERR_FILENO, "Quit (core dumped)\n", 19);
 	return (last_status + 128);
